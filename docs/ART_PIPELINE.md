@@ -18,7 +18,7 @@ Foydalanuvchi yuklaydi (Sketchfab / CGTrader / Poly Haven / ambientCG ...)
    → Assets/_Project/Art/<Tur>/<slug>/ (FBX/GLB, Materials, Textures, Prefab, SO)
 ```
 
-`ArtSource/Incoming/` — xom yuklamalar (git'ga faqat LFS orqali yoki umuman kiritilmaydi; M1 da `.gitignore` qarori). `ArtSource/LICENSES.md` — doim git'da.
+`ArtSource/Incoming/` — xom yuklamalar, **git'ga kiritilmaydi** (M1 qarori: `.gitignore` da; har bir slug manba URL'i `LICENSES.md` da, xom faylni qayta yuklash mumkin). Import qilingan nusxa `Assets/_Project/Art/<Type>/<slug>/Source/` da git'da. `ArtSource/LICENSES.md` va `ArtSource/Reports/` — doim git'da.
 
 ## 2. Litsenziya siyosati
 
@@ -104,7 +104,7 @@ Menyu: `BilliardGame ▸ Art ▸ Import Incoming` (+ `Validate All Art`, `Genera
 |-------|------|--------------------|
 | Topish | `ArtSource/Incoming/*/` dagi `.fbx/.glb/.gltf/.obj` | — |
 | Litsenziya | slug bo'yicha `LICENSES.md` yozuvi | Xato, to'xtaydi |
-| Tur | yozuvdagi `type`: table, cue, balls, venue, avatar, outfit, prop | Xato |
+| Tur | yozuvdagi `type`: table, cue, balls, venue, avatar, outfit, prop, texture, hdri, font (oxirgi uchtasi M1 da qo'shildi: tekstura → URP Lit material, HDRI → cubemap, shrift → TMP SDF) | Xato |
 | Nusxalash | `Assets/_Project/Art/<Type>/<slug>/Source/` | — |
 | Model import | ModelImporter: scale 1, Read/Write off, mesh compression Medium, tangents import/calc, animation faqat avatar uchun | — |
 | Tahlil | tri soni, material soni, bounds (masshtab tekshiruvi: stol ~2.8 m, kiy ~1.47 m) | Ogohlantirish |
@@ -113,10 +113,10 @@ Menyu: `BilliardGame ▸ Art ▸ Import Incoming` (+ `Validate All Art`, `Genera
 | Material | URP Lit, map'larni nom bo'yicha ulash (`_BaseColor/_albedo/_diffuse`, `_Normal`, `_Metallic`, `_Roughness` → smoothness = 1 − roughness, Mask map yig'ish) | Ogohlantirish |
 | Prefab | `<slug>.prefab` (LODGroup, collider yo'q — fizika o'zimizniki) | — |
 | SkinDefinition | `ScriptableObject`: id, type, rarity, displayName (lokalizatsiya kaliti), prefab (AssetReference), preview icon, unlock manbai | — |
-| Addressables | Guruh: `Remote_Cues`, `Remote_Tables`, `Remote_Venues`, `Remote_Avatars`; label = rarity | — |
+| Addressables | Guruh: `Remote_Cues`, `Remote_Tables`, `Remote_Venues`, `Remote_Avatars`; label = rarity. **M3 ga qoldirildi** — M1 da skinlar oddiy asset havolasi, venue sahnasi build'da | — |
 | Hisobot | `ArtSource/Reports/<slug>.md` | — |
 
-Ikonka/preview: alohida "Icon Studio" sahnasi orqali 512×512 render (M1 da kiy va stol uchun).
+Ikonka/preview: Icon Studio (preview scene, HDRI reflection) orqali 256×256 shaffof sprite (M1 da kiy va stol uchun).
 
 ## 6. Birinchi asset ro'yxati (M1 — Vertical slice)
 
@@ -139,5 +139,7 @@ Format: **FBX** (afzal) yoki **GLB**. Teksturalar PBR (BaseColor, Normal, Roughn
 | 13 | `tex-wood` | 2–3 yog'och PBR (stol bortlari, kiy) | "wood polished", "walnut", "mahogany" | ambientCG, Poly Haven | CC0 | 2K |
 | 14 | `hdri-interior` | Ichki xona HDRI (reflection probe uchun) | "interior HDRI", "lounge HDRI" | Poly Haven | CC0 | 1K–2K .hdr |
 | 15 | `font-ui` | Lotin + kirill shrifti (Bold/Medium) | "Inter", "Montserrat", "Manrope" | Google Fonts | OFL | — |
+
+**M1 holati (2026-11-05).** Yuklab olindi va import qilindi: #9 (Poly Haven chinese armchair/sofa/stool/tea table + brass vase), #10 (Quaternius Universal Animation Library — manekin, 46 klip; #11 o'rnida), #12 (ambientCG Fabric034), #13 (ambientCG Wood051, Wood092), #14 (Poly Haven billiard_hall), #15 (Montserrat), zal teksturalari (ambientCG Tiles067/131, PaintedPlaster017, WoodFloor064, Carpet015). Hali yo'q — protsedural placeholder: #1–#5 (stollar va kiylar protsedural lathe/box), #6 (Silk Road Lounge — protsedural xona), #7, #8. Poly Haven ceramic vase (10k tri) budjetdan 1.5× oshgani uchun import tool tomonidan rad etildi.
 
 Sketchfab'da qidiruvda "Downloadable" va License filtrini (CC Attribution / CC0) yoqing; "NonCommercial", "NoDerivs", "Editorial" yozuvi bo'lganlarni olmang. Ovozlar hozircha procedural ([ProceduralAudio](../Assets/_Project/Editor/ProceduralAudio.cs)); keyin CC0 SFX (freesound CC0 filtr) ro'yxati alohida beriladi.

@@ -1,0 +1,24 @@
+{
+  "crates": [
+    {
+      "id": "classic",
+      "displayName": "Classic",
+      "currency": "coin",
+      "price": 2500,
+      "price10": 0,
+      "weights": [70.0, 24.0, 5.5, 0.5, 0.0],
+      "pity": [{ "minRarity": "Epic", "count": 15 }],
+      "tenGuarantee": ""
+    },
+    {
+      "id": "premium",
+      "displayName": "Premium",
+      "currency": "gem",
+      "price": 100,
+      "price10": 900,
+      "weights": [50.0, 30.0, 15.0, 4.5, 0.5],
+      "pity": [{ "minRarity": "Legendary", "count": 40 }, { "minRarity": "Mythic", "count": 100 }],
+      "tenGuarantee": "Epic"
+    }
+  ]
+}

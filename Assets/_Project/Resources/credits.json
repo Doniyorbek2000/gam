@@ -1,0 +1,84 @@
+{
+    "entries": [
+        {
+            "type": "avatar",
+            "attribution": "\"Universal Animation Library (Standard)\" by Quaternius (OpenGameArt), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "font",
+            "attribution": "\"Montserrat (Bold, SemiBold, Medium)\" by The Montserrat Project Authors (Julieta Ulanovsky et al.) (Google Fonts), SIL Open Font License 1.1",
+            "licenseUrl": "https://openfontlicense.org"
+        },
+        {
+            "type": "hdri",
+            "attribution": "\"Billiard Hall\" by Greg Zaal, Jarod Guest (Poly Haven), CC0 1.0",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "prop",
+            "attribution": "\"Brass Vase 03\" by Rico Cilliers (Poly Haven), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "prop",
+            "attribution": "\"Chinese Armchair\" by Kirill Sannikov (Poly Haven), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "prop",
+            "attribution": "\"Chinese Sofa\" by Kirill Sannikov (Poly Haven), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "prop",
+            "attribution": "\"Chinese Stool\" by Kirill Sannikov (Poly Haven), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "prop",
+            "attribution": "\"Chinese Tea Table\" by Kirill Sannikov (Poly Haven), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"Fabric034\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"Carpet015\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"WoodFloor064\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"Tiles131\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"PaintedPlaster017\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"Tiles067\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"Wood051\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+            "type": "texture",
+            "attribution": "\"Wood092\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+        }
+    ]
+}

@@ -6,6 +6,8 @@
         "BilliardGame.Gameplay",
         "BilliardGame.Presentation",
         "BilliardGame.UI",
+        "BilliardGame.Content",
+        "BilliardGame.Meta",
         "BilliardGame.Online",
         "Unity.TextMeshPro",
         "Unity.InputSystem",

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
@@ -44,7 +45,7 @@ namespace BilliardGame.Editor
             EditorUserBuildSettings.buildAppBundle = false;
             var options = new BuildPlayerOptions
             {
-                scenes = new[] { BilliardSceneBuilder.ScenePath },
+                scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),   // Main + venue scenes
                 locationPathName = DevApkPath,
                 target = BuildTarget.Android,
                 targetGroup = BuildTargetGroup.Android,

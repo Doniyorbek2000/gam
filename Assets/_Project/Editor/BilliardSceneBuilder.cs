@@ -1,3 +1,6 @@
+using System.Linq;
+using BilliardGame.Content;
+using BilliardGame.Editor.Content;
 using BilliardGame.Gameplay;
 using BilliardGame.Online;
 using BilliardGame.Physics;
@@ -5,6 +8,7 @@ using BilliardGame.Presentation;
 using BilliardGame.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -34,7 +38,8 @@ namespace BilliardGame.Editor
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             Camera camera = BuildCamera();
             Transform tableRoot = BuildTable(table);
-            TableDressingBuilder.Build(table, tableRoot);
+            var garage = new GameObject("Venue Garage");
+            TableDressingBuilder.Build(table, tableRoot, garage.transform);
             TableDressingBuilder.BuildLightingAndPostFx(camera);
             BallView[] balls = BuildBalls(table, config);
 
@@ -55,19 +60,64 @@ namespace BilliardGame.Editor
             SceneWiring.Set(controller, "tableAudio", audio);
 
             HudController hud = HudBuilder.Build(controller, cue, out GameObject hudRoot);
+            LobbyStage stage = LobbyStageBuilder.Build(out SkinTarget lobbyCue);
+            GameServices services = BuildServices(TableTarget(tableRoot, cue), lobbyCue);
+            var venues = game.AddComponent<VenueLoader>();
+            SceneWiring.Set(venues, "garageRoot", garage);
+            UseHdriReflections();
 
             var online = new GameObject("Online");
             var client = online.AddComponent<OnlineClient>();
             var match = online.AddComponent<OnlineMatchController>();
             SceneWiring.Set(match, "client", client);
             SceneWiring.Set(match, "game", controller);
-            MenuBuilder.Build(controller, match, hud, hudRoot);
+            LobbyBuilder.Build(controller, match, hud, hudRoot, services, venues, stage, camera);
+            ApplyFont();
 
             BallMaterialFactory.EnsureFolder("Assets/_Project/Scenes");
             EditorSceneManager.SaveScene(scene, ScenePath);
-            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true), new EditorBuildSettingsScene(VenueBuilder.ScenePath, true) };
             AssetDatabase.SaveAssets();
             Debug.Log($"[BilliardGame] Built {ScenePath}");
+        }
+
+        private const string FontPath = "Assets/_Project/Art/Fonts/font-montserrat/Montserrat-SemiBold SDF.asset";
+        private const string CatalogPath = "Assets/_Project/Content/SkinCatalog.asset";
+        private const string CrateTablesPath = "Assets/_Project/Resources/Economy/crates.json";
+
+        /// <summary>Equipped skins show on the match table: cloth + cushions, rails + body, and the cue holder.</summary>
+        private static SkinTarget TableTarget(Transform tableRoot, CueController cue)
+        {
+            Renderer[] parts = tableRoot.GetComponentsInChildren<Renderer>();
+            var target = tableRoot.gameObject.AddComponent<SkinTarget>();
+            SceneWiring.Set(target, "cueHolder", new SerializedObject(cue).FindProperty("cueStick").objectReferenceValue);
+            SceneWiring.SetArray(target, "clothRenderers", parts.Where(r => r.name == "Cloth" || r.name.StartsWith("Cushion")).ToArray());
+            SceneWiring.SetArray(target, "railRenderers", parts.Where(r => r.name.StartsWith("Rail") || r.name == "Body").ToArray());
+            return target;
+        }
+
+        private static GameServices BuildServices(params SkinTarget[] targets)
+        {
+            var services = new GameObject("Game Services").AddComponent<GameServices>();
+            SceneWiring.Set(services, "catalog", AssetDatabase.LoadAssetAtPath<SkinCatalog>(CatalogPath));
+            SceneWiring.Set(services, "crateTables", AssetDatabase.LoadAssetAtPath<TextAsset>(CrateTablesPath));
+            SceneWiring.SetArray(services, "equipTargets", targets);
+            return services;
+        }
+
+        private static void UseHdriReflections()
+        {
+            var hdri = AssetDatabase.LoadAssetAtPath<Cubemap>(IconStudio.HdriPath);
+            if (hdri == null) return;
+            RenderSettings.defaultReflectionMode = DefaultReflectionMode.Custom;
+            RenderSettings.customReflectionTexture = hdri;
+        }
+
+        private static void ApplyFont()
+        {
+            var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
+            if (font == null) return;
+            foreach (TMP_Text text in Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include)) text.font = font;
         }
 
         private static Camera BuildCamera()
@@ -161,7 +211,6 @@ namespace BilliardGame.Editor
         {
             Material line = BallMaterialFactory.Unlit("AimLine", new Color(1f, 1f, 1f));
             Material objectPath = BallMaterialFactory.Unlit("ObjectLine", new Color(1f, 0.85f, 0.3f));
-            Material stick = BallMaterialFactory.Textured("CueStick", ProceduralTextures.Wood(), new Color(1.6f, 1.4f, 1.1f), new Vector2(1f, 1f), 0.75f);
             var root = new GameObject("Aim").transform;
 
             LineRenderer aim = Line("Aim Line", root, line, 2, true);
@@ -177,8 +226,9 @@ namespace BilliardGame.Editor
                 ring.SetPosition(i, new Vector3(Mathf.Cos(a) * r, 0f, Mathf.Sin(a) * r));
             }
 
-            GameObject cueStick = Primitive(PrimitiveType.Cylinder, "Cue Stick", root, Vector3.zero, Quaternion.identity, new Vector3(0.018f, 0.7f, 0.018f), stick);
-            cueStick.GetComponent<MeshRenderer>().shadowCastingMode = ShadowCastingMode.On;
+            // Empty holder: the equipped cue skin prefab is placed under it at runtime (SkinTarget).
+            var cueStick = new GameObject("Cue Stick");
+            cueStick.transform.SetParent(root, false);
 
             SceneWiring.Set(cue, "viewCamera", camera);
             SceneWiring.Set(cue, "cueBall", cueBall);

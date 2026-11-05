@@ -162,11 +162,11 @@ namespace BilliardGame.Presentation
                 cueLine.SetPosition(1, ghost + cueDir * (objectLineLength * 0.6f));
             }
 
-            float halfLength = cueStick.localScale.y;
             Vector3 tip = cue - dir * (r * 1.5f + pullback01 * maxPullback);
             // Butt raised like a real stroke so the stick clears the rails.
             Vector3 axis = (dir - Vector3.up * Mathf.Tan(cueElevation * Mathf.Deg2Rad)).normalized;
-            cueStick.SetPositionAndRotation(tip - axis * halfLength, Quaternion.FromToRotation(Vector3.up, axis));
+            // Cue skins pivot at the tip with the butt along local +Z (docs/ART_PIPELINE.md §3.1).
+            cueStick.SetPositionAndRotation(tip, Quaternion.LookRotation(-axis, Vector3.up));
         }
 
         private void SetVisualsVisible(bool visible)

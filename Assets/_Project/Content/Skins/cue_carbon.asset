@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816483dc1c6934c4ab2557cd6db9d462, type: 3}
+  m_Name: cue_carbon
+  m_EditorClassIdentifier: BilliardGame.Content::BilliardGame.Content.SkinDefinition
+  id: cue_carbon
+  type: 0
+  rarity: 2
+  displayName: Karbon Ilon
+  ownedByDefault: 0
+  prefab: {fileID: 5778093295431659993, guid: 5f161b7600cd915479d6e7f1df24d6cb, type: 3}
+  cloth: {fileID: 0}
+  rail: {fileID: 0}
+  icon: {fileID: 21300000, guid: c0268c23e9d516748a7f71e03c1a37f7, type: 3}
+  unlockSource: Yashik

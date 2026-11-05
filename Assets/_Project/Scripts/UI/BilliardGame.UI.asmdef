@@ -6,8 +6,11 @@
         "BilliardGame.Gameplay",
         "BilliardGame.Presentation",
         "BilliardGame.Online",
+        "BilliardGame.Content",
+        "BilliardGame.Meta",
         "Unity.TextMeshPro",
-        "UnityEngine.UI"
+        "UnityEngine.UI",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

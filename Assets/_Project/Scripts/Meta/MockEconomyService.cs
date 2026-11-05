@@ -1,0 +1,220 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace BilliardGame.Meta
+{
+    /// <summary>
+    /// Offline economy for the editor and M1 (CLAUDE.md rule 3 allows a mock there). Same rules the server will run in M2:
+    /// price check, rarity roll with pity floors, 10× guarantee, duplicate → shards.
+    /// </summary>
+    public sealed class MockEconomyService : IEconomyService
+    {
+        public const int StartCoins = 5000;
+        public const int StartGems = 500;
+
+        private readonly EconomyState state;
+        private readonly CatalogItem[] catalog;
+        private readonly CrateDefinition[] crates;
+        private readonly Action<EconomyState> persist;
+        private readonly Func<double> rollOverride;
+        private readonly HashSet<string> owned;
+
+        /// <param name="saved">Previous state, or null for a fresh profile.</param>
+        /// <param name="persist">Called after every change; may be null.</param>
+        /// <param name="rollOverride">Test hook replacing the deterministic RNG.</param>
+        public MockEconomyService(EconomyState saved, IReadOnlyList<CatalogItem> catalog, IReadOnlyList<CrateDefinition> crates,
+            Action<EconomyState> persist, Func<double> rollOverride = null)
+        {
+            this.catalog = Copy(catalog ?? throw new ArgumentNullException(nameof(catalog)));
+            this.crates = Copy(crates ?? throw new ArgumentNullException(nameof(crates)));
+            this.persist = persist;
+            this.rollOverride = rollOverride;
+            foreach (CrateDefinition crate in this.crates) ValidatePools(crate);
+
+            state = saved ?? NewProfile();
+            owned = new HashSet<string>(state.owned);
+            foreach (CatalogItem item in this.catalog)
+            {
+                if (item.OwnedByDefault && owned.Add(item.Id)) state.owned.Add(item.Id);
+            }
+
+            if (Find(state.equippedCue) == null) state.equippedCue = DefaultOf(ItemType.Cue);
+            if (Find(state.equippedTable) == null) state.equippedTable = DefaultOf(ItemType.Table);
+        }
+
+        public event Action Changed;
+
+        public int Coins => state.coins;
+        public int Gems => state.gems;
+        public int Shards => state.shards;
+        public int Crystals => state.crystals;
+        public IReadOnlyList<CrateDefinition> Crates => crates;
+        public IReadOnlyList<CatalogItem> Catalog => catalog;
+
+        public bool Owns(string itemId) => itemId != null && owned.Contains(itemId);
+
+        public string EquippedId(ItemType type) => type == ItemType.Cue ? state.equippedCue : state.equippedTable;
+
+        public int PityRemaining(string crateId, PityRule rule) => rule.count - Counter(crateId, rule.MinRarity).misses;
+
+        public Task<bool> EquipAsync(string itemId)
+        {
+            CatalogItem? item = Find(itemId);
+            if (item == null || !Owns(itemId)) return Task.FromResult(false);
+            if (item.Value.Type == ItemType.Cue) state.equippedCue = itemId;
+            else state.equippedTable = itemId;
+            Commit();
+            return Task.FromResult(true);
+        }
+
+        public Task<CrateOpenResult> OpenCrateAsync(string crateId, int count) => Task.FromResult(OpenCrate(crateId, count));
+
+        /// <summary>Editor/mock-only top-up so the crate flow is testable without payments (M6).</summary>
+        public void DevGrant(int coins, int gems)
+        {
+            state.coins += Math.Max(0, coins);
+            state.gems += Math.Max(0, gems);
+            Commit();
+        }
+
+        private CrateOpenResult OpenCrate(string crateId, int count)
+        {
+            if (count != 1 && count != 10) return CrateOpenResult.Fail("count must be 1 or 10");
+            CrateDefinition crate = Array.Find(crates, c => c.id == crateId);
+            if (crate == null) return CrateOpenResult.Fail("unknown crate " + crateId);
+
+            int cost = crate.Price(count);
+            if (Balance(crate.Currency) < cost) return CrateOpenResult.Fail(crate.Currency == Currency.Gem ? "Not enough gems" : "Not enough coins");
+            if (crate.Currency == Currency.Gem) state.gems -= cost;
+            else state.coins -= cost;
+
+            bool hasTen = crate.HasTenGuarantee(out Rarity tenRarity) && count == 10;
+            bool tenMet = false;
+            var drops = new List<CrateDrop>(count);
+            for (int i = 0; i < count; i++)
+            {
+                Rarity floor = PityFloor(crate);
+                if (hasTen && !tenMet && i == count - 1 && tenRarity > floor) floor = tenRarity;
+                Rarity rarity = CrateRoller.RollRarity(crate.weights, NextRoll(), floor);
+                if (rarity >= tenRarity) tenMet = true;
+                UpdatePity(crate, rarity);
+                drops.Add(Grant(PickItem(rarity)));
+            }
+
+            Commit();
+            return CrateOpenResult.Ok(drops);
+        }
+
+        private Rarity PityFloor(CrateDefinition crate)
+        {
+            Rarity floor = Rarity.Common;
+            foreach (PityRule rule in crate.pity ?? Array.Empty<PityRule>())
+            {
+                if (Counter(crate.id, rule.MinRarity).misses + 1 >= rule.count && rule.MinRarity > floor) floor = rule.MinRarity;
+            }
+
+            return floor;
+        }
+
+        private void UpdatePity(CrateDefinition crate, Rarity rarity)
+        {
+            foreach (PityRule rule in crate.pity ?? Array.Empty<PityRule>())
+            {
+                PityCounter counter = Counter(crate.id, rule.MinRarity);
+                counter.misses = rarity >= rule.MinRarity ? 0 : counter.misses + 1;
+            }
+        }
+
+        private CatalogItem PickItem(Rarity rarity)
+        {
+            var pool = new List<CatalogItem>();
+            foreach (CatalogItem item in catalog)
+            {
+                if (item.Rarity == rarity) pool.Add(item);
+            }
+
+            int index = Math.Min(pool.Count - 1, (int)(NextRoll() * pool.Count));
+            return pool[index];
+        }
+
+        private CrateDrop Grant(CatalogItem item)
+        {
+            if (owned.Add(item.Id))
+            {
+                state.owned.Add(item.Id);
+                return new CrateDrop(item, true, 0, 0);
+            }
+
+            int shards = RarityInfo.DuplicateShards(item.Rarity);
+            int crystals = RarityInfo.DuplicateCrystals(item.Rarity);
+            state.shards += shards;
+            state.crystals += crystals;
+            return new CrateDrop(item, false, shards, crystals);
+        }
+
+        private double NextRoll() => rollOverride?.Invoke() ?? CrateRoller.Roll((ulong)state.seed, (ulong)state.rollCounter++);
+
+        private PityCounter Counter(string crateId, Rarity rarity)
+        {
+            string key = crateId + ":" + rarity;
+            PityCounter counter = state.pity.Find(p => p.key == key);
+            if (counter != null) return counter;
+            counter = new PityCounter { key = key };
+            state.pity.Add(counter);
+            return counter;
+        }
+
+        private int Balance(Currency currency) => currency == Currency.Gem ? state.gems : state.coins;
+
+        private CatalogItem? Find(string id)
+        {
+            foreach (CatalogItem item in catalog)
+            {
+                if (item.Id == id) return item;
+            }
+
+            return null;
+        }
+
+        private string DefaultOf(ItemType type)
+        {
+            foreach (CatalogItem item in catalog)
+            {
+                if (item.Type == type && item.OwnedByDefault) return item.Id;
+            }
+
+            return null;
+        }
+
+        private void ValidatePools(CrateDefinition crate)
+        {
+            crate.Validate();
+            for (int r = 0; r < RarityInfo.Count; r++)
+            {
+                if (crate.weights[r] > 0 && Array.FindIndex(catalog, i => (int)i.Rarity == r) < 0)
+                    throw new FormatException($"{crate.id}: no catalog items for {(Rarity)r}");
+            }
+        }
+
+        private void Commit()
+        {
+            persist?.Invoke(state);
+            Changed?.Invoke();
+        }
+
+        private static EconomyState NewProfile() => new EconomyState
+        {
+            coins = StartCoins,
+            gems = StartGems,
+            seed = Guid.NewGuid().GetHashCode() ^ ((long)Environment.TickCount << 32),
+        };
+
+        private static T[] Copy<T>(IReadOnlyList<T> source)
+        {
+            var copy = new T[source.Count];
+            for (int i = 0; i < copy.Length; i++) copy[i] = source[i];
+            return copy;
+        }
+    }
+}

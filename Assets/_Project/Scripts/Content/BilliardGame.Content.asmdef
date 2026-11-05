@@ -1,0 +1,16 @@
+{
+    "name": "BilliardGame.Content",
+    "rootNamespace": "BilliardGame.Content",
+    "references": [
+        "BilliardGame.Meta"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

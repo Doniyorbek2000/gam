@@ -12,7 +12,7 @@
 
 | # | Milestone | Asosiy natija | Hajm | Holat |
 |---|-----------|---------------|------|-------|
-| M1 | Vertical slice | Premium zal + 3 kiy + 2 stol skini + PUBG uslubidagi lobby + yashik ochish (offline mock) + 8-ball shu zalda | L | ⬜ |
+| M1 | Vertical slice | Premium zal + 3 kiy + 2 stol skini + PUBG uslubidagi lobby + yashik ochish (offline mock) + 8-ball shu zalda | L | ✅ |
 | M2 | Server iqtisod yadrosi | Wallet/ledger, inventar, katalog, yashik RNG+pity, do'kon, login — serverda; mock → Nakama | L | ⬜ |
 | M3 | Kontent yetkazish + venue'lar + progressiya | Addressables remote/CDN, Remote Config, XP/level, 4 venue (kirish/sovrin), MMR quick match | L | ⬜ |
 | M4 | Ranked + leaderboard | Daraja tizimi, mavsum, Glicko-2, global/mamlakat/do'st leaderboard | M | ⬜ |
@@ -27,7 +27,7 @@
 
 ---
 
-## M1 — Vertical slice ⬜
+## M1 — Vertical slice ✅
 **Maqsad:** o'yinning "ko'rinishi va hissi"ni bitta to'liq yo'lakda isbotlash: lobby → yashik → jihozlash → premium zalda 8-ball.
 
 **Natijalar**
@@ -40,16 +40,20 @@
 7. **Inventar (minimal):** Kiylar va Stol tablari, 3D preview, Jihozlash → match va lobbyda darhol ko'rinadi.
 
 **Qabul qilish mezonlari**
-- [ ] Unity Console'da play mode'da xato yo'q; barcha mavjud EditMode testlari + yangi testlar (mock RNG taqsimoti 10⁵ ochishda jadvalga ±0.5% mos, pity N-ochishda kafolat, dublikat→shard) yashil; `npm test` yashil (server o'zgarmagan bo'lsa ham).
-- [ ] MCP orqali skrinshotlar: lobby, ehtimollar oynasi, yashik reveal (Epic+), inventar, Silk Road Lounge'da match.
-- [ ] Oqim: Lobby → Yashik → 10× ochish → yangi kiyni jihozlash → Silk Road Lounge hot-seat → kiy ko'rinadi → break va 8-ball qoidalari ishlaydi.
-- [ ] Online xona (Stage 2 E2E) Silk Road Lounge zalida ishlaydi.
-- [ ] Budjetlar: zal ≤ 150k tri, stol ≤ 40k, kiy ≤ 5k; match kadri ≤ 250k tri, ≤ 150 draw call (Frame Debugger/Profiler hisoboti); Android APK build muvaffaqiyatli.
-- [ ] Har bir import qilingan asset `LICENSES.md` da; Credits ekranida ko'rinadi.
-- [ ] Gameplay/Physics'ga skin ma'lumoti kirmagan (no pay-to-win).
+- [x] Unity Console'da play mode'da xato yo'q; barcha mavjud EditMode testlari + yangi testlar (mock RNG taqsimoti 10⁵ ochishda jadvalga ±0.5% mos, pity N-ochishda kafolat, dublikat→shard) yashil; `npm test` yashil (server o'zgarmagan bo'lsa ham).
+- [x] MCP orqali skrinshotlar: lobby, ehtimollar oynasi, yashik reveal (Epic+), inventar, Silk Road Lounge'da match.
+- [x] Oqim: Lobby → Yashik → 10× ochish → yangi kiyni jihozlash → Silk Road Lounge hot-seat → kiy ko'rinadi → break va 8-ball qoidalari ishlaydi.
+- [x] Online xona (Stage 2 E2E) Silk Road Lounge zalida ishlaydi.
+- [x] Budjetlar: zal ≤ 150k tri, stol ≤ 40k, kiy ≤ 5k; match kadri ≤ 250k tri, ≤ 150 draw call (Frame Debugger/Profiler hisoboti); Android APK build muvaffaqiyatli.
+- [x] Har bir import qilingan asset `LICENSES.md` da; Credits ekranida ko'rinadi.
+- [x] Gameplay/Physics'ga skin ma'lumoti kirmagan (no pay-to-win).
 - Bog'liqlik: [ART_PIPELINE §6](ART_PIPELINE.md#6-birinchi-asset-royxati-m1--vertical-slice) dagi assetlar. Yetib kelmagan asset o'rniga placeholder ishlatiladi va hisobotda yoziladi.
 
 **Hajm:** L (M1.1: pipeline + kontent + zal; M1.2: lobby + mock iqtisod + yashik + inventar).
+
+**Natija (2026-11-05):** EditMode 65/65 (shu jumladan Meta 13), `npm test` 9/9; match kadri Silk Road Lounge'da 59k tri / 96 draw call; online xona E2E (editor + Windows bot) shu zalda "game over"gacha o'ynaldi. Kontent: 7 kiy (Common…Mythic), 4 stol skini, 2 zal. Placeholder'lar (protsedural): stollar, kiylar, zal geometriyasi, lampa, kiy tokchasi; personaj — Quaternius UAL manekeni ([ART_PIPELINE §6](ART_PIPELINE.md#6-birinchi-asset-royxati-m1--vertical-slice) holati). Keyinga qoldirildi: Addressables (M3), Mythic maxsus animatsiyasi, 10× da eng yuqori raritetning alohida reveal'i, venue bottom-sheet o'rniga oddiy modal.
+
+
 
 ## M2 — Server iqtisod yadrosi ⬜
 **Natijalar:** Nakama TS: `economy/wallet|catalog|crates|shop|craft`, `config.ts` (Remote Config `config_get`), `profile_get`, `inventory_list`, `equip`, `crate_open`, `crate_odds`, `shop_list`, `shop_buy`, `daily_login_claim`; HMAC RNG + pity; ledger metadata; `request_id` idempotentlik; klientda `NakamaEconomyService` (mock editor'da qoladi). `BilliardGame.Meta.Rules` — odds/pity kalkulyatori C# va TS da, cross-check.

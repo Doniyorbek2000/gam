@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 658b5123a403b504abb192c7825d48cb, type: 3}
+  m_Name: SkinCatalog
+  m_EditorClassIdentifier: BilliardGame.Content::BilliardGame.Content.SkinCatalog
+  skins:
+  - {fileID: 11400000, guid: b25885408c80fd244a3c8d97c6cb67e7, type: 2}
+  - {fileID: 11400000, guid: 30a7d3506d94bcf48a6196f0543d631b, type: 2}
+  - {fileID: 11400000, guid: 9b6cfe0a9945bc04aa73135183ef065e, type: 2}
+  - {fileID: 11400000, guid: 8d7b844ed0d2b8a49be34242b312a931, type: 2}
+  - {fileID: 11400000, guid: bbf18e6a4b95b0c41a369aa0f74bed92, type: 2}
+  - {fileID: 11400000, guid: d8035b72007e79f45be9fc9d8113744c, type: 2}
+  - {fileID: 11400000, guid: 91d6361a50c4fa44192f2edb021c3586, type: 2}
+  - {fileID: 11400000, guid: fbfe1ec27db72814588fac1ff987f83a, type: 2}
+  - {fileID: 11400000, guid: 457707ef562590a4fb1ee4d825759b94, type: 2}
+  - {fileID: 11400000, guid: ecd9c1db9e1c3124a950ddc1b6dea031, type: 2}
+  - {fileID: 11400000, guid: bc41da98c1081454f95caa0c8c7ccce5, type: 2}
+  venues:
+  - {fileID: 11400000, guid: 50125df02bfc2a54f950461246f8ab7f, type: 2}
+  - {fileID: 11400000, guid: d829a03af370fa24d97a7d27ce72bfe2, type: 2}

@@ -13,11 +13,11 @@ namespace BilliardGame.Editor
         public const string ReflectionOnlyLayer = "ReflectionOnly";
         private const string PostFxPath = "Assets/_Project/Art/PostFX.asset";
 
-        public static void Build(TableGeometry table, Transform root)
+        public static void Build(TableGeometry table, Transform root, Transform garage)
         {
             Material wood = AssetDatabase.LoadAssetAtPath<Material>($"{BallMaterialFactory.MaterialFolder}/Wood.mat");
             // Satin rather than mirror: a mirror only shows the dark room and reads as black plates.
-            Material chrome = BallMaterialFactory.Lit("Chrome", new Color(0.8f, 0.8f, 0.82f), 0.55f, 1f);
+            Material chrome = BallMaterialFactory.Lit("Chrome", new Color(0.8f, 0.8f, 0.82f), 0.4f, 1f);
             Material pearl = BallMaterialFactory.Lit("Pearl", new Color(0.95f, 0.93f, 0.85f), 0.9f);
             Material floor = BallMaterialFactory.Lit("Floor", new Color(0.09f, 0.07f, 0.06f), 0.2f);
 
@@ -29,7 +29,7 @@ namespace BilliardGame.Editor
 
             BilliardSceneBuilder.Box("Body", root, new Vector3(0f, -0.15f, 0f), Quaternion.identity,
                 new Vector3(2f * (hl + frame), 0.22f, 2f * (hw + frame)), wood);
-            BilliardSceneBuilder.Box("Floor", root, new Vector3(0f, -0.8f, 0f), Quaternion.identity, new Vector3(12f, 0.02f, 8f), floor);
+            BilliardSceneBuilder.Box("Floor", garage, new Vector3(0f, -0.8f, 0f), Quaternion.identity, new Vector3(12f, 0.02f, 8f), floor);
 
             // Chrome castings around the pocket openings.
             const float plateHeight = 0.006f;

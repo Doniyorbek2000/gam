@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816483dc1c6934c4ab2557cd6db9d462, type: 3}
+  m_Name: cue_ornate
+  m_EditorClassIdentifier: BilliardGame.Content::BilliardGame.Content.SkinDefinition
+  id: cue_ornate
+  type: 0
+  rarity: 3
+  displayName: Samarqand oltini
+  ownedByDefault: 0
+  prefab: {fileID: 6723270301282787681, guid: fabf50a0aaebf8c478213491cae52ae5, type: 3}
+  cloth: {fileID: 0}
+  rail: {fileID: 0}
+  icon: {fileID: 21300000, guid: 214ae754f6e32d8429bd7c6fb1ad1e6a, type: 3}
+  unlockSource: Yashik

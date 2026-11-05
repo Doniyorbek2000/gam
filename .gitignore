@@ -70,3 +70,6 @@ Thumbs.db
 !/Tools/**/*.csproj
 /Tools/**/bin/
 /Tools/**/obj/
+
+# Raw art downloads (imported copies live under Assets/_Project/Art; ART_PIPELINE §1)
+/ArtSource/Incoming/

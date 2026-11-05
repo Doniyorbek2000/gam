@@ -14,5 +14,15 @@ namespace BilliardGame.Editor
             property.objectReferenceValue = value;
             serialized.ApplyModifiedPropertiesWithoutUndo();
         }
+
+        public static void SetArray(Object target, string field, Object[] values)
+        {
+            var serialized = new SerializedObject(target);
+            SerializedProperty property = serialized.FindProperty(field);
+            if (property == null || !property.isArray) throw new System.MissingFieldException(target.GetType().Name, field);
+            property.arraySize = values.Length;
+            for (int i = 0; i < values.Length; i++) property.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+        }
     }
 }

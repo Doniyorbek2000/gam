@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace BilliardGame.UI
 {
-    /// <summary>Main menu: nickname, quick match, play with a friend (room code), offline hot-seat.</summary>
+    /// <summary>Lobby menu flow: nickname, quick match, play with a friend (room code), offline hot-seat. The lobby picks the mode.</summary>
     public sealed class MainMenuController : MonoBehaviour
     {
         private const string NicknameKey = "nickname";
@@ -23,9 +23,7 @@ namespace BilliardGame.UI
         [SerializeField] private GameObject friendPanel;
         [SerializeField] private TMP_InputField nicknameInput;
         [SerializeField] private TMP_InputField codeInput;
-        [SerializeField] private Button quickMatchButton;
-        [SerializeField] private Button friendButton;
-        [SerializeField] private Button offlineButton;
+        [SerializeField] private Button[] lockWhileWaiting = new Button[0];
         [SerializeField] private Button createRoomButton;
         [SerializeField] private Button joinRoomButton;
         [SerializeField] private Button backButton;
@@ -34,14 +32,14 @@ namespace BilliardGame.UI
 
         private bool busy;
 
+        /// <summary>Raised whenever the lobby comes back (start, cancel, match over); the lobby resets its 3D view.</summary>
+        public event Action MenuShown;
+
         public string Status => statusLabel.text;
         public string RoomCode { get; private set; }
 
         private void OnEnable()
         {
-            quickMatchButton.onClick.AddListener(QuickMatch);
-            friendButton.onClick.AddListener(ShowFriendPanel);
-            offlineButton.onClick.AddListener(PlayOffline);
             createRoomButton.onClick.AddListener(CreateRoom);
             joinRoomButton.onClick.AddListener(JoinRoomFromInput);
             backButton.onClick.AddListener(ShowMainButtons);
@@ -53,9 +51,6 @@ namespace BilliardGame.UI
 
         private void OnDisable()
         {
-            quickMatchButton.onClick.RemoveListener(QuickMatch);
-            friendButton.onClick.RemoveListener(ShowFriendPanel);
-            offlineButton.onClick.RemoveListener(PlayOffline);
             createRoomButton.onClick.RemoveListener(CreateRoom);
             joinRoomButton.onClick.RemoveListener(JoinRoomFromInput);
             backButton.onClick.RemoveListener(ShowMainButtons);
@@ -176,6 +171,7 @@ namespace BilliardGame.UI
             ShowMainButtons();
             SetWaiting(false);
             SetStatus(status);
+            MenuShown?.Invoke();
         }
 
         private void HideMenu()
@@ -184,7 +180,7 @@ namespace BilliardGame.UI
             hudRoot.SetActive(true);
         }
 
-        private void ShowFriendPanel()
+        public void ShowFriendPanel()
         {
             mainButtons.SetActive(false);
             friendPanel.SetActive(true);
@@ -200,9 +196,7 @@ namespace BilliardGame.UI
         {
             cancelButton.gameObject.SetActive(waiting);
             nicknameInput.interactable = !waiting;
-            quickMatchButton.interactable = !waiting;
-            friendButton.interactable = !waiting;
-            offlineButton.interactable = !waiting;
+            foreach (Button button in lockWhileWaiting) button.interactable = !waiting;
             createRoomButton.interactable = !waiting;
             joinRoomButton.interactable = !waiting;
             backButton.interactable = !waiting;

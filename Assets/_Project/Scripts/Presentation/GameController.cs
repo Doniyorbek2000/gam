@@ -10,13 +10,17 @@ namespace BilliardGame.Presentation
     {
         [SerializeField] private TablePlayback playback;
         [SerializeField] private CueController cue;
+        [SerializeField] private TableAudio tableAudio;
         [SerializeField] private float minShotSpeed = 0.4f;
-        [SerializeField] private float maxShotSpeed = 9f;
+        [SerializeField] private float maxShotSpeed = 11f;
+        [Tooltip("Power curve exponent: >1 gives finer control of soft shots on the slider.")]
+        [SerializeField] private float powerCurve = 1.6f;
 
         private TableGeometry table;
         private PhysicsConfig config;
         private BilliardSimulator simulator;
         private int nextBreaker;
+        private readonly System.Random rackSeeds = new System.Random();
 
         public event Action StateChanged;
 
@@ -41,7 +45,7 @@ namespace BilliardGame.Presentation
         public void NewGame()
         {
             LastOutcome = null;
-            ApplyState(EightBallState.NewGame(table, config, nextBreaker));
+            ApplyState(EightBallState.NewGame(table, config, nextBreaker, rackSeeds.Next()));
             nextBreaker = 1 - nextBreaker;
         }
 
@@ -52,7 +56,7 @@ namespace BilliardGame.Presentation
             EightBallState state = State;
             if (state.BallInHand) state = state.WithCueBallPlaced(cue.CuePosition, table, config);
 
-            double speed = Mathf.Lerp(minShotSpeed, maxShotSpeed, Mathf.Clamp01(power01));
+            double speed = Mathf.Lerp(minShotSpeed, maxShotSpeed, Mathf.Pow(Mathf.Clamp01(power01), powerCurve));
             Vector2 tip = Vector2.ClampMagnitude(spin, 1f) * (float)(ShotParams.MaxTipOffset * 0.999);
             var shot = new ShotParams(cue.AimDirection, speed, tip.x, tip.y, EightBallSet.CueBall);
 
@@ -62,6 +66,7 @@ namespace BilliardGame.Presentation
 
             State = state;
             cue.End();
+            tableAudio.PlayCueStrike(power01);
             playback.Play(result, () =>
             {
                 LastOutcome = outcome;

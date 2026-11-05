@@ -13,9 +13,13 @@ namespace BilliardGame.Presentation
 
         private SimulationResult result;
         private double time;
+        private int nextEvent;
         private Action onFinished;
 
         public bool IsPlaying => result != null;
+
+        /// <summary>Raised when playback reaches a simulation event's time (audio, effects).</summary>
+        public event Action<SimulationEvent> EventPlayed;
 
         /// <summary>Views indexed by ball id.</summary>
         public void Bind(BallView[] views) => balls = views;
@@ -36,6 +40,7 @@ namespace BilliardGame.Presentation
             result = shot ?? throw new ArgumentNullException(nameof(shot));
             onFinished = finished;
             time = 0.0;
+            nextEvent = 0;
         }
 
         private void Update()
@@ -47,6 +52,7 @@ namespace BilliardGame.Presentation
             double step = frames.Count > 1 ? frames[1].Time - frames[0].Time : 1.0;
             double cursor = time / step;
             int index = (int)cursor;
+            RaiseEventsUpTo(time);
 
             if (index >= frames.Count - 1)
             {
@@ -65,8 +71,18 @@ namespace BilliardGame.Presentation
             }
         }
 
+        private void RaiseEventsUpTo(double playbackTime)
+        {
+            IReadOnlyList<SimulationEvent> events = result.Events;
+            while (nextEvent < events.Count && events[nextEvent].Time <= playbackTime)
+            {
+                EventPlayed?.Invoke(events[nextEvent++]);
+            }
+        }
+
         private void Finish()
         {
+            RaiseEventsUpTo(double.MaxValue);
             Snap(result.FinalFrame.Balls);
             Action done = onFinished;
             result = null;

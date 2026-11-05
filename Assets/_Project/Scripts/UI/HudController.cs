@@ -16,6 +16,8 @@ namespace BilliardGame.UI
         [SerializeField] private CueController cue;
         [SerializeField] private Slider powerSlider;
         [SerializeField] private SpinPad spinPad;
+        [SerializeField] private Button spinIcon;
+        [SerializeField] private FineTuneWheel fineTuneWheel;
         [SerializeField] private Button shootButton;
         [SerializeField] private Button newGameButton;
         [SerializeField] private TMP_Text player0Label;
@@ -28,6 +30,8 @@ namespace BilliardGame.UI
             shootButton.onClick.AddListener(OnShoot);
             newGameButton.onClick.AddListener(game.NewGame);
             powerSlider.onValueChanged.AddListener(cue.SetPullback);
+            spinIcon.onClick.AddListener(ToggleSpinPad);
+            fineTuneWheel.Rotated += cue.RotateAim;
             cue.SetPullback(powerSlider.value);
             if (game.State != null) Refresh();
         }
@@ -38,13 +42,18 @@ namespace BilliardGame.UI
             shootButton.onClick.RemoveListener(OnShoot);
             newGameButton.onClick.RemoveListener(game.NewGame);
             powerSlider.onValueChanged.RemoveListener(cue.SetPullback);
+            spinIcon.onClick.RemoveListener(ToggleSpinPad);
+            fineTuneWheel.Rotated -= cue.RotateAim;
         }
 
         private void OnShoot()
         {
             game.Shoot(powerSlider.value, spinPad.Spin);
             spinPad.ResetSpin();
+            spinPad.gameObject.SetActive(false);
         }
+
+        private void ToggleSpinPad() => spinPad.gameObject.SetActive(!spinPad.gameObject.activeSelf);
 
         private void Refresh()
         {

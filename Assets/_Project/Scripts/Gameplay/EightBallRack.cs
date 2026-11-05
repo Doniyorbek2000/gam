@@ -7,8 +7,11 @@ namespace BilliardGame.Gameplay
     /// <summary>Rack layout, table spots and free-spot search for 8-ball.</summary>
     public static class EightBallRack
     {
-        /// <summary>Gap between racked balls so the triangle starts without overlapping contacts.</summary>
-        public const double RackGap = 0.0005;
+        /// <summary>
+        /// Per-axis random offset of racked balls, metres. A frozen rack (tight, no jitter) sends the break
+        /// energy down the triangle edges in a Newton's-cradle chain; real racks are never perfect.
+        /// </summary>
+        public const double RackJitter = 0.00015;
 
         private const double SpotSearchStep = 0.005;
 
@@ -22,13 +25,17 @@ namespace BilliardGame.Gameplay
         /// <summary>Balls behind this X are in the kitchen.</summary>
         public static double HeadStringX(TableGeometry table) => -table.Length * 0.25;
 
-        /// <summary>Fresh rack: index in the returned array equals the ball id.</summary>
-        public static BallState[] Create(TableGeometry table, PhysicsConfig config)
+        /// <summary>
+        /// Fresh tight rack: index in the returned array equals the ball id. The same <paramref name="seed"/>
+        /// reproduces the same rack, so a server and its clients agree on the break.
+        /// </summary>
+        public static BallState[] Create(TableGeometry table, PhysicsConfig config, int seed = 0)
         {
             if (table == null) throw new ArgumentNullException(nameof(table));
             if (config == null) throw new ArgumentNullException(nameof(config));
 
-            double spacing = 2.0 * config.BallRadius + RackGap;
+            var random = new Random(seed);
+            double spacing = 2.0 * config.BallRadius;
             double rowStep = spacing * Math.Sqrt(3.0) * 0.5;
             Vec2 foot = FootSpot(table);
 
@@ -41,7 +48,8 @@ namespace BilliardGame.Gameplay
                 for (int i = 0; i <= row; i++)
                 {
                     int id = RackOrder[next++];
-                    var position = new Vec2(foot.X + row * rowStep, foot.Y + (i - row * 0.5) * spacing);
+                    var jitter = new Vec2((random.NextDouble() * 2.0 - 1.0) * RackJitter, (random.NextDouble() * 2.0 - 1.0) * RackJitter);
+                    var position = new Vec2(foot.X + row * rowStep, foot.Y + (i - row * 0.5) * spacing) + jitter;
                     balls[id] = BallState.AtRest(id, position);
                 }
             }

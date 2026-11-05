@@ -18,8 +18,9 @@ namespace BilliardGame.Physics
             double spinDeceleration = 10.0,
             double ballRestitution = 0.95,
             double ballFriction = 0.05,
-            double cushionRestitution = 0.75,
+            double cushionRestitution = 0.8,
             double cushionFriction = 0.2,
+            double cushionHeight = 0.0366,
             double timeStep = StandardTimeStep,
             double maxSimulationTime = 60.0,
             int maxEventsPerStep = 256)
@@ -34,6 +35,7 @@ namespace BilliardGame.Physics
             BallFriction = RequireRange(ballFriction, 0.0, double.MaxValue, nameof(ballFriction));
             CushionRestitution = RequireRange(cushionRestitution, 0.0, 1.0, nameof(cushionRestitution));
             CushionFriction = RequireRange(cushionFriction, 0.0, double.MaxValue, nameof(cushionFriction));
+            CushionHeight = RequireRange(cushionHeight, BallRadius, 2.0 * BallRadius, nameof(cushionHeight));
             TimeStep = RequirePositive(timeStep, nameof(timeStep));
             MaxSimulationTime = RequirePositive(maxSimulationTime, nameof(maxSimulationTime));
             if (maxEventsPerStep < 1)
@@ -66,6 +68,12 @@ namespace BilliardGame.Physics
 
         /// <summary>Ball-cushion contact friction; lets side spin change the rebound angle.</summary>
         public double CushionFriction { get; }
+
+        /// <summary>
+        /// Height of the cushion nose above the cloth (WPA: about 64% of the ball diameter). Above the ball centre,
+        /// so a rebound also reverses roll instead of leaving the ball skidding backwards against its old spin.
+        /// </summary>
+        public double CushionHeight { get; }
 
         public double TimeStep { get; }
         public double MaxSimulationTime { get; }

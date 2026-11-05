@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 namespace BilliardGame.Presentation
 {
     /// <summary>
-    /// Aiming with any pointer (mouse or touch): drag on the table to point the cue, drag the cue ball to place it
+    /// Aiming with any pointer (mouse or touch): drag anywhere on the table to swing the cue around the cue ball, drag the cue ball to place it
     /// when in hand. Draws the aim line, ghost ball, object/cue paths and the cue stick.
     /// </summary>
     public sealed class CueController : MonoBehaviour
@@ -40,6 +40,11 @@ namespace BilliardGame.Presentation
         private bool ballInHand;
         private DragMode drag;
         private float pullback01;
+        private double dragAngle;
+        private bool hasDragAngle;
+
+        /// <summary>Below this distance from the cue ball the sweep angle is too noisy to steer with.</summary>
+        private const double MinDragRadius = 0.03;
 
         public Vec2 AimDirection { get; private set; } = Vec2.UnitX;
         public Vec2 CuePosition { get; private set; }
@@ -67,6 +72,13 @@ namespace BilliardGame.Presentation
 
         public void SetPullback(float power01) => pullback01 = Mathf.Clamp01(power01);
 
+        /// <summary>Fine aim adjustment, counter-clockwise seen from above.</summary>
+        public void RotateAim(float degrees)
+        {
+            if (!isActive) return;
+            AimDirection = Vec2.FromAngle(AimDirection.Angle + degrees * Mathf.Deg2Rad);
+        }
+
         private void Update()
         {
             if (!isActive) return;
@@ -85,6 +97,7 @@ namespace BilliardGame.Presentation
                 drag = DragMode.None;
                 if (IsOverUi(screen) || !TryTablePoint(screen, out Vec2 down)) return;
                 drag = ballInHand && Vec2.Distance(down, CuePosition) < placeGrabRadius ? DragMode.Place : DragMode.Aim;
+                hasDragAngle = false;
             }
 
             if (drag != DragMode.None && pointer.press.isPressed && TryTablePoint(screen, out Vec2 point))
@@ -99,8 +112,25 @@ namespace BilliardGame.Presentation
                 }
                 else
                 {
+                    // Relative: the cue turns by the finger's sweep around the cue ball, so the finger never has
+                    // to cover the target and the aim does not jump on touch-down.
                     Vec2 toPoint = point - CuePosition;
-                    if (toPoint.LengthSquared > 1e-6) AimDirection = toPoint.Normalized;
+                    if (toPoint.LengthSquared < MinDragRadius * MinDragRadius)
+                    {
+                        hasDragAngle = false;
+                    }
+                    else
+                    {
+                        double angle = toPoint.Angle;
+                        if (hasDragAngle)
+                        {
+                            double delta = Math.IEEERemainder(angle - dragAngle, 2.0 * Math.PI);
+                            AimDirection = Vec2.FromAngle(AimDirection.Angle + delta);
+                        }
+
+                        dragAngle = angle;
+                        hasDragAngle = true;
+                    }
                 }
             }
 

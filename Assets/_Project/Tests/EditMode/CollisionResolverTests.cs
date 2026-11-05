@@ -77,6 +77,20 @@ namespace BilliardGame.Physics.Tests
         }
 
         [Test]
+        public void Cushion_RollingHeadOn_ReversesRollSoBallKeepsMostOfItsSpeed()
+        {
+            PhysicsConfig config = PhysicsConfig.Default;
+            double r = config.BallRadius;
+            var ball = new BallState(0, Vec2.Zero, new Vec2(0.0, 2.0), new Vec3(-2.0 / r, 0.0, 0.0));
+
+            BallState result = CollisionResolver.ResolveBallCushion(ball, new Vec2(0.0, -1.0), config);
+
+            // Speed once cloth friction has re-established rolling along the rebound (-Y): (5 v + 2 R w) / 7.
+            double rolled = (5.0 * -result.Velocity.Y + 2.0 * r * result.AngularVelocity.X) / 7.0;
+            Assert.That(rolled, Is.GreaterThan(0.5 * 2.0).And.LessThanOrEqualTo(config.CushionRestitution * 2.0 + 1e-9));
+        }
+
+        [Test]
         public void Cushion_FrictionlessAngled_MirrorsTangentialVelocity()
         {
             var ball = new BallState(0, Vec2.Zero, new Vec2(1.0, 1.0), Vec3.Zero);

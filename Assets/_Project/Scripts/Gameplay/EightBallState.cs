@@ -63,8 +63,8 @@ namespace BilliardGame.Gameplay
         public bool IsGameOver => Winner != NoWinner;
         public bool IsTableOpen => Player0Group == BallGroup.None;
 
-        public static EightBallState NewGame(TableGeometry table, PhysicsConfig config, int startingPlayer = 0) =>
-            new EightBallState(EightBallRack.Create(table, config), startingPlayer, BallGroup.None, BallGroup.None,
+        public static EightBallState NewGame(TableGeometry table, PhysicsConfig config, int startingPlayer = 0, int rackSeed = 0) =>
+            new EightBallState(EightBallRack.Create(table, config, rackSeed), startingPlayer, BallGroup.None, BallGroup.None,
                 isBreakShot: true, ballInHand: false, ballInHandKitchenOnly: false, winner: NoWinner);
 
         public BallGroup GroupOf(int player) => player == 0 ? Player0Group : Player1Group;

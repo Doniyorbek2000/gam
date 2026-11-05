@@ -66,7 +66,13 @@ namespace BilliardGame.Physics
             double r = config.BallRadius;
             double jn = m * (1.0 + config.CushionRestitution) * -vn;
             Vec2 v = ball.Velocity + n * (jn / m);
-            double wz = ball.AngularVelocity.Z;
+            Vec3 w = ball.AngularVelocity;
+            double wz = w.Z;
+
+            // The nose touches above the centre: the normal impulse's lever arm turns roll towards the rebound.
+            double roll = jn * (config.CushionHeight - r) / config.BallInertia;
+            double wx = w.X - roll * n.Y;
+            double wy = w.Y + roll * n.X;
 
             // Contact point sits at -R*n from the centre.
             Vec2 contactVelocity = ball.Velocity - n.Perp * (wz * r);
@@ -80,7 +86,7 @@ namespace BilliardGame.Physics
                 wz += 2.5 * jt * Vec2.Cross(n, t) / (m * r);
             }
 
-            return ball.WithMotion(v, ball.AngularVelocity.WithZ(wz));
+            return ball.WithMotion(v, new Vec3(wx, wy, wz));
         }
     }
 }

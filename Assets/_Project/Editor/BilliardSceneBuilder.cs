@@ -13,10 +13,13 @@ namespace BilliardGame.Editor
     {
         public const string ScenePath = "Assets/_Project/Scenes/Main.unity";
 
-        private const float CushionDepth = 0.05f;
-        private const float CushionHeight = 0.04f;
-        private const float RailWidth = 0.12f;
-        private const float RailHeight = 0.05f;
+        internal const float CushionDepth = 0.05f;
+        internal const float CushionHeight = 0.04f;
+        internal const float RailWidth = 0.12f;
+        internal const float RailHeight = 0.05f;
+
+        /// <summary>Corner castings sit on the rails; pocket openings are drawn just above them.</summary>
+        internal const float PocketTop = RailHeight + 0.007f;
         private const float LineWidth = 0.004f;
 
         [MenuItem("BilliardGame/Build Main Scene")]
@@ -27,8 +30,10 @@ namespace BilliardGame.Editor
             float r = (float)config.BallRadius;
 
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            Camera camera = BuildCameraAndLight();
-            BuildTable(table);
+            Camera camera = BuildCamera();
+            Transform tableRoot = BuildTable(table);
+            TableDressingBuilder.Build(table, tableRoot);
+            TableDressingBuilder.BuildLightingAndPostFx(camera);
             BallView[] balls = BuildBalls(table, config);
 
             var game = new GameObject("Game");
@@ -36,9 +41,16 @@ namespace BilliardGame.Editor
             playback.Bind(balls);
             var cue = game.AddComponent<CueController>();
             BuildAimVisuals(cue, camera, balls[EightBallSet.CueBall], r);
+            var audio = game.AddComponent<TableAudio>();
+            SceneWiring.Set(audio, "playback", playback);
+            SceneWiring.Set(audio, "ballHit", ProceduralAudio.BallHit());
+            SceneWiring.Set(audio, "cushionHit", ProceduralAudio.CushionHit());
+            SceneWiring.Set(audio, "pocketDrop", ProceduralAudio.PocketDrop());
+            SceneWiring.Set(audio, "cueStrike", ProceduralAudio.CueStrike());
             var controller = game.AddComponent<GameController>();
             SceneWiring.Set(controller, "playback", playback);
             SceneWiring.Set(controller, "cue", cue);
+            SceneWiring.Set(controller, "tableAudio", audio);
 
             HudBuilder.Build(controller, cue);
 
@@ -49,34 +61,26 @@ namespace BilliardGame.Editor
             Debug.Log($"[BilliardGame] Built {ScenePath}");
         }
 
-        private static Camera BuildCameraAndLight()
+        private static Camera BuildCamera()
         {
             var cameraObject = new GameObject("Main Camera") { tag = "MainCamera" };
             var camera = cameraObject.AddComponent<Camera>();
+            cameraObject.AddComponent<AudioListener>();
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.07f, 0.08f, 0.1f);
             camera.fieldOfView = 38f;
             camera.nearClipPlane = 0.05f;
             camera.farClipPlane = 20f;
             cameraObject.transform.SetPositionAndRotation(new Vector3(0f, 3.1f, -1.25f), Quaternion.Euler(68f, 0f, 0f));
-
-            var lightObject = new GameObject("Directional Light");
-            var light = lightObject.AddComponent<Light>();
-            light.type = LightType.Directional;
-            light.intensity = 1.1f;
-            light.shadows = LightShadows.Soft;
-            lightObject.transform.rotation = Quaternion.Euler(70f, 20f, 0f);
-
-            RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.45f, 0.45f, 0.5f);
             return camera;
         }
 
-        private static void BuildTable(TableGeometry table)
+        private static Transform BuildTable(TableGeometry table)
         {
-            Material cloth = BallMaterialFactory.Lit("Cloth", new Color(0.05f, 0.42f, 0.22f), 0.05f);
-            Material cushion = BallMaterialFactory.Lit("Cushion", new Color(0.04f, 0.35f, 0.18f), 0.08f);
-            Material wood = BallMaterialFactory.Lit("Wood", new Color(0.33f, 0.17f, 0.07f), 0.55f);
+            Texture2D felt = ProceduralTextures.Felt();
+            Material cloth = BallMaterialFactory.Textured("Cloth", felt, new Color(0.06f, 0.45f, 0.24f), new Vector2(10f, 5f), 0.08f);
+            Material cushion = BallMaterialFactory.Textured("Cushion", felt, new Color(0.05f, 0.38f, 0.2f), new Vector2(20f, 1f), 0.1f);
+            Material wood = BallMaterialFactory.Textured("Wood", ProceduralTextures.Wood(), Color.white, new Vector2(2f, 1f), 0.7f);
             Material pocket = BallMaterialFactory.Lit("Pocket", new Color(0.01f, 0.01f, 0.01f), 0f);
             Material marking = BallMaterialFactory.Unlit("Marking", new Color(0.8f, 0.85f, 0.8f));
 
@@ -111,13 +115,14 @@ namespace BilliardGame.Editor
             {
                 Pocket hole = table.Pockets[i];
                 float d = (float)hole.Radius * 2.2f;
-                Primitive(PrimitiveType.Cylinder, $"Pocket {i}", root, TableSpace.ToWorld(hole.Center, RailHeight + 0.001f), Quaternion.identity, new Vector3(d, 0.001f, d), pocket);
+                Primitive(PrimitiveType.Cylinder, $"Pocket {i}", root, TableSpace.ToWorld(hole.Center, PocketTop), Quaternion.identity, new Vector3(d, 0.001f, d), pocket);
             }
 
             Vector3 foot = TableSpace.ToWorld(EightBallRack.FootSpot(table), 0.0005f);
             Primitive(PrimitiveType.Cylinder, "Foot Spot", root, foot, Quaternion.identity, new Vector3(0.012f, 0.0005f, 0.012f), marking);
             float headX = (float)EightBallRack.HeadStringX(table);
             Box("Head String", root, new Vector3(headX, 0.0005f, 0f), Quaternion.identity, new Vector3(0.006f, 0.001f, width), marking);
+            return root;
         }
 
         private static BallView[] BuildBalls(TableGeometry table, PhysicsConfig config)
@@ -126,10 +131,15 @@ namespace BilliardGame.Editor
             float r = (float)config.BallRadius;
             BallState[] rack = EightBallRack.Create(table, config);
             var views = new BallView[rack.Length];
+            var random = new System.Random(8);
+            // Sphere UV u = 0.25 (a number disc) faces local -Z: turn it up, text upright for the camera, then vary it a little.
+            Quaternion numberUp = Quaternion.LookRotation(Vector3.down, Vector3.forward);
             for (int id = 0; id < rack.Length; id++)
             {
+                float yaw = (float)(random.NextDouble() * 70.0 - 35.0);
+                Quaternion rotation = Quaternion.AngleAxis(-20f, Vector3.right) * Quaternion.AngleAxis(yaw, Vector3.up) * numberUp;
                 GameObject ball = Primitive(PrimitiveType.Sphere, id == 0 ? "Cue Ball" : $"Ball {id}", root,
-                    TableSpace.ToWorld(rack[id].Position, r), Quaternion.Euler(0f, 90f, 0f), Vector3.one * (2f * r), BallMaterialFactory.Ball(id));
+                    TableSpace.ToWorld(rack[id].Position, r), rotation, Vector3.one * (2f * r), BallMaterialFactory.Ball(id));
                 var view = ball.AddComponent<BallView>();
                 view.Configure(id, r);
                 views[id] = view;
@@ -142,7 +152,7 @@ namespace BilliardGame.Editor
         {
             Material line = BallMaterialFactory.Unlit("AimLine", new Color(1f, 1f, 1f));
             Material objectPath = BallMaterialFactory.Unlit("ObjectLine", new Color(1f, 0.85f, 0.3f));
-            Material stick = BallMaterialFactory.Lit("CueStick", new Color(0.85f, 0.68f, 0.45f), 0.6f);
+            Material stick = BallMaterialFactory.Textured("CueStick", ProceduralTextures.Wood(), new Color(1.6f, 1.4f, 1.1f), new Vector2(1f, 1f), 0.75f);
             var root = new GameObject("Aim").transform;
 
             LineRenderer aim = Line("Aim Line", root, line, 2, true);
@@ -185,10 +195,10 @@ namespace BilliardGame.Editor
             return line;
         }
 
-        private static GameObject Box(string name, Transform parent, Vector3 position, Quaternion rotation, Vector3 scale, Material material) =>
+        internal static GameObject Box(string name, Transform parent, Vector3 position, Quaternion rotation, Vector3 scale, Material material) =>
             Primitive(PrimitiveType.Cube, name, parent, position, rotation, scale, material);
 
-        private static GameObject Primitive(PrimitiveType type, string name, Transform parent, Vector3 position, Quaternion rotation, Vector3 scale, Material material)
+        internal static GameObject Primitive(PrimitiveType type, string name, Transform parent, Vector3 position, Quaternion rotation, Vector3 scale, Material material)
         {
             GameObject go = GameObject.CreatePrimitive(type);
             go.name = name;

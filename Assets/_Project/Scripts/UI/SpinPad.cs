@@ -8,6 +8,8 @@ namespace BilliardGame.UI
     {
         [SerializeField] private RectTransform area;
         [SerializeField] private RectTransform dot;
+        [SerializeField] private RectTransform previewArea;
+        [SerializeField] private RectTransform previewDot;
 
         public Vector2 Spin { get; private set; }
 
@@ -29,6 +31,7 @@ namespace BilliardGame.UI
         {
             Spin = Vector2.ClampMagnitude(spin, 1f);
             dot.anchoredPosition = Spin * (area.rect.width * 0.5f - dot.rect.width * 0.5f);
+            if (previewArea != null && previewDot != null) previewDot.anchoredPosition = Spin * (previewArea.rect.width * 0.5f - previewDot.rect.width * 0.5f);
         }
     }
 }

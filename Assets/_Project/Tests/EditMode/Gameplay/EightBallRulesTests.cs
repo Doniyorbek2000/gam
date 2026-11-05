@@ -49,12 +49,14 @@ namespace BilliardGame.Gameplay.Tests
             for (int i = 0; i < balls.Length; i++)
             for (int j = i + 1; j < balls.Length; j++)
             {
-                Assert.That(Vec2.Distance(balls[i].Position, balls[j].Position), Is.GreaterThanOrEqualTo(2.0 * Config.BallRadius));
+                // Tight rack: jitter may press balls together by a fraction of a millimetre, never more.
+                double maxOverlap = 2.0 * System.Math.Sqrt(2.0) * EightBallRack.RackJitter;
+                Assert.That(Vec2.Distance(balls[i].Position, balls[j].Position), Is.GreaterThanOrEqualTo(2.0 * Config.BallRadius - maxOverlap));
             }
 
-            double rowStep = (2.0 * Config.BallRadius + EightBallRack.RackGap) * System.Math.Sqrt(3.0) * 0.5;
-            Assert.AreEqual(EightBallRack.FootSpot(Table).X + 2.0 * rowStep, balls[Eight].Position.X, 1e-12);
-            Assert.AreEqual(0.0, balls[Eight].Position.Y, 1e-12);
+            double rowStep = 2.0 * Config.BallRadius * System.Math.Sqrt(3.0) * 0.5;
+            Assert.AreEqual(EightBallRack.FootSpot(Table).X + 2.0 * rowStep, balls[Eight].Position.X, 2.0 * EightBallRack.RackJitter);
+            Assert.AreEqual(0.0, balls[Eight].Position.Y, 2.0 * EightBallRack.RackJitter);
             Assert.That(balls[Cue].Position.X, Is.LessThanOrEqualTo(EightBallRack.HeadStringX(Table)));
         }
 
@@ -64,11 +66,37 @@ namespace BilliardGame.Gameplay.Tests
             BallState[] balls = EightBallRack.Create(Table, Config);
             double backX = balls.Max(b => b.Position.X);
 
-            var corners = balls.Where(b => System.Math.Abs(b.Position.X - backX) < 1e-9)
+            var corners = balls.Where(b => System.Math.Abs(b.Position.X - backX) < 0.01)
                 .OrderBy(b => b.Position.Y).ToArray();
 
             Assert.That(corners.Length, Is.EqualTo(5));
             Assert.That(EightBallSet.GroupOf(corners[0].Id), Is.Not.EqualTo(EightBallSet.GroupOf(corners[4].Id)));
+        }
+
+        [Test]
+        public void Rack_SameSeedIsReproducible_DifferentSeedDiffers()
+        {
+            BallState[] a = EightBallRack.Create(Table, Config, 7);
+            BallState[] b = EightBallRack.Create(Table, Config, 7);
+            BallState[] c = EightBallRack.Create(Table, Config, 8);
+
+            Assert.That(a.Select(x => x.Position), Is.EqualTo(b.Select(x => x.Position)));
+            Assert.That(a.Select(x => x.Position), Is.Not.EqualTo(c.Select(x => x.Position)));
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void HardBreak_SpreadsMostOfTheRack(int seed)
+        {
+            BallState[] rack = EightBallRack.Create(Table, Config, seed);
+            var simulator = new BilliardSimulator(Table, Config);
+
+            SimulationResult result = simulator.Simulate(rack, new ShotParams(Vec2.UnitX, 10.0));
+
+            int spread = result.FinalFrame.Balls.Count(b =>
+                b.Id != Cue && (b.IsPocketed || Vec2.Distance(b.Position, rack[b.Id].Position) > 0.3));
+            Assert.That(spread, Is.GreaterThanOrEqualTo(10), "A 10 m/s break should scatter at least 10 of 15 object balls.");
         }
 
         // ---- Break ------------------------------------------------------------------------

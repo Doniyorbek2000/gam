@@ -29,4 +29,4 @@ Professional, realistic mobile 3D billiards (8-ball, then 9-ball, snooker) at PU
 Namespaces BilliardGame.<Area>; [SerializeField] private fields; no per-frame allocations in sim; no LINQ in Update; one .asmdef per Scripts subfolder; Physics, Gameplay and Meta.Rules are editor-testable (NUnit, no UnityEngine). Mobile budgets: table ≤ 40k tri, cue ≤ 5k, venue ≤ 150k, LOD0–2, ASTC textures 1K/2K.
 
 ## Workflow
-When asked "ROADMAP.md dagi keyingi milestone'ni bajar": take the first ⬜ milestone in docs/ROADMAP.md, implement it, verify in Unity via MCP (play mode, screenshots, Console clean) plus EditMode tests and `npm test`, mark it ✅ in ROADMAP.md, commit, and give a short report (in Uzbek). Split into Mx.1/Mx.2 in ROADMAP.md if it does not fit one session.
+When asked "ROADMAP.md dagi keyingi milestone'ni bajar": take the first ⬜ milestone in docs/ROADMAP.md, implement it, verify in Unity via MCP (play mode, screenshots, Console clean) plus EditMode tests and `npm test`, mark it ✅ in ROADMAP.md, commit, push to `origin main` (GitHub, art binaries via Git LFS), and give a short report (in Uzbek). Split into Mx.1/Mx.2 in ROADMAP.md if it does not fit one session.

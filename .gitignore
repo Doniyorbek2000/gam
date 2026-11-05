@@ -61,3 +61,12 @@ Thumbs.db
 
 # Unity build temp
 /.utmp/
+
+# MCP screenshots
+/[Aa]ssets/[Ss]creenshots/
+/[Aa]ssets/[Ss]creenshots.meta
+
+# Cross-check tool (the *.csproj rule above targets Unity-generated projects)
+!/Tools/**/*.csproj
+/Tools/**/bin/
+/Tools/**/obj/

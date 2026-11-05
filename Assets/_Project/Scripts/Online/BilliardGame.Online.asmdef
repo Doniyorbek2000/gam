@@ -1,0 +1,19 @@
+{
+    "name": "BilliardGame.Online",
+    "rootNamespace": "BilliardGame.Online",
+    "references": [
+        "BilliardGame.Physics",
+        "BilliardGame.Gameplay",
+        "BilliardGame.Presentation",
+        "NakamaRuntime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

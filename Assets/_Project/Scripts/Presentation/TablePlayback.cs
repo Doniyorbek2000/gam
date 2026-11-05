@@ -43,6 +43,13 @@ namespace BilliardGame.Presentation
             nextEvent = 0;
         }
 
+        /// <summary>Stops the replay without calling its finished callback (leaving a match mid-shot).</summary>
+        public void Cancel()
+        {
+            result = null;
+            onFinished = null;
+        }
+
         private void Update()
         {
             if (result == null) return;

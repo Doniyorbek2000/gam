@@ -335,6 +335,30 @@ namespace BilliardGame.Gameplay.Tests
             Assert.Throws<System.InvalidOperationException>(() => Resolve(over, new[] { Hit(0.1, 3) }));
         }
 
+        // ---- Shot clock ------------------------------------------------------------------
+
+        [Test]
+        public void Timeout_PassesTurnWithBallInHandAnywhere()
+        {
+            ShotOutcome outcome = EightBallRules.ResolveTimeout(WithGroups(BallGroup.Solids, 1));
+
+            Assert.That(outcome.Foul, Is.EqualTo(FoulType.Timeout));
+            Assert.That(outcome.NextState.CurrentPlayer, Is.EqualTo(1));
+            Assert.That(outcome.NextState.BallInHand, Is.True);
+            Assert.That(outcome.NextState.BallInHandKitchenOnly, Is.False);
+            Assert.That(outcome.NextState.Player0Group, Is.EqualTo(BallGroup.Solids));
+        }
+
+        [Test]
+        public void TimeoutOnBreak_OpponentBreaksInstead()
+        {
+            ShotOutcome outcome = EightBallRules.ResolveTimeout(Racked());
+
+            Assert.That(outcome.NextState.CurrentPlayer, Is.EqualTo(1));
+            Assert.That(outcome.NextState.IsBreakShot, Is.True);
+            Assert.That(outcome.NextState.BallInHand, Is.False);
+        }
+
         // ---- Full simulation integration --------------------------------------------------
 
         [Test]

@@ -5,6 +5,7 @@
         "BilliardGame.Physics",
         "BilliardGame.Gameplay",
         "BilliardGame.Presentation",
+        "BilliardGame.Online",
         "Unity.TextMeshPro",
         "UnityEngine.UI"
     ],

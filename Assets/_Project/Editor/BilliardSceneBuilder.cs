@@ -1,6 +1,8 @@
 using BilliardGame.Gameplay;
+using BilliardGame.Online;
 using BilliardGame.Physics;
 using BilliardGame.Presentation;
+using BilliardGame.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -52,7 +54,14 @@ namespace BilliardGame.Editor
             SceneWiring.Set(controller, "cue", cue);
             SceneWiring.Set(controller, "tableAudio", audio);
 
-            HudBuilder.Build(controller, cue);
+            HudController hud = HudBuilder.Build(controller, cue, out GameObject hudRoot);
+
+            var online = new GameObject("Online");
+            var client = online.AddComponent<OnlineClient>();
+            var match = online.AddComponent<OnlineMatchController>();
+            SceneWiring.Set(match, "client", client);
+            SceneWiring.Set(match, "game", controller);
+            MenuBuilder.Build(controller, match, hud, hudRoot);
 
             BallMaterialFactory.EnsureFolder("Assets/_Project/Scenes");
             EditorSceneManager.SaveScene(scene, ScenePath);

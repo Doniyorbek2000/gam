@@ -88,6 +88,21 @@ namespace BilliardGame.Gameplay
             return new ShotOutcome(next, foul, firstHit, pocketed.AsReadOnly(), groupsAssigned, !keepsTurn, respotted);
         }
 
+        /// <summary>
+        /// Shot clock expired: the turn passes. The opponent gets ball in hand anywhere,
+        /// except on the break, which simply passes to the opponent.
+        /// </summary>
+        public static ShotOutcome ResolveTimeout(EightBallState state)
+        {
+            if (state == null) throw new ArgumentNullException(nameof(state));
+            if (state.IsGameOver) throw new InvalidOperationException("The game is already over.");
+
+            var next = new EightBallState(state.Balls, state.Opponent, state.Player0Group, state.Player1Group,
+                isBreakShot: state.IsBreakShot, ballInHand: !state.IsBreakShot, ballInHandKitchenOnly: false,
+                winner: EightBallState.NoWinner);
+            return new ShotOutcome(next, FoulType.Timeout, -1, Array.Empty<int>(), false, true, false);
+        }
+
         public static bool IsLegalFirstHit(int ballId, BallGroup group, bool onEight)
         {
             if (group == BallGroup.None) return ballId != EightBallSet.EightBall;

@@ -1,0 +1,53 @@
+# Local dev stack: Postgres + Nakama with the TypeScript match module.
+# Build the module first: (cd nakama/modules && npm ci && npm run build), then: docker compose up -d
+# Dev-only credentials; override via environment (.env) for anything shared.
+name: billiard
+
+services:
+  postgres:
+    image: postgres:16.14
+    environment:
+      POSTGRES_DB: nakama
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-localdb}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "nakama"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  nakama:
+    image: heroiclabs/nakama:3.41.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint:
+      - /bin/sh
+      - -ecx
+      - >
+        /nakama/nakama migrate up --database.address postgres:${POSTGRES_PASSWORD:-localdb}@postgres:5432/nakama &&
+        exec /nakama/nakama --name nakama1
+        --database.address postgres:${POSTGRES_PASSWORD:-localdb}@postgres:5432/nakama
+        --logger.level ${NAKAMA_LOG_LEVEL:-INFO}
+        --session.token_expiry_sec 86400
+        --socket.server_key ${NAKAMA_SERVER_KEY:-defaultkey}
+        --console.username ${NAKAMA_CONSOLE_USER:-admin}
+        --console.password ${NAKAMA_CONSOLE_PASSWORD:-password}
+        --runtime.js_entrypoint index.js
+    volumes:
+      - ./nakama/modules/build:/nakama/data/modules:ro
+    ports:
+      - "7349:7349"
+      - "7350:7350"
+      - "7351:7351"
+    healthcheck:
+      test: ["CMD", "/nakama/nakama", "healthcheck"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  pgdata:

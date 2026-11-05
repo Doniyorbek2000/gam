@@ -15,6 +15,8 @@ namespace BilliardGame.Gameplay
         NoRailAfterContact,
         /// <summary>Break pocketed nothing and drove fewer than four object balls to a cushion.</summary>
         IllegalBreak,
+        /// <summary>The shot clock ran out before the player shot.</summary>
+        Timeout,
     }
 
     /// <summary>Result of judging one shot.</summary>

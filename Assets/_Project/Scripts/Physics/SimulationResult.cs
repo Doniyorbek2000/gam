@@ -32,7 +32,7 @@ namespace BilliardGame.Physics
     /// <summary>Full outcome of one shot: a frame per fixed step (plus the initial frame) and the event log.</summary>
     public sealed class SimulationResult
     {
-        internal SimulationResult(IEnumerable<SimulationFrame> frames, IEnumerable<SimulationEvent> events, bool endedAtRest)
+        public SimulationResult(IEnumerable<SimulationFrame> frames, IEnumerable<SimulationEvent> events, bool endedAtRest)
         {
             Frames = Array.AsReadOnly(frames.ToArray());
             Events = Array.AsReadOnly(events.ToArray());

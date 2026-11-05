@@ -9,12 +9,13 @@ using UnityEngine.UI;
 
 namespace BilliardGame.Editor
 {
-    /// <summary>Landscape HUD: player panels, status line, spin pad, power slider, shoot and new-game buttons.</summary>
+    /// <summary>Landscape HUD: player panels, status line, shot clock, spin pad, power slider, shoot, new-game and menu buttons.</summary>
     internal static class HudBuilder
     {
         private static readonly Vector2 ReferenceResolution = new Vector2(1920f, 1080f);
 
-        public static void Build(GameController game, CueController cue)
+        /// <summary>Builds the HUD; <paramref name="hudRoot"/> is the part hidden while the main menu shows.</summary>
+        public static HudController Build(GameController game, CueController cue, out GameObject hudRoot)
         {
             var events = new GameObject("EventSystem");
             events.AddComponent<EventSystem>();
@@ -46,6 +47,9 @@ namespace BilliardGame.Editor
             TMP_Text player0 = Label("Player 1", root, new Vector2(0f, 1f), new Vector2(40f, -30f), new Vector2(560f, 130f), TextAlignmentOptions.TopLeft, 46);
             TMP_Text player1 = Label("Player 2", root, new Vector2(1f, 1f), new Vector2(-40f, -30f), new Vector2(560f, 130f), TextAlignmentOptions.TopRight, 46);
             TMP_Text status = Label("Status", root, new Vector2(0.5f, 1f), new Vector2(0f, -40f), new Vector2(900f, 90f), TextAlignmentOptions.Top, 36);
+            TMP_Text timer = Label("Turn Timer", root, new Vector2(0.5f, 1f), new Vector2(0f, -120f), new Vector2(200f, 90f), TextAlignmentOptions.Top, 64);
+            timer.text = string.Empty;
+            timer.fontStyle = FontStyles.Bold;
 
             // Left thumb: power. Right thumb: fine aim, spin and shoot.
             Slider power = PowerSlider(root, background, standard, knob);
@@ -60,6 +64,8 @@ namespace BilliardGame.Editor
             Button shoot = Button("Shoot", "SHOOT", root, standard, new Vector2(1f, 0f), new Vector2(-190f, 100f), new Vector2(280f, 120f), new Color(0.9f, 0.55f, 0.1f));
             Button newGame = Button("New Game", "NEW GAME", root, standard, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(420f, 120f), new Color(0.2f, 0.6f, 0.3f));
             newGame.gameObject.SetActive(false);
+            Button menu = Button("Menu", "MENU", root, standard, new Vector2(0f, 0f), new Vector2(130f, 75f), new Vector2(200f, 90f), new Color(0.25f, 0.27f, 0.32f));
+            menu.GetComponentInChildren<TextMeshProUGUI>().fontSize = 34;
 
             var hud = canvasObject.AddComponent<HudController>();
             SceneWiring.Set(hud, "game", game);
@@ -73,9 +79,13 @@ namespace BilliardGame.Editor
             SceneWiring.Set(hud, "player0Label", player0);
             SceneWiring.Set(hud, "player1Label", player1);
             SceneWiring.Set(hud, "statusLabel", status);
+            SceneWiring.Set(hud, "turnTimerLabel", timer);
+            SceneWiring.Set(hud, "menuButton", menu);
+            hudRoot = safeObject;
+            return hud;
         }
 
-        private static TMP_Text Label(string name, RectTransform parent, Vector2 anchor, Vector2 position, Vector2 size, TextAlignmentOptions alignment, float fontSize)
+        internal static TMP_Text Label(string name, RectTransform parent, Vector2 anchor, Vector2 position, Vector2 size, TextAlignmentOptions alignment, float fontSize)
         {
             var go = new GameObject(name, typeof(RectTransform));
             RectTransform rect = Place(go, parent, anchor, position, size);
@@ -192,7 +202,7 @@ namespace BilliardGame.Editor
             return spin;
         }
 
-        private static Button Button(string name, string caption, RectTransform parent, Sprite sprite, Vector2 anchor, Vector2 position, Vector2 size, Color color)
+        internal static Button Button(string name, string caption, RectTransform parent, Sprite sprite, Vector2 anchor, Vector2 position, Vector2 size, Color color)
         {
             GameObject go = TMP_DefaultControls.CreateButton(new TMP_DefaultControls.Resources { standard = sprite });
             go.name = name;
@@ -206,7 +216,7 @@ namespace BilliardGame.Editor
             return go.GetComponent<Button>();
         }
 
-        private static RectTransform Place(GameObject go, RectTransform parent, Vector2 anchor, Vector2 position, Vector2 size)
+        internal static RectTransform Place(GameObject go, RectTransform parent, Vector2 anchor, Vector2 position, Vector2 size)
         {
             RectTransform rect = go.GetComponent<RectTransform>();
             rect.SetParent(parent, false);

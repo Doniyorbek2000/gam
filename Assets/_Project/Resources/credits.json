@@ -41,6 +41,16 @@
             "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
         },
         {
+            "type": "table",
+            "attribution": "\"Pool Table Traditional\" by fizyman (Sketchfab), CC BY 4.0, modified",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        {
+            "type": "table",
+            "attribution": "\"Pool Table\" by Pieter Ferreira (Sketchfab), CC BY 4.0, modified",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        {
             "type": "texture",
             "attribution": "\"Fabric034\" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified",
             "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"

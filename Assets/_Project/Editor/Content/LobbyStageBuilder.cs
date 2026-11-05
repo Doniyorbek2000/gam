@@ -59,6 +59,7 @@ namespace BilliardGame.Editor.Content
             SceneWiring.Set(preview, "cueHolder", previewCueSlot.CueHolder);
             SceneWiring.SetArray(preview, "clothRenderers", cloth);
             SceneWiring.SetArray(preview, "railRenderers", rails);
+            WireTableModel(preview, mini.transform);
             Object.DestroyImmediate(previewCueSlot);
 
             Crate(root.transform, folder, wood, gold, out Transform crate, out Transform lid, out Light crateLight, out Renderer seam);
@@ -75,6 +76,18 @@ namespace BilliardGame.Editor.Content
             SceneWiring.Set(stage, "crateLight", crateLight);
             SceneWiring.Set(stage, "crateSeam", seam);
             return stage;
+        }
+
+        /// <summary>Imported table skins replace the mini table's boxes with the model at mini scale.</summary>
+        private static void WireTableModel(SkinTarget target, Transform mini)
+        {
+            GameObject[] builtIn = Enumerable.Range(0, mini.childCount).Select(i => mini.GetChild(i).gameObject).ToArray();
+            var holder = new GameObject("Table Model").transform;
+            holder.SetParent(mini, false);
+            holder.localPosition = new Vector3(0f, ContentBuilder.ClothHeight * ContentBuilder.MiniScale, 0f);
+            holder.localScale = Vector3.one * ContentBuilder.MiniScale;
+            SceneWiring.Set(target, "tableHolder", holder);
+            SceneWiring.SetArray(target, "builtInTable", builtIn);
         }
 
         private static void BuildCharacter(Transform parent, string folder)

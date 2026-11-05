@@ -17,7 +17,7 @@ MonoBehaviour:
   rarity: 0
   displayName: Klassik
   ownedByDefault: 1
-  prefab: {fileID: 0}
+  prefab: {fileID: 3566453856764416788, guid: ed0a4c9493ca82344b39c1544ad7e03f, type: 3}
   cloth: {fileID: 2100000, guid: df8d44f83b70e184c9ed4d265b308ae7, type: 2}
   rail: {fileID: 2100000, guid: 90ef78fbb8d784d45ba4a71603f5e871, type: 2}
   icon: {fileID: 21300000, guid: ef09251f9301beb4daea6d60d826469e, type: 3}

@@ -56,6 +56,10 @@ namespace BilliardGame.UI
                 case "hdri": return "HDRI";
                 case "prop": return "Mebel va bezaklar";
                 case "texture": return "Teksturalar";
+                case "table": return "Stollar";
+                case "cue": return "Kiylar";
+                case "venue": return "Zallar";
+                case "outfit": return "Kiyimlar";
                 default: return type;
             }
         }

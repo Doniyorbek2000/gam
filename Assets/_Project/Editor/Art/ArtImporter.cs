@@ -30,6 +30,24 @@ namespace BilliardGame.Editor.Art
 
         private enum MapKind { Albedo, Normal, Roughness, Metallic, Occlusion, Arm, Other }
 
+        public const string SidecarFile = "materials.json";
+
+        /// <summary>materials.json written by the Blender glTF converter: maps are already ≤ 2K and the mask is URP-packed.</summary>
+        [Serializable]
+        private sealed class Sidecar
+        {
+            public SidecarMaterial[] materials = new SidecarMaterial[0];
+        }
+
+        [Serializable]
+        private sealed class SidecarMaterial
+        {
+            public string name, alpha, @base, normal, mask, emission;
+            public bool doubleSided;
+            public float metallic, roughness = 0.5f;
+            public float[] color;
+        }
+
         [MenuItem("BilliardGame/Art/Import Incoming")]
         public static void ImportAll()
         {
@@ -114,6 +132,9 @@ namespace BilliardGame.Editor.Art
             string modelPath = models[0];
             var importer = (ModelImporter)AssetImporter.GetAtPath(modelPath);
             bool isAvatar = type == "avatar" || type == "outfit";
+            // glTF sources converted in Blender ship per-material maps + materials.json (one URP Lit per FBX material).
+            string sidecarPath = Path.Combine(incomingDir, SidecarFile);
+            bool hasSidecar = File.Exists(sidecarPath);
             importer.globalScale = 1f;
             importer.useFileScale = true;
             importer.isReadable = false;
@@ -122,7 +143,7 @@ namespace BilliardGame.Editor.Art
             importer.importAnimation = isAvatar;
             importer.animationType = isAvatar ? ModelImporterAnimationType.Human : ModelImporterAnimationType.None;
             importer.generateSecondaryUV = type == "prop" || type == "venue" || type == "table";
-            importer.materialImportMode = isAvatar ? ModelImporterMaterialImportMode.ImportViaMaterialDescription : ModelImporterMaterialImportMode.None;
+            importer.materialImportMode = isAvatar || hasSidecar ? ModelImporterMaterialImportMode.ImportViaMaterialDescription : ModelImporterMaterialImportMode.None;
             importer.generateMeshLods = false;
             importer.SaveAndReimport();
             if (isAvatar && importer.defaultClipAnimations.Length > 0)
@@ -167,8 +188,18 @@ namespace BilliardGame.Editor.Art
                 report.Line("Mesh LOD: generated (Unity 6 Mesh LOD, max 2 levels)");
             }
 
-            // Avatars keep the materials embedded in the FBX.
-            Material material = isAvatar ? null : BuildMaterial(incomingDir, folder, entry.Slug, report);
+            if (hasSidecar)
+            {
+                foreach (KeyValuePair<string, Material> pair in BuildSidecarMaterials(sidecarPath, folder, SmoothnessScale(entry), report))
+                {
+                    importer.AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Material), pair.Key), pair.Value);
+                }
+
+                importer.SaveAndReimport();
+            }
+
+            // Avatars keep the materials embedded in the FBX; sidecar models use the remapped ones.
+            Material material = isAvatar || hasSidecar ? null : BuildMaterial(incomingDir, folder, entry.Slug, report);
             GameObject prefab = BuildPrefab(modelPath, folder, slug, material, report);
             if (type == "cue") CreateCueSkin(entry, folder, prefab, report);
             return true;
@@ -289,6 +320,71 @@ namespace BilliardGame.Editor.Art
             EditorUtility.SetDirty(material);
             report.Line($"Material: `{materialPath}` (URP Lit; albedo{(normal != null ? " + normal" : string.Empty)}{(mask != null ? " + mask" : string.Empty)}, max {maxSize}px, Android {colourFormat})");
             return material;
+        }
+
+        /// <summary>One URP Lit per sidecar entry, keyed by the FBX material name for <see cref="ModelImporter.AddRemap"/>.</summary>
+        /// <summary>Optional `smoothness:` in LICENSES.md scales the mask smoothness (tames over-glossy sources under HDRI reflections).</summary>
+        private static float SmoothnessScale(LicenseEntry entry) =>
+            float.TryParse(entry["smoothness"], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float scale) ? Mathf.Clamp01(scale) : 1f;
+
+        private static Dictionary<string, Material> BuildSidecarMaterials(string sidecarPath, string folder, float smoothnessScale, Report report)
+        {
+            var sidecar = JsonUtility.FromJson<Sidecar>(File.ReadAllText(sidecarPath));
+            var result = new Dictionary<string, Material>();
+            string source = folder + "/Source";
+            foreach (SidecarMaterial m in sidecar.materials)
+            {
+                Texture2D Map(string file, TextureImporterFormat format, bool srgb, bool normal) =>
+                    string.IsNullOrEmpty(file) ? null : ConfigureTexture($"{source}/{file}", 2048, format, srgb, normal);
+
+                string materialPath = $"{folder}/{m.name}.mat";
+                var material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
+                if (material == null)
+                {
+                    material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                    AssetDatabase.CreateAsset(material, materialPath);
+                }
+
+                Texture2D baseMap = Map(m.@base, TextureImporterFormat.ASTC_6x6, true, false);
+                material.SetTexture("_BaseMap", baseMap);
+                material.SetColor("_BaseColor", baseMap != null || m.color == null || m.color.Length < 4 ? Color.white : new Color(m.color[0], m.color[1], m.color[2], m.color[3]));
+
+                Texture2D normalMap = Map(m.normal, TextureImporterFormat.ASTC_5x5, false, true);
+                material.SetTexture("_BumpMap", normalMap);
+                SetKeyword(material, "_NORMALMAP", normalMap != null);
+
+                Texture2D mask = Map(m.mask, TextureImporterFormat.ASTC_6x6, false, false);
+                material.SetTexture("_MetallicGlossMap", mask);
+                material.SetFloat("_Smoothness", (mask != null ? 1f : 1f - m.roughness) * smoothnessScale);
+                material.SetFloat("_Metallic", m.metallic);
+                SetKeyword(material, "_METALLICSPECGLOSSMAP", mask != null);
+
+                Texture2D emission = Map(m.emission, TextureImporterFormat.ASTC_6x6, true, false);
+                material.SetTexture("_EmissionMap", emission);
+                material.SetColor("_EmissionColor", emission != null ? Color.white : Color.black);
+                SetKeyword(material, "_EMISSION", emission != null);
+
+                // Cutout only (nets, fringes): no sorted transparency on mobile. BLEND sources are clipped too.
+                bool clip = m.alpha == "MASK" || m.alpha == "BLEND";
+                material.SetFloat("_AlphaClip", clip ? 1f : 0f);
+                material.SetFloat("_Cutoff", 0.5f);
+                SetKeyword(material, "_ALPHATEST_ON", clip);
+                material.SetFloat("_Cull", clip && m.doubleSided ? 0f : 2f);
+                material.renderQueue = clip ? (int)UnityEngine.Rendering.RenderQueue.AlphaTest : -1;
+                if (m.alpha == "BLEND") report.Warn($"{m.name}: alpha BLEND source rendered as cutout");
+
+                EditorUtility.SetDirty(material);
+                result[m.name] = material;
+                report.Line($"Material: `{materialPath}` (URP Lit{(baseMap != null ? ", base" : string.Empty)}{(normalMap != null ? " + normal" : string.Empty)}{(mask != null ? " + mask" : string.Empty)}{(emission != null ? " + emission" : string.Empty)}{(clip ? ", alpha clip" : string.Empty)}, max 2048px, Android ASTC 6×6/5×5, smoothness ×{smoothnessScale:0.##})");
+            }
+
+            return result;
+        }
+
+        private static void SetKeyword(Material material, string keyword, bool on)
+        {
+            if (on) material.EnableKeyword(keyword);
+            else material.DisableKeyword(keyword);
         }
 
         private static Texture2D PackMask(Dictionary<MapKind, string> maps, string outputPath, int maxSize, Report report)

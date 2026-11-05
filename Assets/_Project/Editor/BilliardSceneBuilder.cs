@@ -93,6 +93,11 @@ namespace BilliardGame.Editor
             SceneWiring.Set(target, "cueHolder", new SerializedObject(cue).FindProperty("cueStick").objectReferenceValue);
             SceneWiring.SetArray(target, "clothRenderers", parts.Where(r => r.name == "Cloth" || r.name.StartsWith("Cushion")).ToArray());
             SceneWiring.SetArray(target, "railRenderers", parts.Where(r => r.name.StartsWith("Rail") || r.name == "Body").ToArray());
+            // Imported table skins (cloth at y = 0, fitted to the physics play area) replace every built-in table mesh.
+            SceneWiring.SetArray(target, "builtInTable", parts.Select(r => r.gameObject).Distinct().ToArray());
+            var holder = new GameObject("Table Model").transform;
+            holder.SetParent(tableRoot, false);
+            SceneWiring.Set(target, "tableHolder", holder);
             return target;
         }
 

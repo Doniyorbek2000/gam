@@ -210,3 +210,30 @@ Allowed licenses: CC0, CC-BY-4.0, Sketchfab-Standard, CGTrader-RF, OFL. Procedur
 - attribution: "Wood092" by ambientCG (Lennart Demes) (ambientCG), CC0 1.0, modified
 - downloaded: 2026-11-05
 - used_in: Assets/_Project/Art/Textures/tex-wood-light/
+
+## table-classic
+- name: Pool Table Traditional
+- type: table
+- source_url: https://sketchfab.com/3d-models/pool-table-traditional-e0b938c0c2e74eb794a49ebde2543977
+- author: fizyman
+- author_url: https://sketchfab.com/fizyman
+- license: CC-BY-4.0
+- license_url: https://creativecommons.org/licenses/by/4.0/
+- modified: yes
+- attribution: "Pool Table Traditional" by fizyman (Sketchfab), CC BY 4.0, modified
+- downloaded: 2026-11-05
+- used_in: Assets/_Project/Art/Tables/table-classic/
+
+## table-modern
+- name: Pool Table
+- type: table
+- source_url: https://sketchfab.com/3d-models/pool-table-4dcb0e9d6802443fb4f8ea8ff79c2dc4
+- author: Pieter Ferreira
+- author_url: https://sketchfab.com/Badboy17Aiden
+- license: CC-BY-4.0
+- license_url: https://creativecommons.org/licenses/by/4.0/
+- modified: yes
+- attribution: "Pool Table" by Pieter Ferreira (Sketchfab), CC BY 4.0, modified
+- downloaded: 2026-11-05
+- used_in: Assets/_Project/Art/Tables/table-modern/
+- smoothness: 0.6                # source lacquer is near-mirror on dark wood

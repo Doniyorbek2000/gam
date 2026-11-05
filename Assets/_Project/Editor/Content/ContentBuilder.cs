@@ -45,7 +45,14 @@ namespace BilliardGame.Editor.Content
             public string RailSlug;
             public Color RailTint = Color.white;
             public float RailSmooth = 0.6f, RailMetal;
+            /// <summary>Imported model (Art/Tables/&lt;slug&gt;) that replaces the built-in table; null = material-only skin.</summary>
+            public string ModelSlug;
         }
+
+        /// <summary>Imported tables are fitted to the 2.54 m play area with the cloth at y = 0 and the floor at y = −0.8.</summary>
+        public const float ClothHeight = 0.8f;
+        public const float MiniLength = 1.2f;
+        public const float MiniScale = MiniLength / 2.54f;
 
         private static readonly Color Gold = new Color(1f, 0.76f, 0.3f);
 
@@ -62,9 +69,9 @@ namespace BilliardGame.Editor.Content
 
         private static readonly TableSpec[] Tables =
         {
-            new TableSpec { Id = "table_classic", Name = "Klassik", Rarity = Rarity.Common, Default = true, Cloth = new Color(0.07f, 0.42f, 0.22f), RailSlug = "tex-wood-dark" },
+            new TableSpec { Id = "table_classic", Name = "Klassik", Rarity = Rarity.Common, Default = true, Cloth = new Color(0.07f, 0.42f, 0.22f), RailSlug = "tex-wood-dark", ModelSlug = "table-classic" },
             new TableSpec { Id = "table_royal", Name = "Qirollik ko'k", Rarity = Rarity.Rare, Cloth = new Color(0.07f, 0.22f, 0.62f), RailSlug = "tex-wood-light", RailTint = new Color(1f, 0.85f, 0.7f) },
-            new TableSpec { Id = "table_modern", Name = "Modern", Rarity = Rarity.Epic, Cloth = new Color(0.2f, 0.22f, 0.26f), RailTint = new Color(0.05f, 0.05f, 0.06f), RailSmooth = 0.75f, RailMetal = 0.85f },
+            new TableSpec { Id = "table_modern", Name = "Modern", Rarity = Rarity.Epic, Cloth = new Color(0.2f, 0.22f, 0.26f), RailTint = new Color(0.05f, 0.05f, 0.06f), RailSmooth = 0.75f, RailMetal = 0.85f, ModelSlug = "table-modern" },
             new TableSpec { Id = "table_silk", Name = "Ipak yo'li", Rarity = Rarity.Legendary, Cloth = new Color(0.02f, 0.36f, 0.4f), RailSlug = "tex-wood-dark", RailTint = new Color(1.1f, 0.85f, 0.55f), RailMetal = 0.25f, RailSmooth = 0.7f },
         };
 
@@ -198,12 +205,32 @@ namespace BilliardGame.Editor.Content
             Material rail = GeneratedArt.Lit($"{folder}/{spec.Id}_rail.mat", spec.RailTint, spec.RailSmooth, spec.RailMetal);
             if (spec.RailSlug != null) GeneratedArt.UseImportedMaps(rail, spec.RailSlug, new Vector2(3f, 1f), 0.6f);
 
-            GameObject mini = MiniTable(cloth, rail, out _, out _);
+            GameObject model = ImportedTable(spec.ModelSlug);
+            GameObject mini = model != null ? MiniModel(model) : MiniTable(cloth, rail, out _, out _);
             Sprite icon = IconStudio.Render(mini, $"{folder}/{spec.Id}_icon.png", new Vector3(1.25f, 1.55f, -1.55f), new Vector3(0f, 0.42f, 0f), 34f);
             SkinDefinition skin = Skin(spec.Id);
-            skin.Configure(spec.Id, ItemType.Table, spec.Rarity, spec.Name, spec.Default, null, cloth, rail, icon, spec.Default ? "Boshlang'ich" : "Yashik");
+            // Cloth/rail stay as the fallback look for targets without a model holder.
+            skin.Configure(spec.Id, ItemType.Table, spec.Rarity, spec.Name, spec.Default, model, cloth, rail, icon, spec.Default ? "Boshlang'ich" : "Yashik");
             EditorUtility.SetDirty(skin);
             return skin;
+        }
+
+        private static GameObject ImportedTable(string slug)
+        {
+            if (string.IsNullOrEmpty(slug)) return null;
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{Art.ArtImporter.ArtRoot}/Tables/{slug}/{slug}.prefab");
+            if (prefab == null) Debug.LogWarning($"[Content] {slug} is not imported yet; the table skin stays procedural (run BilliardGame ▸ Art ▸ Import Incoming).");
+            return prefab;
+        }
+
+        /// <summary>An imported table at mini-table size, legs on y = 0 (same footprint as <see cref="MiniTable"/>).</summary>
+        public static GameObject MiniModel(GameObject prefab)
+        {
+            var root = new GameObject("Mini Model");
+            var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, root.transform);
+            instance.transform.localPosition = new Vector3(0f, ClothHeight * MiniScale, 0f);
+            instance.transform.localScale = Vector3.one * MiniScale;
+            return root;
         }
 
         /// <summary>Lobby/inventory display table, 1.2 m long, cloth and rail renderers returned for skinning.</summary>
@@ -211,7 +238,7 @@ namespace BilliardGame.Editor.Content
         {
             var root = new GameObject("Mini Table");
             Material dark = BallMaterialFactory.Lit("Pocket", new Color(0.01f, 0.01f, 0.01f), 0f);
-            const float length = 1.2f, width = 0.62f, top = 0.62f, railWidth = 0.07f;
+            const float length = MiniLength, width = 0.62f, top = 0.62f, railWidth = 0.07f;
             GameObject bed = BilliardSceneBuilder.Box("Cloth", root.transform, new Vector3(0f, top, 0f), Quaternion.identity, new Vector3(length, 0.03f, width), cloth);
             var rails = new List<Renderer>
             {

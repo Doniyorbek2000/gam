@@ -17,7 +17,7 @@ MonoBehaviour:
   rarity: 2
   displayName: Modern
   ownedByDefault: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 2653644305608720785, guid: 39840d35249d831498765a173bdfbe46, type: 3}
   cloth: {fileID: 2100000, guid: 4d68478080b55f0429d25a6b748d2358, type: 2}
   rail: {fileID: 2100000, guid: b77bd168268582d4abeaa6da7f3fc2c5, type: 2}
   icon: {fileID: 21300000, guid: bba0d34bf53503141bcb13ec72d42526, type: 3}

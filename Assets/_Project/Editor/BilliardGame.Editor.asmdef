@@ -1,0 +1,24 @@
+{
+    "name": "BilliardGame.Editor",
+    "rootNamespace": "BilliardGame.Editor",
+    "references": [
+        "BilliardGame.Physics",
+        "BilliardGame.Gameplay",
+        "BilliardGame.Presentation",
+        "BilliardGame.UI",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

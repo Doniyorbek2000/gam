@@ -1,7 +1,13 @@
 {
     "name": "BilliardGame.UI",
     "rootNamespace": "BilliardGame.UI",
-    "references": ["BilliardGame.Gameplay"],
+    "references": [
+        "BilliardGame.Physics",
+        "BilliardGame.Gameplay",
+        "BilliardGame.Presentation",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

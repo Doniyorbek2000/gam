@@ -1,0 +1,14 @@
+{
+    "name": "BilliardGame.Gameplay",
+    "rootNamespace": "BilliardGame.Gameplay",
+    "references": ["BilliardGame.Physics"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

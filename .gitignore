@@ -1,0 +1,60 @@
+# Unity generated
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+!/[Aa]ssets/**/*.meta
+
+# IDE / generated project files
+.vs/
+.vscode/
+.idea/
+.gradle/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+ExportedObj/
+.consulo/
+
+# Unity crash / build artifacts
+sysinfo.txt
+crashlytics-build.properties
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Mobile builds and signing
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.keystore
+*.jks
+
+# Secrets
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db

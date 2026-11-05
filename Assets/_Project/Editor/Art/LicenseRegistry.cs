@@ -24,7 +24,8 @@ namespace BilliardGame.Editor.Art
 
         private static readonly HashSet<string> AllowedLicenses = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "CC0", "CC-BY-4.0", "Sketchfab-Standard", "CGTrader-RF", "OFL",
+            // CC-BY-3.0 and Apache-2.0 are for UI icons only (game-icons.net, Material Symbols).
+            "CC0", "CC-BY-4.0", "CC-BY-3.0", "Apache-2.0", "Sketchfab-Standard", "CGTrader-RF", "OFL",
         };
 
         /// <summary>Registry type → folder under Assets/_Project/Art.</summary>
@@ -32,6 +33,7 @@ namespace BilliardGame.Editor.Art
         {
             { "table", "Tables" }, { "cue", "Cues" }, { "balls", "BallSets" }, { "venue", "Venues" }, { "avatar", "Avatars" },
             { "outfit", "Outfits" }, { "prop", "Props" }, { "texture", "Textures" }, { "hdri", "Hdri" }, { "font", "Fonts" },
+            { "icon", "Icons" },
         };
 
         public static Dictionary<string, LicenseEntry> Load() => Parse(File.Exists(RegistryPath) ? File.ReadAllText(RegistryPath) : string.Empty);

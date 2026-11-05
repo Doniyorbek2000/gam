@@ -1,7 +1,7 @@
 # Asset license registry
 
 Parsed by `BilliardGame ▸ Art ▸ Import Incoming` and `Generate Credits` (format: docs/ART_PIPELINE.md §4).
-Allowed licenses: CC0, CC-BY-4.0, Sketchfab-Standard, CGTrader-RF, OFL. Procedural assets generated in code (Assets/_Project/Art/Generated) are original work and are not listed.
+Allowed licenses: CC0, CC-BY-4.0, Sketchfab-Standard, CGTrader-RF, OFL; for UI icons also CC-BY-3.0 (game-icons.net) and Apache-2.0 (Material Symbols). Procedural assets generated in code (Assets/_Project/Art/Generated) are original work and are not listed. The 10 starter stickers (ArtSource/Stickers/*.svg, drawn in Tools/UI/stickers.mjs) are original work of this project and are not listed either. Per-icon sources: ArtSource/Icons/manifest.json.
 
 ## avatar-ual
 - name: Universal Animation Library (Standard)
@@ -237,3 +237,55 @@ Allowed licenses: CC0, CC-BY-4.0, Sketchfab-Standard, CGTrader-RF, OFL. Procedur
 - downloaded: 2026-11-05
 - used_in: Assets/_Project/Art/Tables/table-modern/
 - smoothness: 0.6                # source lacquer is near-mirror on dark wood
+
+## icons-material-symbols
+- name: Material Symbols (Rounded, filled) — 78 UI icons
+- type: icon
+- source_url: https://fonts.google.com/icons
+- author: Google
+- author_url: https://github.com/google/material-design-icons
+- license: Apache-2.0
+- license_url: https://www.apache.org/licenses/LICENSE-2.0
+- modified: yes
+- attribution: "Material Symbols" by Google, Apache License 2.0, recoloured
+- downloaded: 2026-11-05
+- used_in: Assets/_Project/UI/Icons/ (source SVGs: ArtSource/Icons/)
+
+## icons-game-icons-delapouite
+- name: game-icons.net: eight-ball, pool-triangle, pool-table-corner, two-coins, laurels-trophy, trophy-cup, star-medal, ticket, shop, present
+- type: icon
+- source_url: https://game-icons.net
+- author: Delapouite
+- author_url: https://delapouite.com
+- license: CC-BY-3.0
+- license_url: https://creativecommons.org/licenses/by/3.0/
+- modified: yes
+- attribution: Icons by Delapouite (game-icons.net), CC BY 3.0, recoloured
+- downloaded: 2026-11-05
+- used_in: Assets/_Project/UI/Icons/ (source SVGs: ArtSource/Icons/)
+
+## icons-game-icons-lorc
+- name: game-icons.net: cut-diamond, locked-chest, crossed-swords, crown, laurels
+- type: icon
+- source_url: https://game-icons.net
+- author: Lorc
+- author_url: https://lorcblog.blogspot.com
+- license: CC-BY-3.0
+- license_url: https://creativecommons.org/licenses/by/3.0/
+- modified: yes
+- attribution: Icons by Lorc (game-icons.net), CC BY 3.0, recoloured
+- downloaded: 2026-11-05
+- used_in: Assets/_Project/UI/Icons/ (source SVGs: ArtSource/Icons/)
+
+## icons-game-icons-skoll
+- name: game-icons.net: open-treasure-chest, bullseye
+- type: icon
+- source_url: https://game-icons.net
+- author: Skoll
+- author_url: https://game-icons.net
+- license: CC-BY-3.0
+- license_url: https://creativecommons.org/licenses/by/3.0/
+- modified: yes
+- attribution: Icons by Skoll (game-icons.net), CC BY 3.0, recoloured
+- downloaded: 2026-11-05
+- used_in: Assets/_Project/UI/Icons/ (source SVGs: ArtSource/Icons/)

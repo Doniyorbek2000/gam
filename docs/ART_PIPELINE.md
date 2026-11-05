@@ -29,6 +29,8 @@ Foydalanuvchi yuklaydi (Sketchfab / CGTrader / Poly Haven / ambientCG ...)
 | **Sketchfab Standard** (Store) | ✅ | Royalty-free; fayl sifatida qayta tarqatilmaydi (faqat o'yinga "embedded") ([Sketchfab licenses](https://sketchfab.com/licenses), [Store FAQ](https://help.sketchfab.com/en/articles/16152225-store-license-usage-faq)) |
 | **CGTrader Royalty Free** | ✅ | O'yinda ishlatish mumkin, modelni fayl sifatida sotish/berish yoki ajratib olishga imkon berish mumkin emas ([CGTrader help](https://help.cgtrader.com/hc/en-us/articles/360015193418-What-is-the-difference-between-Royalty-Free-and-Editorial-licenses)) |
 | SIL OFL (shriftlar) | ✅ | Shrift faylini alohida sotmaslik |
+| CC BY 3.0 (faqat UI ikonkalar, game-icons.net) | ✅ | Muallif nomi Credits'da |
+| Apache 2.0 (faqat UI ikonkalar, Material Symbols) | ✅ | Litsenziya havolasi Credits'da |
 | **CC-BY-NC** (har qanday NC) | ❌ | Tijoriy foydalanish taqiqlangan |
 | **Editorial** | ❌ | Faqat tahririy/yangilik maqsadida |
 | **CC-BY-ND** | ❌ | O'zgartirish taqiqlangan — biz har doim optimallashtiramiz (decimate, re-texture) |
@@ -84,7 +86,7 @@ Material: URP Lit (yoki Simple Lit past sifatda); Mask map kanali: R = Metallic,
 - source_url: https://sketchfab.com/3d-models/...
 - author: <muallif nomi>
 - author_url: https://sketchfab.com/<muallif>
-- license: CC-BY-4.0            # CC0 | CC-BY-4.0 | Sketchfab-Standard | CGTrader-RF | OFL
+- license: CC-BY-4.0            # CC0 | CC-BY-4.0 | CC-BY-3.0 | Apache-2.0 | Sketchfab-Standard | CGTrader-RF | OFL
 - license_url: https://creativecommons.org/licenses/by/4.0/
 - modified: yes                 # decimated, re-textured
 - attribution: "Oriental Lounge Interior" by <muallif> (Sketchfab), CC BY 4.0, modified

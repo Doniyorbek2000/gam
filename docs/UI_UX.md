@@ -26,42 +26,39 @@
 - **Match HUD minimal:** faqat kerakli boshqaruvlar, qolganlari bitta menyuga yig'ilgan. PUBG Mobile HUD layoutini moslashtirish imkoniyatidan ijobiy UX olingan ([uxdesign.cc](https://uxdesign.cc/what-i-learned-about-ux-research-on-pubg-mobile-as-a-player-57a673d19fe1)) → bizda power slider tomonini (chap/o'ng) tanlash.
 
 ### 1.2 Vizual tokenlar
-- Fon: to'q ko'k-qora `#0B0F1A`, panel `#151B2B` (85% shaffof + blur), aksent oltin `#FFC24A`, harakat tugmasi gradient `#FFB020 → #FF7A00`.
-- Shrift: lotin/kirill qo'llab-quvvatlaydigan bitta sans oila (masalan Inter/Montserrat — OFL litsenziya, [ART_PIPELINE §2](ART_PIPELINE.md#2-litsenziya-siyosati)). Sarlavha 700, matn 500.
-- Animatsiya: tugma bosilishi 80 ms scale 0.95, panel kirishi 200 ms ease-out, yashik reveal 1.5–3 s.
-- Raritet ranglari: [ECONOMY §3](ECONOMY.md#3-raritet).
+Ranglar, Montserrat tip shkalasi, 8 pt grid, komponentlar, harakat va ikonkalar: **[DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)** (manba — `UITheme.asset`). Raritet ranglari: [ECONOMY §3](ECONOMY.md#3-raritet).
+
+### 1.3 Amalga oshirilgan holat (M1.5)
+Lobbi, Rejim+Zal, Profil, Mening xonam, Inventar (9 tab), Yashiklar, Sozlamalar, Credits, match HUD, natija, splash va umumiy dialoglar quriladi (`Editor/UI/*`). Lobbi va match UI alohida canvas'larda: match HUD faqat match paytida yoqiladi. "TEZ KUNDA" tegli tugmalar (Pass, Vazifalar, Eventlar, Kunlik, Klub, Chat, Ranked, Bot, Mashq) hozircha bosilmaydi.
 
 ## 2. Lobby
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
-│[Avatar|Nik|Lv12 ▓▓░] [Rank: Gold II]       [⚙][✉3]  [🪙 12 450 +][💎 320 +]│
-│                                                                          │
+│[Avatar(ramka)|Nik|Rank ▓▓░ Lv]         [🪙 5 000 +][💎 1 500 +][✉][👥][⚙]│
 │ ┌────────┐                                                   ┌────────┐ │
-│ │ Event  │                                                   │ DO'KON │ │
-│ │ banner │            ╔══════════════════╗                   │  ●     │ │
-│ │ karusel│            ║   3D PERSONAJ    ║                   ├────────┤ │
-│ ├────────┤            ║  + kiy, aylanadi ║                   │ YASHIK │ │
-│ │ PASS ● │            ║  (swipe ↔)       ║                   │  ●     │ │
-│ │ Lv 23  │            ╚══════════════════╝                   ├────────┤ │
-│ ├────────┤          [Kiyim] [Emotsiya] [Kiy]                 │INVENTAR│ │
-│ │VAZIFA ●│                                                   └────────┘ │
-│ ├────────┤                                                              │
-│ │ Login  │                                  ┌──────────────────────────┐│
-│ └────────┘                                  │ 8-Ball · Silk Road Lounge▾││
-│[Do'stlar 3 onlayn][Klub][Reyting][Turnir]   │      ▶  O'YNASH          ││
+│ │ PASS   │                                                   │ DO'KON │ │
+│ ├────────┤            ╔══════════════════╗                   ├────────┤ │
+│ │VAZIFALAR│           ║   3D PERSONAJ    ║                   │YASHIKLAR│ │
+│ ├────────┤            ║ jihozlangan kiy  ║                   ├────────┤ │
+│ │EVENTLAR│            ║ barmoq bilan ↔   ║                   │INVENTAR│ │
+│ ├────────┤            ╚══════════════════╝                   ├────────┤ │
+│ │ KUNLIK │                                                   │ XONAM  │ │
+│ └────────┘                                  ┌──────────────────────────┐│
+│                                             │ 8-BALL · Rejim | Zal  ›  ││
+│ [KLUB][CHAT] (tez kunda)                    │      ▶  O'YNASH (puls)   ││
 │                                             └──────────────────────────┘│
 └──────────────────────────────────────────────────────────────────────────┘
 ```
 
 - Markaz: 3D sahna (alohida kamera, RenderTexture emas — to'g'ridan-to'g'ri sahna, UI overlay). Personaj idle animatsiya, 10 s da bir emotsiya.
-- "O'YNASH" bloki: yuqori qatorda rejim+venue tanlagich (bottom sheet ochiladi), pastda katta tugma.
+- "O'YNASH" bloki: yuqori qatorda rejim+zal kartasi (to'liq ekranli Rejim va Zal ekranini ochadi, §3), pastda pulsatsiyalanuvchi katta tugma.
 - Pastki chap: ijtimoiy qator. Do'stlar tugmasida onlayn soni.
 - Yuqori chap: profil kartasi → Profil ekrani.
 - Fon: tanlangan zal temasi (xira, bokeh), mavsum effekti.
 - Ishlash: lobby sahnasi ≤ 60k tri, 1 real-time yorug'lik + baked; 60 FPS.
 
-## 3. Rejim / Venue tanlash (bottom sheet)
+## 3. Rejim / Venue tanlash (to'liq ekran)
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -175,13 +172,15 @@ Texnik: Timeline + VFX Graph (mobil uchun Particle System yetarli), natija serve
 - Premium olinmagan bo'lsa premium qatordagi mukofotlar qulf ostida, lekin ko'rinadi.
 
 ## 11. Boshqa ekranlar (qisqa)
-- **Profil:** 3D avatar, statistika (g'alaba %, eng uzun seriya, break-and-run), nishonlar, oxirgi 20 match (replay).
+- **Profil (M1.5):** chapda sarlavha kartasi — avatar + ramka, tahrirlanadigan nik (3–16 belgi), ID + nusxalash, daraja/XP, rank, bayroq, klub. O'ngda tablar: Statistika (o'yinlar, g'alaba %, eng uzun seriya, aniqlik, bir zarbada max shar, sevimli kiy), Tarix (oxirgi 20 match), Yutuqlar (3 tasi vitrinada + to'liq ro'yxat), Kolleksiya (har tur bo'yicha progress).
+- **Mening xonam (M1.5):** alohida 3D xona — stol, 6 kiyli tokcha, 8 kubokli javon, 3 poster, devor/pol temalari. "Tahrirlash" rejimida faqat egalik qilingan itemlar; saqlash/bekor qilish. Ma'lumot `RoomLayout` da, keyin do'stlar tashrifi uchun serverga ko'chadi.
+- **Stikerlar (M1.5):** inventarda alohida tab; kiy dastasi va stol bortiga decal, match ichida stiker paneli ([ECONOMY §4.4](ECONOMY.md#44-stikerlar-m15)).
 - **Vazifalar:** Kunlik/Haftalik/Mavsumiy tablar, progress bar, "Almashtirish" (1/kun).
 - **Login mukofotlari:** 7 katak, bugungi katak pulsatsiya.
 - **Leaderboard:** Global/Mamlakat/Do'stlar × Ranked/Haftalik; o'z o'rning pastda sticky.
 - **Do'stlar / Klub:** ro'yxat, onlayn holat, taklif, chat (TMP + emoji sprite asset).
 - **Turnirlar:** bracket ko'rinishi (8/16), kirish, sovrin fondi.
-- **Sozlamalar:** til (O'zbek/Русский/English), ovoz/musiqa, grafika (Past/O'rta/Yuqori/Auto), power slider tomoni, ovozli chat, bildirishnomalar, akkauntni ulash (Google), **akkauntni o'chirish**, maxfiylik siyosati, Credits.
+- **Sozlamalar (M1.5):** chapda 6 bo'lim — Grafika (sifat Past/O'rta/Yuqori/Avto, FPS 30/60/90/120 — displey qo'llagani, soyalar, post-processing, quvvat tejash), Ovoz (umumiy, musiqa, effektlar, ovozli chat, vibratsiya), Boshqaruv (nishon va g'ildirak sezgirligi, chapaqay rejim — power slider o'ngga, nishon chizig'i, zarba tasdig'i), Til (O'zbek/Русский/English, darhol almashadi), Akkaunt (ID nusxa, Google ulash — tez kunda, chiqish, **akkauntni o'chirish** tasdiq bilan), Boshqa (bildirishnomalar, yordam, maxfiylik, shartlar, Credits, versiya).
 - **Credits:** `ArtSource/LICENSES.md` dan avtomatik generatsiya ([ART_PIPELINE §4](ART_PIPELINE.md#4-litsenziya-reyestri-va-credits)).
 
 ## 12. Holatlar (har ekran uchun majburiy)

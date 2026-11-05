@@ -64,7 +64,7 @@
 - Maxfiylik siyosati va foydalanish shartlari: uz/ru/en, ilova ichida va saytda.
 
 ## 6. Asset litsenziyalari
-- Ruxsat: CC0, CC-BY (attribution bilan), Sketchfab Standard, CGTrader Royalty Free, OFL (shriftlar). Taqiq: NC, Editorial, ND, SA, noma'lum ([ART_PIPELINE §2](ART_PIPELINE.md#2-litsenziya-siyosati)).
+- Ruxsat: CC0, CC-BY (attribution bilan), Sketchfab Standard, CGTrader Royalty Free, OFL (shriftlar), UI ikonkalar uchun CC BY 3.0 (game-icons.net) va Apache 2.0 (Material Symbols). Taqiq: NC, Editorial, ND, SA, noma'lum ([ART_PIPELINE §2](ART_PIPELINE.md#2-litsenziya-siyosati)).
 - Manbalar: [Sketchfab licenses](https://sketchfab.com/licenses), [Sketchfab Store FAQ](https://help.sketchfab.com/en/articles/16152225-store-license-usage-faq), [CGTrader RF vs Editorial](https://help.cgtrader.com/hc/en-us/articles/360015193418-What-is-the-difference-between-Royalty-Free-and-Editorial-licenses). Real avtomobil/brend nusxalari RF litsenziya bilan ham huquq egasi ruxsatisiz ishlatilmaydi ([CGTrader forum](https://subscriptions.cgtrader.com/forum/selling-buying-3d-models/does-buying-cgtrader-car-models-create-a-royalty-problem)).
 - Har bir asset `ArtSource/LICENSES.md` da; Credits ekrani avtomatik; build'da reyestrsiz asset bo'lsa build xato beradi.
 - Haqiqiy shaxslar portretlari va brend logotiplari ishlatilmaydi (shaxsiy hayot huquqi va savdo belgisi xavfi).

@@ -84,6 +84,35 @@ Taymerlar faqat haqiqiy muddatni ko'rsatadi (soxta "oxirgi imkoniyat" yo'q). PEG
 
 **Kunlik aylanadigan do'kon:** har kuni 00:00 (UTC+5) da 6 slot: 2 Common/Rare (coin), 2 Rare/Epic (gem), 1 Legendary (gem), 1 "Featured" (bundle yoki Mythic). Har bir o'yinchi uchun server seed'i bilan; inventarda borlari chiqmaydi.
 
+### 4.4 Stikerlar (M1.5)
+
+Yangi kosmetika turi `Sticker` (`ItemType.Sticker`). Faqat ko'rinish: ShotParams, PhysicsConfig, nishon chizig'i, taymer va matchmaking'ga ta'sir qilmaydi (§2).
+
+| Joy | Qanday ishlaydi |
+|-----|-----------------|
+| Kiy (`StickerSlot.Cue`) | Kiy dastasidagi decal; har bir slotga bitta stiker jihozlanadi |
+| Stol borti (`StickerSlot.Table`) | Uzun bortlardagi decal (match stoli va lobbi preview'i) |
+| Chat / emote | Match ichidagi stiker panelida yuboriladi; faqat egalik kerak, jihozlash shart emas |
+
+Narx va manba §4.3 dagi raritet jadvali bo'yicha (Common → Legendary); Mythic stiker yo'q. Dublikat → Shard qoidasi boshqa kosmetika bilan bir xil. Stikerlar yashik pool'iga kiradi (M2 dan server jadvali orqali, odds avtomatik generatsiya qilinadi, CLAUDE.md qoida 6).
+
+**10 ta boshlang'ich stiker** (o'zimizning original chizma, `ArtSource/Stickers/`):
+
+| ID | Raritet | Manba |
+|----|---------|-------|
+| `sticker_nice_shot` | Common | Boshlang'ich (bepul) |
+| `sticker_lol_ball` | Common | Boshlang'ich (bepul) |
+| `sticker_pomegranate` | Common | Yashik |
+| `sticker_choy` | Common | Yashik |
+| `sticker_blue_dome` | Rare | Yashik |
+| `sticker_break_bolt` | Rare | Yashik |
+| `sticker_gg` | Rare | Yashik |
+| `sticker_hot_eight` | Epic | Yashik |
+| `sticker_gold_star` | Epic | Yashik |
+| `sticker_crown_cue` | Legendary | Yashik |
+
+M1.5 da egalik va jihozlash mock (`MockEconomyService`), M2 da server inventariga o'tadi.
+
 ## 5. Yashiklar (crates)
 
 Ehtimollar jadvali xariddan **oldin**, yashik kartasidagi "i" tugmasida va xarid tasdiqlash oynasida ko'rsatiladi (Google Play va Apple talabi — [COMPLIANCE §2](COMPLIANCE.md#2-loot-box-yashik-qoidalari)).

@@ -23,7 +23,7 @@ Professional, realistic mobile 3D billiards (8-ball, then 9-ball, snooker) at PU
 5. No pay-to-win: cosmetics never reach ShotParams, PhysicsConfig, aim-line length, shot timer or matchmaking.
 6. Crate odds shown before purchase are generated from the server table, never hand-written.
 7. Build flavors: `STORE_PLAY` (Google Play Billing only — no web store/Payme/Click code or text), `STORE_DIRECT` (site APK, local payments), `STORE_MOCK` (dev).
-8. Assets: only CC0, CC-BY, Sketchfab Standard, CGTrader Royalty Free, OFL; every asset logged in `ArtSource/LICENSES.md` (Credits are generated from it). No NC/Editorial/ND/SA, no real people, no real brand logos.
+8. Assets: only CC0, CC-BY, Sketchfab Standard, CGTrader Royalty Free, OFL (UI icons also Apache-2.0); every asset logged in `ArtSource/LICENSES.md` (Credits are generated from it). No NC/Editorial/ND/SA, no real people, no real brand logos.
 
 ## Conventions
 Namespaces BilliardGame.<Area>; [SerializeField] private fields; no per-frame allocations in sim; no LINQ in Update; one .asmdef per Scripts subfolder; Physics, Gameplay and Meta.Rules are editor-testable (NUnit, no UnityEngine). Mobile budgets: table ≤ 40k tri, cue ≤ 5k, venue ≤ 150k, LOD0–2, ASTC textures 1K/2K.

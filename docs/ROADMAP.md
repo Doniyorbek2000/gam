@@ -53,6 +53,15 @@
 
 **Natija (2026-11-05):** EditMode 65/65 (shu jumladan Meta 13), `npm test` 9/9; match kadri Silk Road Lounge'da 59k tri / 96 draw call; online xona E2E (editor + Windows bot) shu zalda "game over"gacha o'ynaldi. Kontent: 7 kiy (Common…Mythic), 4 stol skini, 2 zal. Placeholder'lar (protsedural): stollar, kiylar, zal geometriyasi, lampa, kiy tokchasi; personaj — Quaternius UAL manekeni ([ART_PIPELINE §6](ART_PIPELINE.md#6-birinchi-asset-royxati-m1--vertical-slice) holati). Keyinga qoldirildi: Addressables (M3), Mythic maxsus animatsiyasi, 10× da eng yuqori raritetning alohida reveal'i, venue bottom-sheet o'rniga oddiy modal.
 
+## M1.5 — Professional UI/UX (PUBG/eFootball darajasi)
+
+### M1.5.1 — UI kit, barcha ekranlar, HUD, MCP tekshiruv ✅
+UITheme + UIKit (tugma holatlari, tween, ovoz/haptic), ikonka SpriteAtlas, 1920×1080 / match 0.5 / safe area, uz/ru/en (Unity Localization). Lobbi (3D avatar + kiy, rail'lar, PLAY), rejim+zal ekrani, Profil, Mening xonam (3D xona + tahrir), Inventar (9 tab, detal, Mythic upgrade), Stikerlar (kiy/rail decal), Sozlamalar (6 bo'lim, darhol til almashuvi), match HUD + natija, splash/dialog/offline/toast.
+**Natija (2026-11-05):** MCP'da 1920×1080, 2400×1080, 1440×1080 (4:3) va Punch Hole (2340×1080, safe area) skrinshotlari; to'liq oqim splash → lobbi → profil → xona → inventar → sozlamalar (til) → rejim → match → natija → lobbi, Console toza; TMP audit (bo'sh/kesilgan matn) uz/ru da toza. EditMode 86/86, `npm test` 9/9.
+
+### M1.5.2 — Hujjatlar va litsenziyalar ⬜
+docs/DESIGN_SYSTEM.md, UI_UX.md yangilash, ECONOMY.md stikerlar bo'limi; ArtSource/LICENSES.md ga game-icons.net (CC BY 3.0) va Material Symbols (Apache 2.0) + 10 ta original stiker; LicenseRegistry ga CC-BY-3.0/Apache-2.0; Credits ikonka guruhi.
+
 
 
 ## M2 — Server iqtisod yadrosi ⬜

@@ -1,0 +1,1428 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 1d28aeaedb559ca4195ac2709dd2c39a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6015762432
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6426804224
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6430998528
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6430998529
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192832
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192833
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192834
+    m_Localized: New
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192835
+    m_Localized: Soon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192836
+    m_Localized: "Coming soon \u2014 in the next update"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192837
+    m_Localized: Locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192838
+    m_Localized: Retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192839
+    m_Localized: "Loading\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192840
+    m_Localized: Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192841
+    m_Localized: Copied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192842
+    m_Localized: Level {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192843
+    m_Localized: Lv {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192844
+    m_Localized: Coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192845
+    m_Localized: Gems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192846
+    m_Localized: Free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192847
+    m_Localized: Real hall. Real rival.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192848
+    m_Localized: "Setting up the hall\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192849
+    m_Localized: 'Tip: the fine-tune wheel turns the cue by tenths of a degree.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192850
+    m_Localized: 'Tip: hit the cue ball low to draw it back.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192851
+    m_Localized: "Tip: cosmetics are looks only \u2014 physics is the same for everyone."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192852
+    m_Localized: 'Tip: every crate shows its odds and pity counter.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192853
+    m_Localized: 'Tip: left-handed mode moves the power slider to the right.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192854
+    m_Localized: 'Tip: show off trophies and cues in My Room.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192855
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192856
+    m_Localized: Change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192857
+    m_Localized: Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192858
+    m_Localized: Prize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192859
+    m_Localized: Season Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192860
+    m_Localized: "Season 1 \xB7 Lv 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192861
+    m_Localized: Missions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192862
+    m_Localized: Events
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192863
+    m_Localized: Daily
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192864
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192865
+    m_Localized: Crates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775744
+    m_Localized: Inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775745
+    m_Localized: My Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775746
+    m_Localized: Club
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775747
+    m_Localized: Chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775748
+    m_Localized: Mail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775749
+    m_Localized: Friends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775750
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775751
+    m_Localized: 'Test mode: +{0} coins'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775752
+    m_Localized: 'Test mode: +{0} gems'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775753
+    m_Localized: Not enough coins for this hall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775754
+    m_Localized: Mode and hall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775755
+    m_Localized: Same device
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775756
+    m_Localized: Take turns with a friend, offline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775757
+    m_Localized: With a friend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775758
+    m_Localized: Online with a room code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775759
+    m_Localized: Quick match
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775760
+    m_Localized: Random opponent, for the prize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775761
+    m_Localized: Ranked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775762
+    m_Localized: Ranks and season rewards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775763
+    m_Localized: vs AI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775764
+    m_Localized: 4 difficulty levels
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775765
+    m_Localized: Practice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775766
+    m_Localized: Free placement, trick shots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775767
+    m_Localized: Hall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775768
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775769
+    m_Localized: 'Halls and skins are looks only: physics, rules and timer are the
+      same for everyone.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775770
+    m_Localized: From level {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775771
+    m_Localized: No stake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775772
+    m_Localized: Play with a friend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775773
+    m_Localized: Create room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775774
+    m_Localized: 6-digit code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775775
+    m_Localized: Join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775776
+    m_Localized: or enter your friend's code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775777
+    m_Localized: "Rejoining your match\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775778
+    m_Localized: "Searching for an opponent\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775779
+    m_Localized: "Creating a room\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775780
+    m_Localized: "Room code: <b>{0}</b>\nShare it with your friend. Waiting\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775781
+    m_Localized: Enter the 6-digit room code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775782
+    m_Localized: "Joining room {0}\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775783
+    m_Localized: Cancelled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775784
+    m_Localized: 'Failed: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775785
+    m_Localized: could not reach the server
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775786
+    m_Localized: No internet connection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775787
+    m_Localized: Online modes need the internet. You can still play on one device.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775788
+    m_Localized: Profile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775789
+    m_Localized: 'ID: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775790
+    m_Localized: Change nickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775791
+    m_Localized: At least 3 characters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775792
+    m_Localized: At most 16 characters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775793
+    m_Localized: Letters, digits, _ and spaces only
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775794
+    m_Localized: No club
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775795
+    m_Localized: Uzbekistan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970048
+    m_Localized: Stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970049
+    m_Localized: History
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970050
+    m_Localized: Achievements
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970051
+    m_Localized: Collection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970052
+    m_Localized: Matches
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970053
+    m_Localized: Wins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970054
+    m_Localized: Win rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970055
+    m_Localized: Best streak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970056
+    m_Localized: Shot accuracy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970057
+    m_Localized: Most balls in one shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970058
+    m_Localized: Balls potted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970059
+    m_Localized: Favourite cue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970060
+    m_Localized: Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970061
+    m_Localized: Loss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970062
+    m_Localized: No matches yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970063
+    m_Localized: "Play your first match \u2014 results show up here."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970064
+    m_Localized: vs {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970065
+    m_Localized: Showcase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970066
+    m_Localized: "Unlock achievements \u2014 the best go to your showcase"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970067
+    m_Localized: First win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970068
+    m_Localized: Win 1 match
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970069
+    m_Localized: Seasoned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970070
+    m_Localized: 10 wins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970071
+    m_Localized: King of the hall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970072
+    m_Localized: 100 wins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970073
+    m_Localized: Regular
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970074
+    m_Localized: Play 25 matches
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970075
+    m_Localized: Hot streak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970076
+    m_Localized: 5 wins in a row
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970077
+    m_Localized: Triple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970078
+    m_Localized: Pot 3 balls in one shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970079
+    m_Localized: Sharpshooter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970080
+    m_Localized: Pot 100 balls in total
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970081
+    m_Localized: Level ten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970082
+    m_Localized: Reach level 10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970083
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970084
+    m_Localized: Bronze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970085
+    m_Localized: Silver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970086
+    m_Localized: Gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970087
+    m_Localized: Platinum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970088
+    m_Localized: Diamond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970089
+    m_Localized: Crown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970090
+    m_Localized: Legend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970091
+    m_Localized: Cues
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970092
+    m_Localized: Tables
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970093
+    m_Localized: Balls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970094
+    m_Localized: Hall themes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970095
+    m_Localized: Outfits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970096
+    m_Localized: Frames
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970097
+    m_Localized: Emotes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970098
+    m_Localized: Stickers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970099
+    m_Localized: Effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970100
+    m_Localized: Walls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970101
+    m_Localized: Floors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970102
+    m_Localized: Inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970103
+    m_Localized: Rarity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970104
+    m_Localized: Newest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970105
+    m_Localized: Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970106
+    m_Localized: Owned only
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970107
+    m_Localized: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970108
+    m_Localized: Equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970109
+    m_Localized: On cue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970110
+    m_Localized: On table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970111
+    m_Localized: Remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970112
+    m_Localized: Upgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970113
+    m_Localized: 'From: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970114
+    m_Localized: Owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970115
+    m_Localized: 'Looks only: no effect on power or accuracy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970116
+    m_Localized: Nothing here yet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970117
+    m_Localized: New cosmetics arrive with seasons and crates.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970118
+    m_Localized: To crates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970119
+    m_Localized: "Shards: {0}  \xB7  Crystals: {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970120
+    m_Localized: 'Equipped: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970121
+    m_Localized: 'Sticker applied: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970122
+    m_Localized: Drag to rotate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970123
+    m_Localized: Starter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970124
+    m_Localized: Crate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970125
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970126
+    m_Localized: Season Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970127
+    m_Localized: "A cue \u2014 the look of your style."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970128
+    m_Localized: 'Cloth and rails: shown in the lobby, your room and matches.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970129
+    m_Localized: Stick it on your cue or table rail, send it in chat, hang it in
+      your room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970130
+    m_Localized: 'Avatar frame: in the lobby, profile and matches.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970131
+    m_Localized: Wall theme for My Room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970132
+    m_Localized: Floor theme for My Room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970133
+    m_Localized: "Cosmetic \u2014 looks only."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970134
+    m_Localized: Common
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970135
+    m_Localized: Rare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970136
+    m_Localized: Epic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970137
+    m_Localized: Legendary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970138
+    m_Localized: Mythic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970139
+    m_Localized: My Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970140
+    m_Localized: Edit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970141
+    m_Localized: Table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164352
+    m_Localized: Walls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164353
+    m_Localized: Floor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164354
+    m_Localized: Decor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164355
+    m_Localized: Room saved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164356
+    m_Localized: Slot {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164357
+    m_Localized: Empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164358
+    m_Localized: Friends will soon be able to visit your room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164359
+    m_Localized: 'Trophies: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164360
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164361
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164362
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164363
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164364
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164365
+    m_Localized: Account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524480
+    m_Localized: Other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524481
+    m_Localized: Quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524482
+    m_Localized: Low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524483
+    m_Localized: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524484
+    m_Localized: High
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524485
+    m_Localized: Auto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524486
+    m_Localized: Frame rate (FPS)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524487
+    m_Localized: Shadows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524488
+    m_Localized: Post-processing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524489
+    m_Localized: Battery saver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524490
+    m_Localized: 30 FPS, no shadows, low quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524491
+    m_Localized: Master volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524492
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524493
+    m_Localized: Effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524494
+    m_Localized: Voice chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524495
+    m_Localized: Vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524496
+    m_Localized: Aim sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524497
+    m_Localized: Fine wheel sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524498
+    m_Localized: Left-handed mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524499
+    m_Localized: Power slider on the right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524500
+    m_Localized: Aim guide line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524501
+    m_Localized: Confirm shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524502
+    m_Localized: Second tap before the shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524503
+    m_Localized: Interface language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524504
+    m_Localized: Player ID
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524505
+    m_Localized: Link Google
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524506
+    m_Localized: Log out
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524507
+    m_Localized: Logging out of a guest account keeps unlinked progress on this device
+      only.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524508
+    m_Localized: Delete account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524509
+    m_Localized: Your profile, inventory, currency and settings are deleted for good.
+      This cannot be undone.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524510
+    m_Localized: Account deleted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524511
+    m_Localized: Notifications
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524512
+    m_Localized: Privacy policy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524513
+    m_Localized: Terms of use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524514
+    m_Localized: Help and contact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524515
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524516
+    m_Localized: Version {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524517
+    m_Localized: You
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524518
+    m_Localized: Guest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524519
+    m_Localized: Open table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524520
+    m_Localized: On the 8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524521
+    m_Localized: "Solids \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524522
+    m_Localized: "Stripes \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524523
+    m_Localized: Shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524524
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524525
+    m_Localized: Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524526
+    m_Localized: Spin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524527
+    m_Localized: '{0} to break'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524528
+    m_Localized: '{0} to shoot'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524529
+    m_Localized: Your turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524530
+    m_Localized: '{0} takes {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524531
+    m_Localized: 8-ball respotted. {0} to shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524532
+    m_Localized: 'Foul: {0}. {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524533
+    m_Localized: '{0}: ball in hand'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524534
+    m_Localized: '{0}: ball in hand behind the head string'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524535
+    m_Localized: '{0} to break again'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524536
+    m_Localized: cue ball pocketed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524537
+    m_Localized: no ball hit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524538
+    m_Localized: wrong ball hit first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524539
+    m_Localized: no cushion after contact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524540
+    m_Localized: illegal break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524541
+    m_Localized: time ran out
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524542
+    m_Localized: foul
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524543
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524544
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524545
+    m_Localized: Leave match
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524546
+    m_Localized: Leaving an online match counts as a loss.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524547
+    m_Localized: End the game and return to the lobby?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524548
+    m_Localized: Stickers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524549
+    m_Localized: 'Rules: pot your group, then the 8-ball.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524550
+    m_Localized: Victory!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524551
+    m_Localized: Defeat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524552
+    m_Localized: '{0} wins'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524553
+    m_Localized: XP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524554
+    m_Localized: Coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524555
+    m_Localized: "Practice game \u2014 no coins"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524556
+    m_Localized: 'Level up: {0}!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524557
+    m_Localized: Play again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524558
+    m_Localized: Lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524559
+    m_Localized: 'Balls potted: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524560
+    m_Localized: Crates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524561
+    m_Localized: '{0} crate'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524562
+    m_Localized: "{0} crate \u2014 odds"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524563
+    m_Localized: Odds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524564
+    m_Localized: '{0} in: {1} opens'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524565
+    m_Localized: Open the crate?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524566
+    m_Localized: "{0} crate \xD7{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524567
+    m_Localized: Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524568
+    m_Localized: Open again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524569
+    m_Localized: "10\xD7 result \u2014 best: {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524570
+    m_Localized: +{0} shards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524571
+    m_Localized: 'Equip: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524572
+    m_Localized: Not enough gems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524573
+    m_Localized: Not enough coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524574
+    m_Localized: 'Guarantee: {1} or better on open {0}. Base {2}%, with pity {3}%.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524575
+    m_Localized: "A 10\xD7 open has at least one {0} or better."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524576
+    m_Localized: "Within a rarity every item is equally likely. Duplicate \u2192
+      shards."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524577
+    m_Localized: Credits and licenses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524578
+    m_Localized: 'Thanks: Poly Haven, ambientCG, Quaternius, Google Fonts, game-icons.net,
+      Material Symbols.
+
+      Procedural models, sounds, stickers and hall geometry
+      are our own work.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524579
+    m_Localized: credits.json not found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524580
+    m_Localized: Character and animations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524581
+    m_Localized: Fonts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524582
+    m_Localized: HDRI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524583
+    m_Localized: Props
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524584
+    m_Localized: Textures
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524585
+    m_Localized: Tables
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524586
+    m_Localized: Cues
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524587
+    m_Localized: Halls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524588
+    m_Localized: Outfits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524589
+    m_Localized: Icons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524590
+    m_Localized: Nice shot!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524591
+    m_Localized: LOL ball
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524592
+    m_Localized: Pomegranate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524593
+    m_Localized: Choy?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524594
+    m_Localized: Blue dome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524595
+    m_Localized: Lightning break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524596
+    m_Localized: GG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524597
+    m_Localized: Hot eight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524598
+    m_Localized: Gold star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524599
+    m_Localized: Crown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524600
+    m_Localized: Basic frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524601
+    m_Localized: Azure frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524602
+    m_Localized: Royal frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524603
+    m_Localized: Gold frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524604
+    m_Localized: Night wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524605
+    m_Localized: Brick wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524606
+    m_Localized: Tile wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524607
+    m_Localized: Wooden floor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524608
+    m_Localized: Marble floor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524609
+    m_Localized: Carpet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524610
+    m_Localized: Garage cue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524611
+    m_Localized: Maple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524612
+    m_Localized: Classic walnut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524613
+    m_Localized: Crimson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524614
+    m_Localized: Carbon serpent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524615
+    m_Localized: Samarkand gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524616
+    m_Localized: Silk dragon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524617
+    m_Localized: Classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524618
+    m_Localized: Royal blue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524619
+    m_Localized: Modern
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524620
+    m_Localized: Silk Road
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524621
+    m_Localized: Garage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524622
+    m_Localized: Silk Road Lounge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524623
+    m_Localized: Old City Club
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524624
+    m_Localized: Bukhara Palace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524625
+    m_Localized: Neon Arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819299471360
+    m_Localized: Classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385920
+    m_Localized: Premium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385921
+    m_Localized: "1\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385922
+    m_Localized: "10\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11028390821888
+    m_Localized: Mode
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

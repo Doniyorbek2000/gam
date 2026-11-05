@@ -23,6 +23,9 @@ namespace BilliardGame.Presentation
         [SerializeField] private float minAudibleSpeed = 0.03f;
         [SerializeField] private float panPerMetre = 0.35f;
 
+        /// <summary>Settings ▸ Sound ▸ Effects.</summary>
+        public static float EffectsVolume { get; set; } = 1f;
+
         private AudioSource[] sources;
         private int nextVoice;
 
@@ -74,7 +77,7 @@ namespace BilliardGame.Presentation
             AudioSource voice = sources[nextVoice];
             nextVoice = (nextVoice + 1) % sources.Length;
             voice.clip = clip;
-            voice.volume = volume;
+            voice.volume = volume * EffectsVolume;
             voice.panStereo = Mathf.Clamp(pan, -1f, 1f);
             voice.pitch = pitch;
             voice.Play();

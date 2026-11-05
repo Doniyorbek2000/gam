@@ -1,0 +1,572 @@
+[
+  {
+    "key": "settings",
+    "source": "material-symbols",
+    "name": "settings",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/settings/materialsymbolsrounded/settings_fill1_48px.svg"
+  },
+  {
+    "key": "mail",
+    "source": "material-symbols",
+    "name": "mail",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/mail/materialsymbolsrounded/mail_fill1_48px.svg"
+  },
+  {
+    "key": "friends",
+    "source": "material-symbols",
+    "name": "group",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/group/materialsymbolsrounded/group_fill1_48px.svg"
+  },
+  {
+    "key": "person",
+    "source": "material-symbols",
+    "name": "person",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/person/materialsymbolsrounded/person_fill1_48px.svg"
+  },
+  {
+    "key": "add",
+    "source": "material-symbols",
+    "name": "add",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/add/materialsymbolsrounded/add_fill1_48px.svg"
+  },
+  {
+    "key": "close",
+    "source": "material-symbols",
+    "name": "close",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/close/materialsymbolsrounded/close_fill1_48px.svg"
+  },
+  {
+    "key": "back",
+    "source": "material-symbols",
+    "name": "arrow_back",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/arrow_back/materialsymbolsrounded/arrow_back_fill1_48px.svg"
+  },
+  {
+    "key": "chevron_left",
+    "source": "material-symbols",
+    "name": "chevron_left",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/chevron_left/materialsymbolsrounded/chevron_left_fill1_48px.svg"
+  },
+  {
+    "key": "chevron_right",
+    "source": "material-symbols",
+    "name": "chevron_right",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/chevron_right/materialsymbolsrounded/chevron_right_fill1_48px.svg"
+  },
+  {
+    "key": "check",
+    "source": "material-symbols",
+    "name": "check",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/check/materialsymbolsrounded/check_fill1_48px.svg"
+  },
+  {
+    "key": "lock",
+    "source": "material-symbols",
+    "name": "lock",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/lock/materialsymbolsrounded/lock_fill1_48px.svg"
+  },
+  {
+    "key": "copy",
+    "source": "material-symbols",
+    "name": "content_copy",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/content_copy/materialsymbolsrounded/content_copy_fill1_48px.svg"
+  },
+  {
+    "key": "edit",
+    "source": "material-symbols",
+    "name": "edit",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/edit/materialsymbolsrounded/edit_fill1_48px.svg"
+  },
+  {
+    "key": "star",
+    "source": "material-symbols",
+    "name": "star",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/star/materialsymbolsrounded/star_fill1_48px.svg"
+  },
+  {
+    "key": "inventory",
+    "source": "material-symbols",
+    "name": "inventory_2",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/inventory_2/materialsymbolsrounded/inventory_2_fill1_48px.svg"
+  },
+  {
+    "key": "home",
+    "source": "material-symbols",
+    "name": "home",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/home/materialsymbolsrounded/home_fill1_48px.svg"
+  },
+  {
+    "key": "daily",
+    "source": "material-symbols",
+    "name": "calendar_month",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/calendar_month/materialsymbolsrounded/calendar_month_fill1_48px.svg"
+  },
+  {
+    "key": "missions",
+    "source": "material-symbols",
+    "name": "task_alt",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/task_alt/materialsymbolsrounded/task_alt_fill1_48px.svg"
+  },
+  {
+    "key": "events",
+    "source": "material-symbols",
+    "name": "celebration",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/celebration/materialsymbolsrounded/celebration_fill1_48px.svg"
+  },
+  {
+    "key": "pass",
+    "source": "material-symbols",
+    "name": "workspace_premium",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/workspace_premium/materialsymbolsrounded/workspace_premium_fill1_48px.svg"
+  },
+  {
+    "key": "chat",
+    "source": "material-symbols",
+    "name": "chat",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/chat/materialsymbolsrounded/chat_fill1_48px.svg"
+  },
+  {
+    "key": "club",
+    "source": "material-symbols",
+    "name": "groups",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/groups/materialsymbolsrounded/groups_fill1_48px.svg"
+  },
+  {
+    "key": "volume",
+    "source": "material-symbols",
+    "name": "volume_up",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/volume_up/materialsymbolsrounded/volume_up_fill1_48px.svg"
+  },
+  {
+    "key": "music",
+    "source": "material-symbols",
+    "name": "music_note",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/music_note/materialsymbolsrounded/music_note_fill1_48px.svg"
+  },
+  {
+    "key": "sfx",
+    "source": "material-symbols",
+    "name": "graphic_eq",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/graphic_eq/materialsymbolsrounded/graphic_eq_fill1_48px.svg"
+  },
+  {
+    "key": "mic",
+    "source": "material-symbols",
+    "name": "mic",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/mic/materialsymbolsrounded/mic_fill1_48px.svg"
+  },
+  {
+    "key": "vibration",
+    "source": "material-symbols",
+    "name": "vibration",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/vibration/materialsymbolsrounded/vibration_fill1_48px.svg"
+  },
+  {
+    "key": "controls",
+    "source": "material-symbols",
+    "name": "tune",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/tune/materialsymbolsrounded/tune_fill1_48px.svg"
+  },
+  {
+    "key": "language",
+    "source": "material-symbols",
+    "name": "translate",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/translate/materialsymbolsrounded/translate_fill1_48px.svg"
+  },
+  {
+    "key": "account",
+    "source": "material-symbols",
+    "name": "account_circle",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/account_circle/materialsymbolsrounded/account_circle_fill1_48px.svg"
+  },
+  {
+    "key": "logout",
+    "source": "material-symbols",
+    "name": "logout",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/logout/materialsymbolsrounded/logout_fill1_48px.svg"
+  },
+  {
+    "key": "delete",
+    "source": "material-symbols",
+    "name": "delete",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/delete/materialsymbolsrounded/delete_fill1_48px.svg"
+  },
+  {
+    "key": "notifications",
+    "source": "material-symbols",
+    "name": "notifications",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/notifications/materialsymbolsrounded/notifications_fill1_48px.svg"
+  },
+  {
+    "key": "privacy",
+    "source": "material-symbols",
+    "name": "policy",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/policy/materialsymbolsrounded/policy_fill1_48px.svg"
+  },
+  {
+    "key": "terms",
+    "source": "material-symbols",
+    "name": "description",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/description/materialsymbolsrounded/description_fill1_48px.svg"
+  },
+  {
+    "key": "help",
+    "source": "material-symbols",
+    "name": "help",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/help/materialsymbolsrounded/help_fill1_48px.svg"
+  },
+  {
+    "key": "info",
+    "source": "material-symbols",
+    "name": "info",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/info/materialsymbolsrounded/info_fill1_48px.svg"
+  },
+  {
+    "key": "fps",
+    "source": "material-symbols",
+    "name": "speed",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/speed/materialsymbolsrounded/speed_fill1_48px.svg"
+  },
+  {
+    "key": "quality",
+    "source": "material-symbols",
+    "name": "high_quality",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/high_quality/materialsymbolsrounded/high_quality_fill1_48px.svg"
+  },
+  {
+    "key": "battery",
+    "source": "material-symbols",
+    "name": "battery_saver",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/battery_saver/materialsymbolsrounded/battery_saver_fill1_48px.svg"
+  },
+  {
+    "key": "shadows",
+    "source": "material-symbols",
+    "name": "contrast",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/contrast/materialsymbolsrounded/contrast_fill1_48px.svg"
+  },
+  {
+    "key": "effects_fx",
+    "source": "material-symbols",
+    "name": "auto_awesome",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/auto_awesome/materialsymbolsrounded/auto_awesome_fill1_48px.svg"
+  },
+  {
+    "key": "visibility",
+    "source": "material-symbols",
+    "name": "visibility",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/visibility/materialsymbolsrounded/visibility_fill1_48px.svg"
+  },
+  {
+    "key": "touch",
+    "source": "material-symbols",
+    "name": "touch_app",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/touch_app/materialsymbolsrounded/touch_app_fill1_48px.svg"
+  },
+  {
+    "key": "left_hand",
+    "source": "material-symbols",
+    "name": "back_hand",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/back_hand/materialsymbolsrounded/back_hand_fill1_48px.svg"
+  },
+  {
+    "key": "timer",
+    "source": "material-symbols",
+    "name": "timer",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/timer/materialsymbolsrounded/timer_fill1_48px.svg"
+  },
+  {
+    "key": "refresh",
+    "source": "material-symbols",
+    "name": "refresh",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/refresh/materialsymbolsrounded/refresh_fill1_48px.svg"
+  },
+  {
+    "key": "offline",
+    "source": "material-symbols",
+    "name": "wifi_off",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/wifi_off/materialsymbolsrounded/wifi_off_fill1_48px.svg"
+  },
+  {
+    "key": "error",
+    "source": "material-symbols",
+    "name": "error",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/error/materialsymbolsrounded/error_fill1_48px.svg"
+  },
+  {
+    "key": "history",
+    "source": "material-symbols",
+    "name": "history",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/history/materialsymbolsrounded/history_fill1_48px.svg"
+  },
+  {
+    "key": "stats",
+    "source": "material-symbols",
+    "name": "bar_chart",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/bar_chart/materialsymbolsrounded/bar_chart_fill1_48px.svg"
+  },
+  {
+    "key": "sort",
+    "source": "material-symbols",
+    "name": "sort",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/sort/materialsymbolsrounded/sort_fill1_48px.svg"
+  },
+  {
+    "key": "filter",
+    "source": "material-symbols",
+    "name": "filter_list",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/filter_list/materialsymbolsrounded/filter_list_fill1_48px.svg"
+  },
+  {
+    "key": "play",
+    "source": "material-symbols",
+    "name": "play_arrow",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/play_arrow/materialsymbolsrounded/play_arrow_fill1_48px.svg"
+  },
+  {
+    "key": "emote",
+    "source": "material-symbols",
+    "name": "mood",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/mood/materialsymbolsrounded/mood_fill1_48px.svg"
+  },
+  {
+    "key": "flag",
+    "source": "material-symbols",
+    "name": "flag",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/flag/materialsymbolsrounded/flag_fill1_48px.svg"
+  },
+  {
+    "key": "accuracy",
+    "source": "material-symbols",
+    "name": "my_location",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/my_location/materialsymbolsrounded/my_location_fill1_48px.svg"
+  },
+  {
+    "key": "frame",
+    "source": "material-symbols",
+    "name": "filter_frames",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/filter_frames/materialsymbolsrounded/filter_frames_fill1_48px.svg"
+  },
+  {
+    "key": "palette",
+    "source": "material-symbols",
+    "name": "palette",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/palette/materialsymbolsrounded/palette_fill1_48px.svg"
+  },
+  {
+    "key": "outfit",
+    "source": "material-symbols",
+    "name": "checkroom",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/checkroom/materialsymbolsrounded/checkroom_fill1_48px.svg"
+  },
+  {
+    "key": "bolt",
+    "source": "material-symbols",
+    "name": "bolt",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/bolt/materialsymbolsrounded/bolt_fill1_48px.svg"
+  },
+  {
+    "key": "upgrade",
+    "source": "material-symbols",
+    "name": "upgrade",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/upgrade/materialsymbolsrounded/upgrade_fill1_48px.svg"
+  },
+  {
+    "key": "wall",
+    "source": "material-symbols",
+    "name": "wallpaper",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/wallpaper/materialsymbolsrounded/wallpaper_fill1_48px.svg"
+  },
+  {
+    "key": "floor",
+    "source": "material-symbols",
+    "name": "grid_view",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/grid_view/materialsymbolsrounded/grid_view_fill1_48px.svg"
+  },
+  {
+    "key": "decor",
+    "source": "material-symbols",
+    "name": "weekend",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/weekend/materialsymbolsrounded/weekend_fill1_48px.svg"
+  },
+  {
+    "key": "globe",
+    "source": "material-symbols",
+    "name": "public",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/public/materialsymbolsrounded/public_fill1_48px.svg"
+  },
+  {
+    "key": "gift",
+    "source": "material-symbols",
+    "name": "redeem",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/redeem/materialsymbolsrounded/redeem_fill1_48px.svg"
+  },
+  {
+    "key": "graphics",
+    "source": "material-symbols",
+    "name": "sports_esports",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/sports_esports/materialsymbolsrounded/sports_esports_fill1_48px.svg"
+  },
+  {
+    "key": "link",
+    "source": "material-symbols",
+    "name": "link",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/link/materialsymbolsrounded/link_fill1_48px.svg"
+  },
+  {
+    "key": "shield",
+    "source": "material-symbols",
+    "name": "shield",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/shield/materialsymbolsrounded/shield_fill1_48px.svg"
+  },
+  {
+    "key": "newbadge",
+    "source": "material-symbols",
+    "name": "new_releases",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/new_releases/materialsymbolsrounded/new_releases_fill1_48px.svg"
+  },
+  {
+    "key": "pause",
+    "source": "material-symbols",
+    "name": "pause",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/pause/materialsymbolsrounded/pause_fill1_48px.svg"
+  },
+  {
+    "key": "fire",
+    "source": "material-symbols",
+    "name": "local_fire_department",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/local_fire_department/materialsymbolsrounded/local_fire_department_fill1_48px.svg"
+  },
+  {
+    "key": "sticker",
+    "source": "material-symbols",
+    "name": "sticky_note_2",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/sticky_note_2/materialsymbolsrounded/sticky_note_2_fill1_48px.svg"
+  },
+  {
+    "key": "credits",
+    "source": "material-symbols",
+    "name": "groups_3",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/groups_3/materialsymbolsrounded/groups_3_fill1_48px.svg"
+  },
+  {
+    "key": "version",
+    "source": "material-symbols",
+    "name": "deployed_code",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/deployed_code/materialsymbolsrounded/deployed_code_fill1_48px.svg"
+  },
+  {
+    "key": "streak",
+    "source": "material-symbols",
+    "name": "trending_up",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/trending_up/materialsymbolsrounded/trending_up_fill1_48px.svg"
+  },
+  {
+    "key": "cue_icon",
+    "source": "material-symbols",
+    "name": "straighten",
+    "url": "https://raw.githubusercontent.com/google/material-design-icons/master/symbols/web/straighten/materialsymbolsrounded/straighten_fill1_48px.svg"
+  },
+  {
+    "key": "eight_ball",
+    "source": "game-icons.net",
+    "name": "delapouite/eight-ball",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/eight-ball.svg"
+  },
+  {
+    "key": "rack",
+    "source": "game-icons.net",
+    "name": "delapouite/pool-triangle",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/pool-triangle.svg"
+  },
+  {
+    "key": "table",
+    "source": "game-icons.net",
+    "name": "delapouite/pool-table-corner",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/pool-table-corner.svg"
+  },
+  {
+    "key": "coin",
+    "source": "game-icons.net",
+    "name": "delapouite/two-coins",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/two-coins.svg"
+  },
+  {
+    "key": "gem",
+    "source": "game-icons.net",
+    "name": "lorc/cut-diamond",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/lorc/cut-diamond.svg"
+  },
+  {
+    "key": "crate",
+    "source": "game-icons.net",
+    "name": "skoll/open-treasure-chest",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/skoll/open-treasure-chest.svg"
+  },
+  {
+    "key": "crate_locked",
+    "source": "game-icons.net",
+    "name": "lorc/locked-chest",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/lorc/locked-chest.svg"
+  },
+  {
+    "key": "trophy",
+    "source": "game-icons.net",
+    "name": "delapouite/laurels-trophy",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/laurels-trophy.svg"
+  },
+  {
+    "key": "cup",
+    "source": "game-icons.net",
+    "name": "delapouite/trophy-cup",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/trophy-cup.svg"
+  },
+  {
+    "key": "ranked",
+    "source": "game-icons.net",
+    "name": "lorc/crossed-swords",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/lorc/crossed-swords.svg"
+  },
+  {
+    "key": "crown",
+    "source": "game-icons.net",
+    "name": "lorc/crown",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/lorc/crown.svg"
+  },
+  {
+    "key": "medal",
+    "source": "game-icons.net",
+    "name": "delapouite/star-medal",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/star-medal.svg"
+  },
+  {
+    "key": "ticket",
+    "source": "game-icons.net",
+    "name": "delapouite/ticket",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/ticket.svg"
+  },
+  {
+    "key": "target",
+    "source": "game-icons.net",
+    "name": "skoll/bullseye",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/skoll/bullseye.svg"
+  },
+  {
+    "key": "shop",
+    "source": "game-icons.net",
+    "name": "delapouite/shop",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/shop.svg"
+  },
+  {
+    "key": "present",
+    "source": "game-icons.net",
+    "name": "delapouite/present",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/delapouite/present.svg"
+  },
+  {
+    "key": "laurels",
+    "source": "game-icons.net",
+    "name": "lorc/laurels",
+    "url": "https://raw.githubusercontent.com/game-icons/icons/master/lorc/laurels.svg"
+  }
+]

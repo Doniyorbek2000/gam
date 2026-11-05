@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddecc6d436464a48bc08a514de63deb, type: 3}
+  m_Name: UITheme
+  m_EditorClassIdentifier: BilliardGame.UI::BilliardGame.UI.UITheme
+  background: {r: 0.043137256, g: 0.05882353, b: 0.101960786, a: 1}
+  surface: {r: 0.08235294, g: 0.105882354, b: 0.16862746, a: 0.92}
+  surfaceRaised: {r: 0.11764706, g: 0.14901961, b: 0.21960784, a: 1}
+  surfaceSunken: {r: 0.05490196, g: 0.07450981, b: 0.1254902, a: 0.9}
+  stroke: {r: 1, g: 1, b: 1, a: 0.08}
+  scrim: {r: 0.019607844, g: 0.02745098, b: 0.047058824, a: 0.72}
+  textPrimary: {r: 0.95686275, g: 0.9647059, b: 0.9843137, a: 1}
+  textSecondary: {r: 0.654902, g: 0.6901961, b: 0.76862746, a: 1}
+  textMuted: {r: 0.41960785, g: 0.45490196, b: 0.5372549, a: 1}
+  textOnAccent: {r: 0.101960786, g: 0.07058824, b: 0.015686275, a: 1}
+  accent: {r: 1, g: 0.7607843, b: 0.2901961, a: 1}
+  accentDeep: {r: 1, g: 0.47843137, b: 0, a: 1}
+  secondary: {r: 0.18039216, g: 0.48235294, b: 1, a: 1}
+  success: {r: 0.18039216, g: 0.8, b: 0.44313726, a: 1}
+  warning: {r: 1, g: 0.6901961, b: 0.1254902, a: 1}
+  danger: {r: 1, g: 0.23137255, b: 0.36078432, a: 1}
+  coin: {r: 1, g: 0.81960785, b: 0.36078432, a: 1}
+  gem: {r: 0.36078432, g: 0.8392157, b: 1, a: 1}
+  common: {r: 0.6039216, g: 0.6392157, b: 0.68235296, a: 1}
+  rare: {r: 0.23921569, g: 0.54509807, b: 1, a: 1}
+  epic: {r: 0.6509804, g: 0.3019608, b: 1, a: 1}
+  legendary: {r: 1, g: 0.6901961, b: 0.1254902, a: 1}
+  mythic: {r: 1, g: 0.23137255, b: 0.36078432, a: 1}
+  mythicEnd: {r: 1, g: 0.5411765, b: 0.23921569, a: 1}
+  bold: {fileID: 11400000, guid: e10b03c468a8f74499e3c61e66315d5c, type: 2}
+  semiBold: {fileID: 11400000, guid: 154872ac408305642a7959baf8e0b5a1, type: 2}
+  medium: {fileID: 11400000, guid: a2349cf73b3ebb54ba5f46729615a278, type: 2}
+  displaySize: 72
+  h1Size: 48
+  h2Size: 36
+  bodySize: 28
+  captionSize: 22
+  buttonSize: 30
+  radiusSmall: 12
+  radiusMedium: 20
+  radiusLarge: 32
+  shadow: {r: 0, g: 0, b: 0, a: 0.45}
+  shadowOffset: 6
+  glowStrength: 0.85
+  pressDuration: 0.08
+  pressScale: 0.95
+  screenDuration: 0.25
+  modalDuration: 0.22
+  countUpDuration: 0.6

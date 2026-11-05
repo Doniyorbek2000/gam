@@ -8,80 +8,74 @@ using UnityEngine.UI;
 
 namespace BilliardGame.UI
 {
-    /// <summary>Lobby menu flow: nickname, quick match, play with a friend (room code), offline hot-seat. The lobby picks the mode.</summary>
+    /// <summary>
+    /// Match entry flow: quick match, play with a friend (room code), offline hot-seat, rejoin. Shows the waiting
+    /// overlay (spinner, status, cancel) and readable errors; swaps the lobby and the match HUD. The lobby picks the mode.
+    /// </summary>
     public sealed class MainMenuController : MonoBehaviour
     {
-        private const string NicknameKey = "nickname";
-        private const int MaxNicknameLength = 16;
-
         [SerializeField] private GameController game;
         [SerializeField] private OnlineMatchController online;
         [SerializeField] private HudController hud;
+        [SerializeField] private GameServices services;
         [SerializeField] private GameObject menuRoot;
         [SerializeField] private GameObject hudRoot;
-        [SerializeField] private GameObject mainButtons;
-        [SerializeField] private GameObject friendPanel;
-        [SerializeField] private TMP_InputField nicknameInput;
+        [SerializeField] private ScreenView friendView;
         [SerializeField] private TMP_InputField codeInput;
-        [SerializeField] private Button[] lockWhileWaiting = new Button[0];
         [SerializeField] private Button createRoomButton;
         [SerializeField] private Button joinRoomButton;
-        [SerializeField] private Button backButton;
+        [SerializeField] private ScreenView waitingView;
+        [SerializeField] private TMP_Text waitingStatus;
         [SerializeField] private Button cancelButton;
-        [SerializeField] private TMP_Text statusLabel;
 
         private bool busy;
 
         /// <summary>Raised whenever the lobby comes back (start, cancel, match over); the lobby resets its 3D view.</summary>
         public event Action MenuShown;
 
-        public string Status => statusLabel.text;
+        public string Status => waitingStatus.text;
         public string RoomCode { get; private set; }
 
         private void OnEnable()
         {
             createRoomButton.onClick.AddListener(CreateRoom);
             joinRoomButton.onClick.AddListener(JoinRoomFromInput);
-            backButton.onClick.AddListener(ShowMainButtons);
             cancelButton.onClick.AddListener(Cancel);
             online.MatchStarted += OnMatchStarted;
             online.MatchCancelled += OnMatchCancelled;
-            hud.MenuRequested += BackToMenu;
+            hud.MenuRequested += ReturnToMenu;
         }
 
         private void OnDisable()
         {
             createRoomButton.onClick.RemoveListener(CreateRoom);
             joinRoomButton.onClick.RemoveListener(JoinRoomFromInput);
-            backButton.onClick.RemoveListener(ShowMainButtons);
             cancelButton.onClick.RemoveListener(Cancel);
             online.MatchStarted -= OnMatchStarted;
             online.MatchCancelled -= OnMatchCancelled;
-            hud.MenuRequested -= BackToMenu;
+            hud.MenuRequested -= ReturnToMenu;
         }
 
         private async void Start()
         {
-            nicknameInput.characterLimit = MaxNicknameLength;
-            nicknameInput.text = PlayerPrefs.GetString(NicknameKey, "Player" + UnityEngine.Random.Range(1000, 10000));
             codeInput.characterLimit = 6;
             codeInput.contentType = TMP_InputField.ContentType.IntegerNumber;
-            ShowMenu(string.Empty);
+            ShowMenu(null);
 
             if (!online.Client.HasSavedMatch) return;
-            await Run("Rejoining your match...", async () =>
+            await Run("menu.rejoining", async () =>
             {
-                if (!await online.Client.TryResumeAsync(Nickname())) ShowMenu(string.Empty);
+                if (!await online.Client.TryResumeAsync(Nickname())) ShowMenu(null);
             });
         }
 
         public async void QuickMatch() =>
-            await Run("Searching for an opponent...", () => online.Client.StartQuickMatchAsync(Nickname()), keepWaiting: true);
+            await Run("menu.searching", () => online.Client.StartQuickMatchAsync(Nickname()), keepWaiting: true);
 
-        public async void CreateRoom() => await Run("Creating a room...", async () =>
+        public async void CreateRoom() => await Run("menu.creating", async () =>
         {
             RoomCode = await online.Client.CreateRoomAsync(Nickname());
-            SetStatus($"Room code: <b>{RoomCode}</b>\nShare it with your friend. Waiting for them to join...");
+            waitingStatus.text = Loc.Format("menu.room_code", RoomCode);
         }, keepWaiting: true);
 
         public async void JoinRoom(string code)
@@ -89,17 +83,27 @@ namespace BilliardGame.UI
             code = (code ?? string.Empty).Trim();
             if (!OnlineClient.IsRoomCode(code))
             {
-                SetStatus("Enter the 6-digit room code");
+                Dialogs.Instance.Toast(Loc.Get("menu.enter_code"));
                 return;
             }
 
-            await Run("Joining room " + code + "...", () => online.Client.JoinRoomAsync(Nickname(), code), keepWaiting: true);
+            await Run(Loc.Format("menu.joining", code), () => online.Client.JoinRoomAsync(Nickname(), code), keepWaiting: true, literal: true);
         }
 
         public void PlayOffline()
         {
             HideMenu();
             game.StartOffline();
+        }
+
+        public void ShowFriendPanel() => ScreenRouter.Instance.Open(friendView);
+
+        /// <summary>Leaves the current game (an online match is forfeited) and brings the lobby back.</summary>
+        public void ReturnToMenu()
+        {
+            if (game.IsOnline) online.Leave();
+            else game.StopGame();
+            ShowMenu(null);
         }
 
         private void JoinRoomFromInput() => JoinRoom(codeInput.text);
@@ -110,14 +114,7 @@ namespace BilliardGame.UI
             else if (online.Client.MatchId != null) online.Leave();
             busy = false;
             RoomCode = null;
-            ShowMenu("Cancelled");
-        }
-
-        private void BackToMenu()
-        {
-            if (game.IsOnline) online.Leave();
-            else game.StopGame();
-            ShowMenu(string.Empty);
+            ShowMenu(Loc.Get("menu.cancelled"));
         }
 
         private void OnMatchStarted()
@@ -133,78 +130,54 @@ namespace BilliardGame.UI
             ShowMenu(reason);
         }
 
-        /// <summary>Runs an online action with a status line; on failure shows a readable error and re-enables the menu.</summary>
-        private async Task Run(string status, Func<Task> action, bool keepWaiting = false)
+        /// <summary>Runs an online action under the waiting overlay; on failure shows a readable error and the lobby again.</summary>
+        private async Task Run(string status, Func<Task> action, bool keepWaiting = false, bool literal = false)
         {
             if (busy) return;
             busy = true;
-            SetWaiting(true);
-            SetStatus(status);
+            ScreenRouter.Instance.Close(friendView);
+            waitingStatus.text = literal ? status : Loc.Get(status);
+            waitingView.Show();
             try
             {
                 await action();
-                if (!keepWaiting) busy = false;
+                if (!keepWaiting)
+                {
+                    busy = false;
+                    waitingView.Hide();
+                }
             }
             catch (Exception e)
             {
                 Debug.LogWarning($"[Menu] {status} failed: {e}");
                 busy = false;
-                ShowMenu("Failed: " + Readable(e));
+                ShowMenu(null);
+                string readable = Readable(e);
+                if (readable == null) Dialogs.Instance.ShowOffline(null);
+                else Dialogs.Instance.Error("common.error", Loc.Format("menu.failed", readable));
             }
         }
 
-        private string Nickname()
-        {
-            string name = nicknameInput.text.Trim();
-            if (name.Length == 0) name = "Player";
-            if (name.Length > MaxNicknameLength) name = name.Substring(0, MaxNicknameLength);
-            nicknameInput.text = name;
-            PlayerPrefs.SetString(NicknameKey, name);
-            PlayerPrefs.Save();
-            return name;
-        }
+        private string Nickname() => services.Profile.State.nickname;
 
-        private void ShowMenu(string status)
+        private void ShowMenu(string toast)
         {
             menuRoot.SetActive(true);
             hudRoot.SetActive(false);
-            ShowMainButtons();
-            SetWaiting(false);
-            SetStatus(status);
+            if (waitingView.IsOpen) waitingView.Hide();
+            if (!string.IsNullOrEmpty(toast)) Dialogs.Instance.Toast(toast);
             MenuShown?.Invoke();
         }
 
         private void HideMenu()
         {
+            if (waitingView.IsOpen) waitingView.HideImmediate();
+            ScreenRouter.Instance.CloseAll(true);
             menuRoot.SetActive(false);
             hudRoot.SetActive(true);
         }
 
-        public void ShowFriendPanel()
-        {
-            mainButtons.SetActive(false);
-            friendPanel.SetActive(true);
-        }
-
-        private void ShowMainButtons()
-        {
-            mainButtons.SetActive(true);
-            friendPanel.SetActive(false);
-        }
-
-        private void SetWaiting(bool waiting)
-        {
-            cancelButton.gameObject.SetActive(waiting);
-            nicknameInput.interactable = !waiting;
-            foreach (Button button in lockWhileWaiting) button.interactable = !waiting;
-            createRoomButton.interactable = !waiting;
-            joinRoomButton.interactable = !waiting;
-            backButton.interactable = !waiting;
-        }
-
-        private void SetStatus(string text) => statusLabel.text = text;
-
-        // Server RPC errors arrive as "Error: <message> at rpcJoinRoom (index.js:..)"; show just the message.
+        // Server RPC errors arrive as "Error: <message> at rpcJoinRoom (index.js:..)"; show just the message. Null = unreachable.
         private static string Readable(Exception e)
         {
             string message = e.Message;
@@ -212,7 +185,7 @@ namespace BilliardGame.UI
             if (start >= 0) message = message.Substring(start + 7);
             int at = message.IndexOf(" at ", StringComparison.Ordinal);
             if (at > 0) message = message.Substring(0, at);
-            return message.Length > 120 ? "could not reach the server" : message;
+            return message.Length > 120 ? null : message;
         }
     }
 }

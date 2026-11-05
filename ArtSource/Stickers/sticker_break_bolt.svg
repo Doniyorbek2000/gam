@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><g stroke="#fff" stroke-width="22" stroke-linejoin="round" fill="#fff"><path d="M146 18 L64 142 H118 L100 238 L192 104 H136 Z"/></g><g stroke="#141824" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"><path d="M146 18 L64 142 H118 L100 238 L192 104 H136 Z" fill="#FFC24A"/></g><g stroke="#141824" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+  <circle cx="70" cy="196" r="28" fill="#3D8BFF"/>
+  <circle cx="70" cy="196" r="12.6" fill="#fff" stroke="none"/>
+  <text x="70" y="200.76" font-family="Montserrat" font-weight="700" font-size="15.400000000000002" fill="#141824" stroke="none" text-anchor="middle">2</text>
+  <ellipse cx="58.24" cy="182" rx="5.6000000000000005" ry="3.08" fill="#fff" opacity="0.7" stroke="none" transform="rotate(-35 58.24 182)"/></g><g stroke="#141824" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+  <circle cx="196" cy="70" r="26" fill="#FF3B5C"/>
+  <circle cx="196" cy="70" r="11.700000000000001" fill="#fff" stroke="none"/>
+  <text x="196" y="74.42" font-family="Montserrat" font-weight="700" font-size="14.3" fill="#141824" stroke="none" text-anchor="middle">3</text>
+  <ellipse cx="185.08" cy="57" rx="5.2" ry="2.86" fill="#fff" opacity="0.7" stroke="none" transform="rotate(-35 185.08 57)"/></g></svg>

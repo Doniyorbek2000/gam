@@ -14,6 +14,9 @@ namespace BilliardGame.UI
         /// <summary>Aim change in degrees, counter-clockwise seen from above.</summary>
         public event Action<float> Rotated;
 
+        /// <summary>Settings ▸ Controls ▸ fine wheel sensitivity.</summary>
+        public float Sensitivity { get; set; } = 1f;
+
         public void OnInitializePotentialDrag(PointerEventData eventData) => eventData.useDragThreshold = false;
 
         public void OnDrag(PointerEventData eventData)
@@ -25,7 +28,7 @@ namespace BilliardGame.UI
             Rect uv = ridges.uvRect;
             uv.y -= turns * uv.height;   // ridges follow the finger
             ridges.uvRect = uv;
-            Rotated?.Invoke(-turns * degreesPerWheelHeight);
+            Rotated?.Invoke(-turns * degreesPerWheelHeight * Sensitivity);
         }
     }
 }

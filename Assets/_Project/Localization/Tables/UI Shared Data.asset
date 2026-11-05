@@ -1,0 +1,1424 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: UI
+  m_TableCollectionNameGuidString: 1d28aeaedb559ca4195ac2709dd2c39a
+  m_Entries:
+  - m_Id: 6015762432
+    m_Key: common.ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6426804224
+    m_Key: common.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6430998528
+    m_Key: common.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6430998529
+    m_Key: common.back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192832
+    m_Key: common.save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192833
+    m_Key: common.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192834
+    m_Key: common.new
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192835
+    m_Key: common.soon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192836
+    m_Key: common.soon_toast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192837
+    m_Key: common.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192838
+    m_Key: common.retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192839
+    m_Key: common.loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192840
+    m_Key: common.error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192841
+    m_Key: common.copied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192842
+    m_Key: common.level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192843
+    m_Key: common.lv
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192844
+    m_Key: common.coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192845
+    m_Key: common.gems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192846
+    m_Key: common.free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192847
+    m_Key: splash.tagline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192848
+    m_Key: splash.loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192849
+    m_Key: tip.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192850
+    m_Key: tip.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192851
+    m_Key: tip.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192852
+    m_Key: tip.4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192853
+    m_Key: tip.5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192854
+    m_Key: tip.6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192855
+    m_Key: lobby.play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192856
+    m_Key: lobby.change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192857
+    m_Key: lobby.entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192858
+    m_Key: lobby.prize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192859
+    m_Key: lobby.pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192860
+    m_Key: lobby.pass_level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192861
+    m_Key: lobby.missions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192862
+    m_Key: lobby.events
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192863
+    m_Key: lobby.daily
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192864
+    m_Key: lobby.shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192865
+    m_Key: lobby.crates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775744
+    m_Key: lobby.inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775745
+    m_Key: lobby.room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775746
+    m_Key: lobby.club
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775747
+    m_Key: lobby.chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775748
+    m_Key: lobby.mail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775749
+    m_Key: lobby.friends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775750
+    m_Key: lobby.settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775751
+    m_Key: lobby.dev_coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775752
+    m_Key: lobby.dev_gems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775753
+    m_Key: lobby.no_coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775754
+    m_Key: mode.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775755
+    m_Key: mode.hotseat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775756
+    m_Key: mode.hotseat.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775757
+    m_Key: mode.friend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775758
+    m_Key: mode.friend.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775759
+    m_Key: mode.quick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775760
+    m_Key: mode.quick.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775761
+    m_Key: mode.ranked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775762
+    m_Key: mode.ranked.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775763
+    m_Key: mode.ai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775764
+    m_Key: mode.ai.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775765
+    m_Key: mode.practice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775766
+    m_Key: mode.practice.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775767
+    m_Key: mode.venue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775768
+    m_Key: mode.select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775769
+    m_Key: mode.fair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775770
+    m_Key: mode.min_level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775771
+    m_Key: mode.no_stake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775772
+    m_Key: friend.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775773
+    m_Key: friend.create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775774
+    m_Key: friend.code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775775
+    m_Key: friend.join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775776
+    m_Key: friend.or
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775777
+    m_Key: menu.rejoining
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775778
+    m_Key: menu.searching
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775779
+    m_Key: menu.creating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775780
+    m_Key: menu.room_code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775781
+    m_Key: menu.enter_code
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775782
+    m_Key: menu.joining
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775783
+    m_Key: menu.cancelled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775784
+    m_Key: menu.failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775785
+    m_Key: menu.server_down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775786
+    m_Key: offline.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775787
+    m_Key: offline.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775788
+    m_Key: profile.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775789
+    m_Key: profile.id
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775790
+    m_Key: profile.edit_nick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775791
+    m_Key: profile.nick_short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775792
+    m_Key: profile.nick_long
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775793
+    m_Key: profile.nick_chars
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775794
+    m_Key: profile.no_club
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775795
+    m_Key: profile.country
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970048
+    m_Key: profile.tab_stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970049
+    m_Key: profile.tab_history
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970050
+    m_Key: profile.tab_achievements
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970051
+    m_Key: profile.tab_collection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970052
+    m_Key: stat.matches
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970053
+    m_Key: stat.wins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970054
+    m_Key: stat.winrate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970055
+    m_Key: stat.streak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970056
+    m_Key: stat.accuracy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970057
+    m_Key: stat.multi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970058
+    m_Key: stat.potted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970059
+    m_Key: stat.favourite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970060
+    m_Key: history.won
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970061
+    m_Key: history.lost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970062
+    m_Key: history.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970063
+    m_Key: history.empty_hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970064
+    m_Key: history.vs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970065
+    m_Key: achievements.showcase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970066
+    m_Key: achievements.showcase_empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970067
+    m_Key: achievement.first_win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970068
+    m_Key: achievement.first_win.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970069
+    m_Key: achievement.wins_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970070
+    m_Key: achievement.wins_10.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970071
+    m_Key: achievement.wins_100
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970072
+    m_Key: achievement.wins_100.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970073
+    m_Key: achievement.matches_25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970074
+    m_Key: achievement.matches_25.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970075
+    m_Key: achievement.streak_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970076
+    m_Key: achievement.streak_5.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970077
+    m_Key: achievement.multi_pot_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970078
+    m_Key: achievement.multi_pot_3.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970079
+    m_Key: achievement.balls_100
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970080
+    m_Key: achievement.balls_100.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970081
+    m_Key: achievement.level_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970082
+    m_Key: achievement.level_10.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970083
+    m_Key: collection.progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970084
+    m_Key: rank.bronze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970085
+    m_Key: rank.silver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970086
+    m_Key: rank.gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970087
+    m_Key: rank.platinum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970088
+    m_Key: rank.diamond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970089
+    m_Key: rank.crown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970090
+    m_Key: rank.legend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970091
+    m_Key: category.cue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970092
+    m_Key: category.table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970093
+    m_Key: category.balls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970094
+    m_Key: category.venuetheme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970095
+    m_Key: category.outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970096
+    m_Key: category.frame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970097
+    m_Key: category.emote
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970098
+    m_Key: category.sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970099
+    m_Key: category.effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970100
+    m_Key: category.roomwall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970101
+    m_Key: category.roomfloor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970102
+    m_Key: inventory.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970103
+    m_Key: inventory.sort_rarity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970104
+    m_Key: inventory.sort_new
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970105
+    m_Key: inventory.sort_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970106
+    m_Key: inventory.owned_only
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970107
+    m_Key: inventory.equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970108
+    m_Key: inventory.equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970109
+    m_Key: inventory.on_cue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970110
+    m_Key: inventory.on_table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970111
+    m_Key: inventory.remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970112
+    m_Key: inventory.upgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970113
+    m_Key: inventory.from
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970114
+    m_Key: inventory.owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970115
+    m_Key: inventory.fair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970116
+    m_Key: inventory.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970117
+    m_Key: inventory.empty_hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970118
+    m_Key: inventory.go_crates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970119
+    m_Key: inventory.shards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970120
+    m_Key: inventory.equipped_toast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970121
+    m_Key: inventory.sticker_toast
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970122
+    m_Key: inventory.preview_drag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970123
+    m_Key: source.starter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970124
+    m_Key: source.crate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970125
+    m_Key: source.shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970126
+    m_Key: source.pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970127
+    m_Key: type.cue.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970128
+    m_Key: type.table.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970129
+    m_Key: type.sticker.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970130
+    m_Key: type.frame.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970131
+    m_Key: type.roomwall.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970132
+    m_Key: type.roomfloor.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970133
+    m_Key: type.other.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970134
+    m_Key: rarity.common
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970135
+    m_Key: rarity.rare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970136
+    m_Key: rarity.epic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970137
+    m_Key: rarity.legendary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970138
+    m_Key: rarity.mythic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970139
+    m_Key: room.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970140
+    m_Key: room.edit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970141
+    m_Key: room.tab_table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164352
+    m_Key: room.tab_wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164353
+    m_Key: room.tab_floor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164354
+    m_Key: room.tab_decor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164355
+    m_Key: room.saved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164356
+    m_Key: room.slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164357
+    m_Key: room.empty_slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164358
+    m_Key: room.visit_soon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164359
+    m_Key: room.trophies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164360
+    m_Key: settings.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164361
+    m_Key: settings.tab_graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164362
+    m_Key: settings.tab_sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164363
+    m_Key: settings.tab_controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164364
+    m_Key: settings.tab_language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164365
+    m_Key: settings.tab_account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524480
+    m_Key: settings.tab_other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524481
+    m_Key: settings.quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524482
+    m_Key: settings.quality_low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524483
+    m_Key: settings.quality_medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524484
+    m_Key: settings.quality_high
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524485
+    m_Key: settings.quality_auto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524486
+    m_Key: settings.fps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524487
+    m_Key: settings.shadows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524488
+    m_Key: settings.post
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524489
+    m_Key: settings.battery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524490
+    m_Key: settings.battery_hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524491
+    m_Key: settings.master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524492
+    m_Key: settings.music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524493
+    m_Key: settings.effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524494
+    m_Key: settings.voice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524495
+    m_Key: settings.vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524496
+    m_Key: settings.aim_sens
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524497
+    m_Key: settings.fine_sens
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524498
+    m_Key: settings.left_hand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524499
+    m_Key: settings.left_hand_hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524500
+    m_Key: settings.aim_guide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524501
+    m_Key: settings.confirm_shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524502
+    m_Key: settings.confirm_shot_hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524503
+    m_Key: settings.language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524504
+    m_Key: settings.account_id
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524505
+    m_Key: settings.google
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524506
+    m_Key: settings.logout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524507
+    m_Key: settings.logout_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524508
+    m_Key: settings.delete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524509
+    m_Key: settings.delete_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524510
+    m_Key: settings.deleted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524511
+    m_Key: settings.notifications
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524512
+    m_Key: settings.privacy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524513
+    m_Key: settings.terms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524514
+    m_Key: settings.help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524515
+    m_Key: settings.credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524516
+    m_Key: settings.version
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524517
+    m_Key: hud.you
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524518
+    m_Key: hud.guest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524519
+    m_Key: hud.open_table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524520
+    m_Key: hud.on_eight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524521
+    m_Key: hud.solids
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524522
+    m_Key: hud.stripes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524523
+    m_Key: hud.shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524524
+    m_Key: hud.shoot_confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524525
+    m_Key: hud.power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524526
+    m_Key: hud.spin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524527
+    m_Key: hud.break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524528
+    m_Key: hud.turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524529
+    m_Key: hud.your_turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524530
+    m_Key: hud.takes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524531
+    m_Key: hud.respot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524532
+    m_Key: hud.foul
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524533
+    m_Key: hud.ball_in_hand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524534
+    m_Key: hud.ball_in_hand_kitchen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524535
+    m_Key: hud.rebreak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524536
+    m_Key: foul.scratch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524537
+    m_Key: foul.no_hit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524538
+    m_Key: foul.wrong_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524539
+    m_Key: foul.no_rail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524540
+    m_Key: foul.illegal_break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524541
+    m_Key: foul.timeout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524542
+    m_Key: foul.other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524543
+    m_Key: hud.pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524544
+    m_Key: hud.resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524545
+    m_Key: hud.leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524546
+    m_Key: hud.leave_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524547
+    m_Key: hud.leave_offline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524548
+    m_Key: hud.emotes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524549
+    m_Key: hud.rules
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524550
+    m_Key: result.victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524551
+    m_Key: result.defeat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524552
+    m_Key: result.winner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524553
+    m_Key: result.xp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524554
+    m_Key: result.coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524555
+    m_Key: result.practice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524556
+    m_Key: result.level_up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524557
+    m_Key: result.again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524558
+    m_Key: result.lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524559
+    m_Key: result.potted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524560
+    m_Key: crates.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524561
+    m_Key: crates.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524562
+    m_Key: crates.odds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524563
+    m_Key: crates.odds_short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524564
+    m_Key: crates.pity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524565
+    m_Key: crates.open_confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524566
+    m_Key: crates.open_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524567
+    m_Key: crates.skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524568
+    m_Key: crates.again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524569
+    m_Key: crates.result_best
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524570
+    m_Key: crates.duplicate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524571
+    m_Key: crates.equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524572
+    m_Key: crates.not_enough_gems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524573
+    m_Key: crates.not_enough_coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524574
+    m_Key: crates.guarantee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524575
+    m_Key: crates.ten_guarantee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524576
+    m_Key: crates.equal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524577
+    m_Key: credits.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524578
+    m_Key: credits.thanks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524579
+    m_Key: credits.missing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524580
+    m_Key: credits.group.avatar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524581
+    m_Key: credits.group.font
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524582
+    m_Key: credits.group.hdri
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524583
+    m_Key: credits.group.prop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524584
+    m_Key: credits.group.texture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524585
+    m_Key: credits.group.table
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524586
+    m_Key: credits.group.cue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524587
+    m_Key: credits.group.venue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524588
+    m_Key: credits.group.outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524589
+    m_Key: credits.group.icon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524590
+    m_Key: item.sticker_nice_shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524591
+    m_Key: item.sticker_lol_ball
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524592
+    m_Key: item.sticker_pomegranate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524593
+    m_Key: item.sticker_choy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524594
+    m_Key: item.sticker_blue_dome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524595
+    m_Key: item.sticker_break_bolt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524596
+    m_Key: item.sticker_gg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524597
+    m_Key: item.sticker_hot_eight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524598
+    m_Key: item.sticker_gold_star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524599
+    m_Key: item.sticker_crown_cue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524600
+    m_Key: item.frame_basic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524601
+    m_Key: item.frame_azure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524602
+    m_Key: item.frame_royal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524603
+    m_Key: item.frame_gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524604
+    m_Key: item.wall_plain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524605
+    m_Key: item.wall_brick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524606
+    m_Key: item.wall_tiles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524607
+    m_Key: item.floor_wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524608
+    m_Key: item.floor_marble
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524609
+    m_Key: item.floor_carpet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524610
+    m_Key: item.cue_house
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524611
+    m_Key: item.cue_maple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524612
+    m_Key: item.cue_classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524613
+    m_Key: item.cue_crimson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524614
+    m_Key: item.cue_carbon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524615
+    m_Key: item.cue_ornate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524616
+    m_Key: item.cue_dragon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524617
+    m_Key: item.table_classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524618
+    m_Key: item.table_royal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524619
+    m_Key: item.table_modern
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524620
+    m_Key: item.table_silk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524621
+    m_Key: venue.garage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524622
+    m_Key: venue.silk_road_lounge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524623
+    m_Key: venue.old_city_club
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524624
+    m_Key: venue.bukhara_palace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524625
+    m_Key: venue.neon_arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819299471360
+    m_Key: crate.classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385920
+    m_Key: crate.premium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385921
+    m_Key: crates.price_one
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385922
+    m_Key: crates.price_ten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11028390821888
+    m_Key: mode.section
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2919173805271416927
+  references:
+    version: 2
+    RefIds:
+    - rid: 2919173805271416927
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1793881988616

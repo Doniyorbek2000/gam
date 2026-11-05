@@ -10,30 +10,35 @@ using UnityEngine.UI;
 namespace BilliardGame.UI
 {
     /// <summary>
-    /// Crates (docs/UI_UX.md §8): one card per crate with price, [i] odds, pity counters and 1×/10×; the reveal plays the
-    /// 3D crate on the lobby stage, then shows the result card(s). Odds text is generated from the crate table.
+    /// Crates (docs/UI_UX.md §5–6): one card per crate with price, odds [i], pity counters and 1×/10×. Spending gems
+    /// always asks first. The reveal plays the 3D crate on the lobby stage, then the result tiles pop in one by one.
+    /// Odds text is generated from the crate table (CLAUDE.md rule 6).
     /// </summary>
-    public sealed class CrateScreen : MonoBehaviour
+    public sealed class CrateScreen : ScreenView
     {
+        private const int DevCoins = 10_000;
+        private const int DevGems = 1_000;
+
         [SerializeField] private GameServices services;
         [SerializeField] private LobbyStage stage;
-        [SerializeField] private LobbyController lobby;
-        [SerializeField] private GameObject root;
-        [SerializeField] private GameObject lobbyChrome;
-        [SerializeField] private Button closeButton;
+        [SerializeField] private Sprite coinSprite;
+        [SerializeField] private Sprite gemSprite;
+        [SerializeField] private CurrencyPill coins;
+        [SerializeField] private CurrencyPill gems;
+        [SerializeField] private GameObject cardsRoot;
         [SerializeField] private CrateCardView[] cards = new CrateCardView[0];
 
-        [SerializeField] private GameObject oddsPanel;
+        [SerializeField] private ScreenView oddsView;
         [SerializeField] private TMP_Text oddsTitle;
         [SerializeField] private TMP_Text oddsText;
-        [SerializeField] private Button oddsClose;
 
         [SerializeField] private GameObject revealPanel;
         [SerializeField] private Button skipButton;
         [SerializeField] private GameObject resultPanel;
         [SerializeField] private TMP_Text resultTitle;
-        [SerializeField] private ItemCardView[] resultCards = new ItemCardView[0];
+        [SerializeField] private ItemTile[] resultTiles = new ItemTile[0];
         [SerializeField] private Button equipButton;
+        [SerializeField] private TMP_Text equipLabel;
         [SerializeField] private Button againButton;
         [SerializeField] private Button resultClose;
 
@@ -45,30 +50,25 @@ namespace BilliardGame.UI
 
         public bool IsRevealing => busy;
 
-        private void OnEnable()
+        protected override void Awake()
         {
-            closeButton.onClick.AddListener(Close);
-            oddsClose.onClick.AddListener(() => oddsPanel.SetActive(false));
+            base.Awake();
             skipButton.onClick.AddListener(() => skipRequested = true);
             equipButton.onClick.AddListener(EquipCandidate);
-            againButton.onClick.AddListener(() => Open(lastCrate, lastCount));
+            againButton.onClick.AddListener(() => RequestOpen(lastCrate, lastCount));
             resultClose.onClick.AddListener(CloseResult);
+            // Mock/dev top-ups (STORE_MOCK and editor); M2 replaces them with the real shop.
+            coins.Plus.onClick.AddListener(() => Grant(DevCoins, 0, "lobby.dev_coins", DevCoins));
+            gems.Plus.onClick.AddListener(() => Grant(0, DevGems, "lobby.dev_gems", DevGems));
+        }
+
+        protected override void OnShown()
+        {
             services.Economy.Changed += Refresh;
-        }
-
-        private void OnDisable()
-        {
-            foreach (Button b in new[] { closeButton, oddsClose, skipButton, equipButton, againButton, resultClose }) b.onClick.RemoveAllListeners();
-            services.Economy.Changed -= Refresh;
-        }
-
-        public void Open()
-        {
-            root.SetActive(true);
-            lobbyChrome.SetActive(false);
-            oddsPanel.SetActive(false);
+            Loc.Changed += Refresh;
             revealPanel.SetActive(false);
             resultPanel.SetActive(false);
+            cardsRoot.SetActive(true);
             for (int i = 0; i < cards.Length; i++)
             {
                 CrateDefinition crate = i < services.Economy.Crates.Count ? services.Economy.Crates[i] : null;
@@ -76,31 +76,54 @@ namespace BilliardGame.UI
                 if (crate != null) cards[i].Bind(crate, this);
             }
 
+            coins.Set(services.Economy.Coins, false);
+            gems.Set(services.Economy.Gems, false);
             Refresh();
         }
 
-        public void Close()
+        protected override void OnHidden()
         {
-            if (busy) return;
-            root.SetActive(false);
-            lobbyChrome.SetActive(true);
+            services.Economy.Changed -= Refresh;
+            Loc.Changed -= Refresh;
             stage.ShowCharacter();
+        }
+
+        public override bool OnBack()
+        {
+            if (busy) return false;
+            if (resultPanel.activeSelf)
+            {
+                CloseResult();
+                return true;
+            }
+
+            return base.OnBack();
         }
 
         private void Refresh()
         {
+            coins.Set(services.Economy.Coins);
+            gems.Set(services.Economy.Gems);
             foreach (CrateCardView card in cards)
             {
                 if (card.gameObject.activeSelf) card.Refresh(services.Economy);
             }
         }
 
+        private void Grant(int coinAmount, int gemAmount, string key, int amount)
+        {
+            services.Mock.DevGrant(coinAmount, gemAmount);
+            Dialogs.Instance.Toast(Loc.Format(key, Loc.Number(amount)));
+        }
+
         public void ShowOdds(CrateDefinition crate)
         {
-            oddsTitle.text = $"{crate.displayName} yashik — ehtimollar";
+            oddsTitle.text = Loc.Format("crates.odds", CrateName(crate));
             oddsText.text = OddsText(crate, services.Catalog);
-            oddsPanel.SetActive(true);
+            ScreenRouter.Instance.Open(oddsView);
         }
+
+        public static string CrateName(CrateDefinition crate) => Loc.Get("crate." + crate.id, crate.displayName);
 
         /// <summary>Odds window text, generated from the crate table and the catalog (CLAUDE.md rule 6).</summary>
         public static string OddsText(CrateDefinition crate, SkinCatalog catalog)
@@ -118,7 +141,7 @@ namespace BilliardGame.UI
                 }
 
                 text.AppendLine(RarityStyle.Tagged(rarity, $"<b>{RarityStyle.Label(rarity)}  {weight:0.##}%</b>"));
-                foreach (SkinDefinition skin in items) text.AppendLine($"    {skin.DisplayName} — {weight / items.Count:0.###}%");
+                foreach (SkinDefinition skin in items) text.AppendLine($"    {RarityStyle.ItemName(skin)} — {weight / items.Count:0.###}%");
             }
 
             text.AppendLine();
@@ -126,15 +149,49 @@ namespace BilliardGame.UI
             {
                 double p = CrateRoller.ChanceAtLeast(crate.weights, rule.MinRarity) / 100.0;
                 double effective = CrateRoller.EffectiveChance(p, rule.count) * 100.0;
-                text.AppendLine($"Kafolat: {rule.count}-ochishda {RarityStyle.Name(rule.MinRarity)} yoki yuqori. Asosiy {p * 100:0.##}%, pity bilan umumiy {effective:0.##}%.");
+                text.AppendLine(Loc.Format("crates.guarantee", rule.count, RarityStyle.Name(rule.MinRarity), (p * 100).ToString("0.##", Loc.Culture), effective.ToString("0.##", Loc.Culture)));
             }
 
-            if (crate.HasTenGuarantee(out Rarity ten)) text.AppendLine($"10× ochishda kamida bitta {RarityStyle.Name(ten)} yoki yuqori.");
-            text.AppendLine("Raritet ichida har bir item teng ehtimolli. Dublikat → Shard.");
+            if (crate.HasTenGuarantee(out Rarity ten)) text.AppendLine(Loc.Format("crates.ten_guarantee", RarityStyle.Name(ten)));
+            text.AppendLine(Loc.Get("crates.equal"));
             return text.ToString();
         }
 
-        public async void Open(string crateId, int count)
+        /// <summary>1× / 10× button: gem crates confirm the spend first (docs/UI_UX.md §5).</summary>
+        public void RequestOpen(string crateId, int count)
+        {
+            if (busy || crateId == null) return;
+            CrateDefinition crate = Find(crateId);
+            if (crate == null) return;
+            bool gemCrate = crate.Currency == Currency.Gem;
+            int balance = gemCrate ? services.Economy.Gems : services.Economy.Coins;
+            if (balance < crate.Price(count))
+            {
+                Dialogs.Instance.Toast(Loc.Get(gemCrate ? "crates.not_enough_gems" : "crates.not_enough_coins"));
+                return;
+            }
+
+            if (!gemCrate)
+            {
+                Open(crateId, count);
+                return;
+            }
+
+            Dialogs.Instance.Confirm("crates.open_confirm", Loc.Format("crates.open_body", CrateName(crate), count), "common.confirm",
+                () => Open(crateId, count), gemSprite, crate.Price(count));
+        }
+
+        private CrateDefinition Find(string crateId)
+        {
+            foreach (CrateDefinition crate in services.Economy.Crates)
+            {
+                if (crate.id == crateId) return crate;
+            }
+
+            return null;
+        }
+
+        private async void Open(string crateId, int count)
         {
             if (busy) return;
             busy = true;
@@ -144,7 +201,7 @@ namespace BilliardGame.UI
             if (!result.Success)
             {
                 busy = false;
-                lobby.ShowToast(result.Error);
+                Dialogs.Instance.Toast(result.Error);
                 return;
             }
 
@@ -155,64 +212,63 @@ namespace BilliardGame.UI
         {
             // The animation starts only after the result exists (server result in M2).
             resultPanel.SetActive(false);
-            oddsPanel.SetActive(false);
+            cardsRoot.SetActive(false);
             revealPanel.SetActive(true);
-            foreach (CrateCardView card in cards) card.gameObject.SetActive(false);
             skipRequested = false;
+            yield return stage.OpenCrate(Best(result), () => skipRequested);
+            revealPanel.SetActive(false);
+            ShowResult(result);
+            busy = false;
+        }
 
+        private static Rarity Best(CrateOpenResult result)
+        {
             Rarity top = Rarity.Common;
             foreach (CrateDrop drop in result.Drops)
             {
                 if (drop.Item.Rarity > top) top = drop.Item.Rarity;
             }
 
-            yield return stage.OpenCrate(top, () => skipRequested);
-            revealPanel.SetActive(false);
-            ShowResult(result);
-            busy = false;
+            return top;
         }
 
         private void ShowResult(CrateOpenResult result)
         {
             resultPanel.SetActive(true);
             equipCandidate = null;
-            int shown = Mathf.Min(result.Drops.Count, resultCards.Length);
-            // Single result in the centre slot; 10× fills the 2×5 grid.
-            for (int i = 0; i < resultCards.Length; i++) resultCards[i].gameObject.SetActive(false);
+            int shown = Mathf.Min(result.Drops.Count, resultTiles.Length);
+            for (int i = 0; i < resultTiles.Length; i++) resultTiles[i].gameObject.SetActive(i < shown);
             for (int i = 0; i < shown; i++)
             {
                 CrateDrop drop = result.Drops[i];
                 SkinDefinition skin = services.Catalog.Find(drop.Item.Id);
-                string badge = drop.IsNew ? "YANGI" : $"Dublikat → +{drop.Shards} Shard" + (drop.Crystals > 0 ? $" +{drop.Crystals} Kristall" : string.Empty);
-                ItemCardView card = resultCards[shown == 1 ? 0 : i];
-                card.gameObject.SetActive(true);
-                card.Bind(skin, badge, false, false, null);
+                string note = drop.IsNew ? null : Loc.Format("crates.duplicate", drop.Shards);
+                resultTiles[i].Bind(skin, true, false, drop.IsNew, false, null, note);
+                resultTiles[i].PlayReveal(i * 0.08f);
                 if (drop.IsNew && (equipCandidate == null || skin.Rarity > equipCandidate.Rarity)) equipCandidate = skin;
             }
 
-            Rarity best = Rarity.Common;
-            foreach (CrateDrop drop in result.Drops)
-            {
-                if (drop.Item.Rarity > best) best = drop.Item.Rarity;
-            }
-
-            resultTitle.text = shown == 1 ? RarityStyle.Tagged(best, RarityStyle.Label(best)) : $"10× natija — eng yaxshisi: {RarityStyle.Tagged(best, RarityStyle.Label(best))}";
+            Rarity best = Best(result);
+            string label = RarityStyle.Tagged(best, RarityStyle.Label(best));
+            resultTitle.text = shown == 1 ? label : Loc.Format("crates.result_best", label);
             equipButton.gameObject.SetActive(equipCandidate != null);
-            if (equipCandidate != null) equipButton.GetComponentInChildren<TMP_Text>().text = $"JIHOZLASH: {equipCandidate.DisplayName}";
+            if (equipCandidate != null) equipLabel.text = Loc.Format("crates.equip", RarityStyle.ItemName(equipCandidate)).ToUpper(Loc.Culture);
+            UIFeedback.Confirm();
         }
 
         private async void EquipCandidate()
         {
             if (equipCandidate == null) return;
-            if (await services.Economy.EquipAsync(equipCandidate.Id)) lobby.ShowToast($"Jihozlandi: {equipCandidate.DisplayName}");
+            if (await services.Economy.EquipAsync(equipCandidate.Id)) Dialogs.Instance.Toast(Loc.Format("inventory.equipped_toast", RarityStyle.ItemName(equipCandidate)));
             equipButton.gameObject.SetActive(false);
         }
 
         private void CloseResult()
         {
             resultPanel.SetActive(false);
+            cardsRoot.SetActive(true);
             stage.ShowCharacter();
-            Open();
+            Refresh();
         }
     }
 }

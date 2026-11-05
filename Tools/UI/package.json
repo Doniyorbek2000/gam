@@ -1,0 +1,7 @@
+{
+  "name": "billiardgame-ui-tools",
+  "private": true,
+  "type": "module",
+  "description": "Regenerates UI icon PNGs and sticker art: npm install, then node icons.mjs ../.. and node stickers.mjs ../..",
+  "dependencies": { "@resvg/resvg-js": "2.6.2" }
+}

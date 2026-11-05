@@ -46,6 +46,7 @@ namespace BilliardGame.Editor.Content
             showcase.transform.SetParent(turntable, false);
             BuildCharacter(showcase.transform, folder);
             equippedCue = CueSlot("Equipped Cue", showcase.transform, new Vector3(0.48f, 1.48f, 0.05f), Quaternion.LookRotation(Vector3.down, Vector3.forward));
+            StickerDecals.AddCueDecal(equippedCue);
 
             // Inventory preview: a cue lying across the turntable, or the mini table.
             var previewCue = new GameObject("Preview Cue");
@@ -79,7 +80,7 @@ namespace BilliardGame.Editor.Content
         }
 
         /// <summary>Imported table skins replace the mini table's boxes with the model at mini scale.</summary>
-        private static void WireTableModel(SkinTarget target, Transform mini)
+        internal static void WireTableModel(SkinTarget target, Transform mini)
         {
             GameObject[] builtIn = Enumerable.Range(0, mini.childCount).Select(i => mini.GetChild(i).gameObject).ToArray();
             var holder = new GameObject("Table Model").transform;

@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Threading.Tasks;
 using BilliardGame.Content;
+using BilliardGame.Meta;
 using BilliardGame.Online;
 using BilliardGame.Presentation;
 using TMPro;
@@ -11,8 +11,8 @@ using UnityEngine.UI;
 namespace BilliardGame.UI
 {
     /// <summary>
-    /// PUBG-style lobby (docs/UI_UX.md §2–3): balances, rails (Pass/Tasks "coming soon"; Shop/Crates/Inventory live),
-    /// mode + venue sheet, PLAY. Switches between the lobby camera and the match camera and loads the chosen venue.
+    /// PUBG-style lobby (docs/UI_UX.md §2): profile card, currency pills, left/right rails, mode + hall card and PLAY.
+    /// Owns the selected mode and hall, switches between the lobby camera and the match camera and loads the hall.
     /// </summary>
     public sealed class LobbyController : MonoBehaviour
     {
@@ -21,130 +21,150 @@ namespace BilliardGame.UI
             HotSeat = 0,
             Friend = 1,
             Quick = 2,
+            Ranked = 3,
+            Ai = 4,
+            Practice = 5,
         }
 
         private const string ModeKey = "lobby_mode";
-        private const string VenueKey = "lobby_venue";
-        private const int DevCoins = 10_000;
-        private const int DevGems = 1_000;
-        private static readonly string[] ModeNames = { "Hot-seat", "Do'st bilan", "Tezkor o'yin" };
+        private const string VenueKey = "lobby_venue_id";
+        private const string DefaultVenue = "silk_road_lounge";
+        private static readonly string[] ModeKeys = { "mode.hotseat", "mode.friend", "mode.quick", "mode.ranked", "mode.ai", "mode.practice" };
 
         [SerializeField] private GameServices services;
         [SerializeField] private MainMenuController menu;
         [SerializeField] private OnlineMatchController online;
         [SerializeField] private GameController game;
+        [SerializeField] private HudController hud;
         [SerializeField] private VenueLoader venues;
         [SerializeField] private LobbyStage stage;
         [SerializeField] private Camera matchCamera;
-        [SerializeField] private CrateScreen crates;
-        [SerializeField] private InventoryScreen inventory;
-        [SerializeField] private CreditsScreen credits;
 
-        [SerializeField] private TMP_Text coinsLabel;
-        [SerializeField] private TMP_Text gemsLabel;
-        [SerializeField] private Button addCoins;
-        [SerializeField] private Button addGems;
+        [Header("Screens")]
+        [SerializeField] private ScreenView chrome;
+        [SerializeField] private ModeSelectScreen modeSelect;
+        [SerializeField] private ProfileScreen profileScreen;
+        [SerializeField] private InventoryScreen inventory;
+        [SerializeField] private MyRoomScreen room;
+        [SerializeField] private SettingsScreen settings;
+        [SerializeField] private CrateScreen crates;
+
+        [Header("Profile card")]
+        [SerializeField] private Button profileButton;
+        [SerializeField] private Image avatarFrame;
+        [SerializeField] private TMP_Text nicknameLabel;
+        [SerializeField] private TMP_Text levelLabel;
+        [SerializeField] private ProgressBar xpBar;
+        [SerializeField] private TMP_Text rankLabel;
+
+        [Header("Top right")]
+        [SerializeField] private CurrencyPill coins;
+        [SerializeField] private CurrencyPill gems;
+        [SerializeField] private Button mailButton;
+        [SerializeField] private Button friendsButton;
         [SerializeField] private Button settingsButton;
+
+        [Header("Rails")]
         [SerializeField] private Button passButton;
-        [SerializeField] private Button tasksButton;
+        [SerializeField] private Button missionsButton;
+        [SerializeField] private Button eventsButton;
+        [SerializeField] private Button dailyButton;
         [SerializeField] private Button shopButton;
-        [SerializeField] private Button crateButton;
+        [SerializeField] private Button cratesButton;
         [SerializeField] private Button inventoryButton;
-        [SerializeField] private Button selectorButton;
-        [SerializeField] private TMP_Text selectorLabel;
+        [SerializeField] private BadgeView inventoryBadge;
+        [SerializeField] private Button roomButton;
+        [SerializeField] private Button clubButton;
+        [SerializeField] private Button chatButton;
+
+        [Header("Mode card + play")]
+        [SerializeField] private Button modeCard;
+        [SerializeField] private Image venueImage;
+        [SerializeField] private TMP_Text modeLabel;
+        [SerializeField] private TMP_Text venueLabel;
+        [SerializeField] private TMP_Text entryLabel;
+        [SerializeField] private TMP_Text prizeLabel;
         [SerializeField] private Button playButton;
-        [SerializeField] private GameObject sheet;
-        [SerializeField] private Button[] modeButtons = new Button[0];
-        [SerializeField] private Button[] venueButtons = new Button[0];
-        [SerializeField] private Button sheetDone;
-        [SerializeField] private TMP_Text toast;
 
         private Mode mode;
-        private int venueIndex;
-        private Coroutine toastRoutine;
+        private VenueDefinition venue;
 
         public Mode SelectedMode => mode;
-        public VenueDefinition SelectedVenue => services.Catalog.Venues[venueIndex];
+        public VenueDefinition SelectedVenue => venue;
+        public static bool IsPlayable(Mode candidate) => candidate <= Mode.Quick;
+        public static string ModeName(Mode candidate) => Loc.Get(ModeKeys[(int)candidate]);
+        public static string ModeKeyOf(Mode candidate) => ModeKeys[(int)candidate];
 
         private void Awake()
         {
-            mode = (Mode)Mathf.Clamp(PlayerPrefs.GetInt(ModeKey, 0), 0, ModeNames.Length - 1);
-            venueIndex = Mathf.Clamp(PlayerPrefs.GetInt(VenueKey, services.Catalog.Venues.Count - 1), 0, services.Catalog.Venues.Count - 1);
+            int saved = PlayerPrefs.GetInt(ModeKey, 0);
+            mode = IsPlayable((Mode)saved) ? (Mode)saved : Mode.HotSeat;
+            venue = FindVenue(PlayerPrefs.GetString(VenueKey, DefaultVenue)) ?? FindVenue(DefaultVenue) ?? services.Catalog.Venues[0];
 
             // Dev/E2E: "-venue silk_road_lounge" picks the hall without touching the UI.
             string[] args = Environment.GetCommandLineArgs();
             int venueArg = Array.IndexOf(args, "-venue");
-            if (venueArg >= 0 && venueArg + 1 < args.Length) SelectVenue(args[venueArg + 1]);
+            if (venueArg >= 0 && venueArg + 1 < args.Length) venue = FindVenue(args[venueArg + 1]) ?? venue;
         }
 
         private void OnEnable()
         {
             services.Economy.Changed += RefreshBalances;
+            services.Profile.Changed += RefreshProfile;
+            Loc.Changed += RefreshAll;
             menu.MenuShown += OnMenuShown;
             online.MatchStarted += OnOnlineMatchStarted;
-            addCoins.onClick.AddListener(GrantCoins);
-            addGems.onClick.AddListener(GrantGems);
-            settingsButton.onClick.AddListener(credits.Open);
-            passButton.onClick.AddListener(ComingSoon);
-            tasksButton.onClick.AddListener(ComingSoon);
-            shopButton.onClick.AddListener(crates.Open);
-            crateButton.onClick.AddListener(crates.Open);
-            inventoryButton.onClick.AddListener(inventory.Open);
-            selectorButton.onClick.AddListener(OpenSheet);
-            sheetDone.onClick.AddListener(CloseSheet);
-            playButton.onClick.AddListener(Play);
-            for (int i = 0; i < modeButtons.Length; i++)
-            {
-                int index = i;
-                modeButtons[i].onClick.AddListener(() => SelectMode((Mode)index));
-            }
+            hud.AgainRequested += PlayAgain;
 
-            for (int i = 0; i < venueButtons.Length; i++)
-            {
-                int index = i;
-                venueButtons[i].onClick.AddListener(() => SelectVenue(index));
-            }
+            Bind(profileButton, () => Open(profileScreen));
+            Bind(coins.Plus, () => Open(crates));
+            Bind(gems.Plus, () => Open(crates));
+            Bind(settingsButton, () => Open(settings));
+            Bind(shopButton, () => Open(crates));
+            Bind(cratesButton, () => Open(crates));
+            Bind(inventoryButton, () => Open(inventory));
+            Bind(roomButton, () => Open(room));
+            Bind(modeCard, () => Open(modeSelect));
+            Bind(playButton, Play);
+            foreach (Button soon in new[] { mailButton, friendsButton, passButton, missionsButton, eventsButton, dailyButton, clubButton, chatButton }) Bind(soon, ComingSoon);
         }
 
         private void OnDisable()
         {
             services.Economy.Changed -= RefreshBalances;
+            services.Profile.Changed -= RefreshProfile;
+            Loc.Changed -= RefreshAll;
             menu.MenuShown -= OnMenuShown;
             online.MatchStarted -= OnOnlineMatchStarted;
-            foreach (Button b in new[] { addCoins, addGems, settingsButton, passButton, tasksButton, shopButton, crateButton, inventoryButton, selectorButton, sheetDone, playButton }) b.onClick.RemoveAllListeners();
-            foreach (Button b in modeButtons) b.onClick.RemoveAllListeners();
-            foreach (Button b in venueButtons) b.onClick.RemoveAllListeners();
+            hud.AgainRequested -= PlayAgain;
+            foreach (Button b in new[] { profileButton, coins.Plus, gems.Plus, settingsButton, shopButton, cratesButton, inventoryButton, roomButton, modeCard, playButton,
+                         mailButton, friendsButton, passButton, missionsButton, eventsButton, dailyButton, clubButton, chatButton })
+            {
+                b.onClick.RemoveAllListeners();
+            }
         }
 
         private void Start()
         {
-            sheet.SetActive(false);
-            toast.gameObject.SetActive(false);
-            RefreshBalances();
-            RefreshSelector();
+            coins.Set(services.Economy.Coins, false);
+            gems.Set(services.Economy.Gems, false);
+            RefreshAll();
         }
 
-        public void SelectMode(Mode selected)
+        private static void Bind(Button button, UnityEngine.Events.UnityAction action) => button.onClick.AddListener(action);
+
+        private static void Open(ScreenView view) => ScreenRouter.Instance.Open(view);
+
+        public void Select(Mode selected, VenueDefinition hall)
         {
-            mode = selected;
+            if (IsPlayable(selected)) mode = selected;
+            if (hall != null && !hall.ComingSoon) venue = hall;
             PlayerPrefs.SetInt(ModeKey, (int)mode);
-            RefreshSelector();
+            PlayerPrefs.SetString(VenueKey, venue.Id);
+            RefreshModeCard();
         }
 
-        public void SelectVenue(string venueId)
-        {
-            for (int i = 0; i < services.Catalog.Venues.Count; i++)
-            {
-                if (services.Catalog.Venues[i].Id == venueId) SelectVenue(i);
-            }
-        }
-
-        private void SelectVenue(int index)
-        {
-            venueIndex = index;
-            PlayerPrefs.SetInt(VenueKey, index);
-            RefreshSelector();
-        }
+        public void SelectVenue(string venueId) => Select(mode, FindVenue(venueId));
 
         /// <summary>PLAY: hot-seat loads the hall first; online modes load it once the match starts.</summary>
         public async void Play()
@@ -156,21 +176,46 @@ namespace BilliardGame.UI
                     await EnterVenue();
                     playButton.interactable = true;
                     menu.PlayOffline();
+                    game.SetPlayerNames(services.Profile.State.nickname, Loc.Get("hud.guest"));
                     break;
                 case Mode.Friend:
                     menu.ShowFriendPanel();
                     break;
-                default:
+                case Mode.Quick:
+                    // Entry is shown here and charged by the server when the match starts (M2); the mock only checks it.
+                    if (services.Economy.Coins < venue.EntryFee)
+                    {
+                        Dialogs.Instance.Toast(Loc.Get("lobby.no_coins"));
+                        return;
+                    }
+
                     menu.QuickMatch();
                     break;
+                default:
+                    ComingSoon();
+                    break;
             }
+        }
+
+        /// <summary>Result screen ▸ Play again: hot-seat re-racks in the same hall, online goes back to matchmaking.</summary>
+        private void PlayAgain()
+        {
+            if (!game.IsOnline)
+            {
+                game.NewGame();
+                return;
+            }
+
+            menu.ReturnToMenu();
+            Play();
         }
 
         private async void OnOnlineMatchStarted() => await EnterVenue();
 
         private async Task EnterVenue()
         {
-            await venues.LoadAsync(SelectedVenue);
+            hud.SetMatchContext(venue);
+            await venues.LoadAsync(venue);
             SetLobbyView(false);
         }
 
@@ -178,6 +223,7 @@ namespace BilliardGame.UI
         {
             SetLobbyView(true);
             stage.ShowCharacter();
+            RefreshAll();
             await venues.UnloadAsync();
         }
 
@@ -186,58 +232,85 @@ namespace BilliardGame.UI
             stage.Camera.enabled = lobby;
             stage.gameObject.SetActive(lobby);
             matchCamera.enabled = !lobby;
+            GameSettings.ApplyCamera(lobby ? stage.Camera : matchCamera);
+        }
+
+        private void RefreshAll()
+        {
+            RefreshProfile();
+            RefreshBalances();
+            RefreshModeCard();
         }
 
         private void RefreshBalances()
         {
-            coinsLabel.text = services.Economy.Coins.ToString("N0");
-            gemsLabel.text = services.Economy.Gems.ToString("N0");
+            coins.Set(services.Economy.Coins);
+            gems.Set(services.Economy.Gems);
+            inventoryBadge.Set(InventoryScreen.NewCount(services));
+            RefreshFrame();
         }
 
-        private void RefreshSelector()
+        private void RefreshProfile()
         {
-            selectorLabel.text = $"8-Ball · {ModeNames[(int)mode]}\n<size=70%>{SelectedVenue.DisplayName}</size>";
-            for (int i = 0; i < modeButtons.Length; i++) Highlight(modeButtons[i], i == (int)mode);
-            for (int i = 0; i < venueButtons.Length; i++) Highlight(venueButtons[i], i == venueIndex);
+            ProfileState profile = services.Profile.State;
+            int level = ProfileRules.Level(profile.xp, out int into, out int needed);
+            nicknameLabel.text = profile.nickname;
+            levelLabel.text = level.ToString(Loc.Culture);
+            xpBar.Set(needed > 0 ? (float)into / needed : 1f);
+            rankLabel.text = RankText(profile.rankPoints);
+            RefreshFrame();
         }
 
-        private static void Highlight(Button button, bool on)
+        private void RefreshFrame()
         {
-            var image = button.GetComponent<Image>();
-            image.color = on ? new Color(1f, 0.69f, 0.13f) : new Color(0.16f, 0.2f, 0.3f);
+            SkinDefinition frame = services.Equipped(ItemType.Frame);
+            if (frame == null || frame.Icon == null) return;
+            avatarFrame.sprite = frame.Icon;
+            avatarFrame.color = Color.white;
         }
 
-        private void OpenSheet() => sheet.SetActive(true);
-
-        private void CloseSheet() => sheet.SetActive(false);
-
-        private void GrantCoins()
+        private void RefreshModeCard()
         {
-            services.Mock.DevGrant(DevCoins, 0);
-            ShowToast($"Test rejimi: +{DevCoins:N0} Coin");
+            modeLabel.text = "8-BALL · " + ModeName(mode).ToUpper(Loc.Culture);
+            venueLabel.text = VenueName(venue);
+            venueImage.sprite = venue.Preview;
+            bool stake = mode == Mode.Quick;
+            entryLabel.text = stake ? Loc.Number(venue.EntryFee) : Loc.Get("mode.no_stake");
+            prizeLabel.text = stake ? Loc.Number(venue.Prize) : "—";
         }
 
-        private void GrantGems()
+        public static string VenueName(VenueDefinition hall) => Loc.Get("venue." + hall.Id, hall.DisplayName);
+
+        public static string RankText(int rankPoints)
         {
-            services.Mock.DevGrant(0, DevGems);
-            ShowToast($"Test rejimi: +{DevGems:N0} Gem");
+            RankTier tier = ProfileRules.Rank(rankPoints, out int division);
+            string name = Loc.Get("rank." + tier.ToString().ToLowerInvariant());
+            return division > 0 ? $"{name} {Roman(division)}" : name;
         }
 
-        private void ComingSoon() => ShowToast("Tez orada — keyingi mavsumda");
-
-        public void ShowToast(string text)
+        private static string Roman(int value)
         {
-            if (toastRoutine != null) StopCoroutine(toastRoutine);
-            toastRoutine = StartCoroutine(Toast(text));
+            switch (value)
+            {
+                case 1: return "I";
+                case 2: return "II";
+                case 3: return "III";
+                case 4: return "IV";
+                case 5: return "V";
+                default: return value.ToString(Loc.Culture);
+            }
         }
 
-        private IEnumerator Toast(string text)
+        private VenueDefinition FindVenue(string id)
         {
-            toast.text = text;
-            toast.gameObject.SetActive(true);
-            yield return new WaitForSecondsRealtime(2f);
-            toast.gameObject.SetActive(false);
-            toastRoutine = null;
+            foreach (VenueDefinition candidate in services.Catalog.Venues)
+            {
+                if (candidate.Id == id && !candidate.ComingSoon) return candidate;
+            }
+
+            return null;
         }
+
+        private static void ComingSoon() => Dialogs.Instance.Toast(Loc.Get("common.soon_toast"));
     }
 }

@@ -15,6 +15,8 @@ namespace BilliardGame.Content
         [SerializeField] private Renderer[] railRenderers = new Renderer[0];
         [SerializeField] private Transform tableHolder;
         [SerializeField] private GameObject[] builtInTable = new GameObject[0];
+        [SerializeField] private Renderer cueSticker;
+        [SerializeField] private Renderer[] tableStickers = new Renderer[0];
 
         private SkinDefinition currentCue;
         private SkinDefinition currentTable;
@@ -25,7 +27,28 @@ namespace BilliardGame.Content
         {
             if (skin == null) return;
             if (skin.Type == ItemType.Cue) ApplyCue(skin);
-            else ApplyTable(skin);
+            else if (skin.Type == ItemType.Table) ApplyTable(skin);
+        }
+
+        /// <summary>Sticker decals on the cue butt and the table rails; null hides a slot. Purely visual.</summary>
+        public void ApplyStickers(SkinDefinition onCue, SkinDefinition onTable)
+        {
+            SetDecal(cueSticker, onCue);
+            foreach (Renderer decal in tableStickers) SetDecal(decal, onTable);
+        }
+
+        private static MaterialPropertyBlock decalBlock;
+
+        private static void SetDecal(Renderer decal, SkinDefinition sticker)
+        {
+            if (decal == null) return;
+            bool show = sticker != null && sticker.Icon != null;
+            decal.gameObject.SetActive(show);
+            if (!show) return;
+            decalBlock ??= new MaterialPropertyBlock();
+            decal.GetPropertyBlock(decalBlock);
+            decalBlock.SetTexture("_BaseMap", sticker.Icon.texture);
+            decal.SetPropertyBlock(decalBlock);
         }
 
         private void ApplyCue(SkinDefinition skin)
@@ -64,9 +87,14 @@ namespace BilliardGame.Content
             }
         }
 
-        private static void Clear(Transform holder)
+        // Keeps the sticker decal, which lives under the cue holder so it follows the cue.
+        private void Clear(Transform holder)
         {
-            for (int i = holder.childCount - 1; i >= 0; i--) Destroy(holder.GetChild(i).gameObject);
+            for (int i = holder.childCount - 1; i >= 0; i--)
+            {
+                Transform child = holder.GetChild(i);
+                if (cueSticker == null || child != cueSticker.transform) Destroy(child.gameObject);
+            }
         }
     }
 }

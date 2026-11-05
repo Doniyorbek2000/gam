@@ -15,4 +15,8 @@ MonoBehaviour:
   id: garage
   displayName: Garaj
   sceneName: 
-  preview: {fileID: 0}
+  preview: {fileID: 21300000, guid: 46a56ab689b80cf4e85e90b49514b968, type: 3}
+  entryFee: 50
+  prize: 95
+  minLevel: 1
+  comingSoon: 0

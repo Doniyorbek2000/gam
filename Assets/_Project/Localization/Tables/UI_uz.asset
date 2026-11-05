@@ -1,0 +1,1431 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_uz
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: uz
+  m_SharedData: {fileID: 11400000, guid: 1d28aeaedb559ca4195ac2709dd2c39a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6015762432
+    m_Localized: Tushunarli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6426804224
+    m_Localized: Bekor qilish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6430998528
+    m_Localized: Yopish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6430998529
+    m_Localized: Orqaga
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192832
+    m_Localized: Saqlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192833
+    m_Localized: Tasdiqlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192834
+    m_Localized: Yangi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192835
+    m_Localized: Tez kunda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192836
+    m_Localized: "Tez kunda \u2014 keyingi yangilanishda"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192837
+    m_Localized: Qulflangan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192838
+    m_Localized: Qayta urinish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192839
+    m_Localized: "Yuklanmoqda\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192840
+    m_Localized: Xatolik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192841
+    m_Localized: Nusxa olindi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192842
+    m_Localized: Daraja {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192843
+    m_Localized: Lv {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192844
+    m_Localized: Coin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192845
+    m_Localized: Gem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192846
+    m_Localized: Bepul
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192847
+    m_Localized: Haqiqiy zal. Haqiqiy raqib.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192848
+    m_Localized: "Zal tayyorlanmoqda\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192849
+    m_Localized: 'Maslahat: nozik g''ildirak burchakni o''ndan bir gradusgacha aniq
+      buradi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192850
+    m_Localized: 'Maslahat: oq sharning pastiga urish uni orqaga qaytaradi (draw).'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192851
+    m_Localized: "Maslahat: kosmetika faqat ko'rinish \u2014 fizika hamma uchun bir
+      xil."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192852
+    m_Localized: 'Maslahat: har bir yashikda ehtimollar va kafolat hisoblagichi ochiq
+      ko''rinadi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192853
+    m_Localized: 'Maslahat: chap qo''l rejimi kuch slayderini o''ng tomonga o''tkazadi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192854
+    m_Localized: 'Maslahat: "Mening xonam"da kuboklar va kiylaringizni ko''z-ko''z
+      qiling.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192855
+    m_Localized: O'ynash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192856
+    m_Localized: O'zgartirish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192857
+    m_Localized: Kirish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192858
+    m_Localized: Sovrin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192859
+    m_Localized: Season Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192860
+    m_Localized: "1-mavsum \xB7 Lv 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192861
+    m_Localized: Vazifalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192862
+    m_Localized: Eventlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192863
+    m_Localized: Kunlik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192864
+    m_Localized: Do'kon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6435192865
+    m_Localized: Yashiklar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775744
+    m_Localized: Inventar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775745
+    m_Localized: Mening xonam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775746
+    m_Localized: Klub
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775747
+    m_Localized: Chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775748
+    m_Localized: Pochta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775749
+    m_Localized: Do'stlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775750
+    m_Localized: Sozlamalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775751
+    m_Localized: 'Test rejimi: +{0} Coin'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775752
+    m_Localized: 'Test rejimi: +{0} Gem'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775753
+    m_Localized: Bu zal uchun Coin yetarli emas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775754
+    m_Localized: Rejim va zal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775755
+    m_Localized: Bir qurilmada
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775756
+    m_Localized: Do'st bilan navbatma-navbat, internetsiz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775757
+    m_Localized: Do'st bilan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775758
+    m_Localized: Xona kodi orqali onlayn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775759
+    m_Localized: Tezkor o'yin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775760
+    m_Localized: Tasodifiy raqib, sovrin uchun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775761
+    m_Localized: Ranked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775762
+    m_Localized: Daraja va mavsum mukofotlari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775763
+    m_Localized: Bot bilan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775764
+    m_Localized: 4 qiyinlik darajasi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775765
+    m_Localized: Mashq
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775766
+    m_Localized: Erkin joylashtirish, trick-shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775767
+    m_Localized: Zal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775768
+    m_Localized: Tanlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775769
+    m_Localized: 'Zal va skinlar faqat ko''rinish: fizika, qoidalar va taymer hamma
+      uchun bir xil.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775770
+    m_Localized: Daraja {0} dan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775771
+    m_Localized: Stavkasiz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775772
+    m_Localized: Do'st bilan o'ynash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775773
+    m_Localized: Xona ochish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775774
+    m_Localized: 6 raqamli kod
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775775
+    m_Localized: Kirish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775776
+    m_Localized: yoki do'stingiz kodini kiriting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775777
+    m_Localized: "O'yiningizga qaytilmoqda\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775778
+    m_Localized: "Raqib qidirilmoqda\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775779
+    m_Localized: "Xona ochilmoqda\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775780
+    m_Localized: "Xona kodi: <b>{0}</b>\nDo'stingizga yuboring. Kutilmoqda\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775781
+    m_Localized: 6 raqamli xona kodini kiriting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775782
+    m_Localized: "{0} xonasiga kirilmoqda\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775783
+    m_Localized: Bekor qilindi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775784
+    m_Localized: 'Bo''lmadi: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775785
+    m_Localized: server bilan aloqa yo'q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775786
+    m_Localized: Internet aloqasi yo'q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775787
+    m_Localized: Onlayn rejimlar uchun internet kerak. Bir qurilmada o'ynashingiz
+      mumkin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775788
+    m_Localized: Profil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775789
+    m_Localized: 'ID: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775790
+    m_Localized: Nikneymni o'zgartirish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775791
+    m_Localized: Kamida 3 ta belgi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775792
+    m_Localized: Ko'pi bilan 16 ta belgi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775793
+    m_Localized: Faqat harf, raqam, _ va bo'sh joy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775794
+    m_Localized: Klub yo'q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6447775795
+    m_Localized: O'zbekiston
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970048
+    m_Localized: Statistika
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970049
+    m_Localized: Tarix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970050
+    m_Localized: Yutuqlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970051
+    m_Localized: Kolleksiya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970052
+    m_Localized: O'yinlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970053
+    m_Localized: G'alabalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970054
+    m_Localized: G'alaba foizi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970055
+    m_Localized: Eng uzun seriya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970056
+    m_Localized: Zarba aniqligi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970057
+    m_Localized: Bir zarbada max shar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970058
+    m_Localized: Tushirilgan sharlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970059
+    m_Localized: Sevimli kiy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970060
+    m_Localized: G'alaba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970061
+    m_Localized: Mag'lubiyat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970062
+    m_Localized: Hali o'yinlar yo'q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970063
+    m_Localized: "Birinchi o'yiningizni o'ynang \u2014 natijalar shu yerda ko'rinadi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970064
+    m_Localized: vs {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970065
+    m_Localized: Vitrina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970066
+    m_Localized: "Yutuqlarni oching \u2014 eng yaxshilari vitrinada"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970067
+    m_Localized: Birinchi g'alaba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970068
+    m_Localized: 1 ta o'yinda g'alaba qozoning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970069
+    m_Localized: Tajribali
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970070
+    m_Localized: 10 ta g'alaba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970071
+    m_Localized: Zal qiroli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970072
+    m_Localized: 100 ta g'alaba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970073
+    m_Localized: Doimiy mehmon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970074
+    m_Localized: 25 ta o'yin o'ynang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970075
+    m_Localized: Qizg'in seriya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970076
+    m_Localized: Ketma-ket 5 g'alaba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970077
+    m_Localized: Uchlik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970078
+    m_Localized: Bir zarbada 3 ta shar tushiring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970079
+    m_Localized: Snayper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970080
+    m_Localized: Jami 100 ta shar tushiring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970081
+    m_Localized: O'n pog'ona
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970082
+    m_Localized: 10-darajaga chiqing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970083
+    m_Localized: '{0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970084
+    m_Localized: Bronza
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970085
+    m_Localized: Kumush
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970086
+    m_Localized: Oltin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970087
+    m_Localized: Platina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970088
+    m_Localized: Olmos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970089
+    m_Localized: Toj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970090
+    m_Localized: Afsona
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970091
+    m_Localized: Kiylar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970092
+    m_Localized: Stollar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970093
+    m_Localized: Sharlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970094
+    m_Localized: Zal temalari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970095
+    m_Localized: Kiyimlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970096
+    m_Localized: Ramkalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970097
+    m_Localized: Emote'lar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970098
+    m_Localized: Stikerlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970099
+    m_Localized: Effektlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970100
+    m_Localized: Devorlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970101
+    m_Localized: Pollar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970102
+    m_Localized: Inventar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970103
+    m_Localized: Raritet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970104
+    m_Localized: Yangilari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970105
+    m_Localized: Nomi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970106
+    m_Localized: Faqat mavjud
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970107
+    m_Localized: Jihozlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970108
+    m_Localized: Jihozlangan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970109
+    m_Localized: Kiyga
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970110
+    m_Localized: Stolga
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970111
+    m_Localized: Olib tashlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970112
+    m_Localized: Kuchaytirish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970113
+    m_Localized: 'Qayerdan: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970114
+    m_Localized: Sizda bor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970115
+    m_Localized: 'Faqat ko''rinish: zarba kuchi va aniqlikka ta''sir qilmaydi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970116
+    m_Localized: Bu bo'lim hozircha bo'sh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970117
+    m_Localized: Yangi kosmetika keyingi mavsumlarda va yashiklarda chiqadi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970118
+    m_Localized: Yashiklarga
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970119
+    m_Localized: "Shard: {0}  \xB7  Kristall: {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970120
+    m_Localized: 'Jihozlandi: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970121
+    m_Localized: 'Stiker yopishtirildi: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970122
+    m_Localized: Aylantirish uchun suring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970123
+    m_Localized: Boshlang'ich
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970124
+    m_Localized: Yashik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970125
+    m_Localized: Do'kon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970126
+    m_Localized: Season Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970127
+    m_Localized: "Kiy \u2014 o'yin uslubingizning ko'rinishi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970128
+    m_Localized: 'Stol matosi va bortlari: lobby, xona va matchda ko''rinadi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970129
+    m_Localized: Kiy yoki stol bortiga yopishtiring, chatda yuboring, xona devoriga
+      osing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970130
+    m_Localized: 'Avatar atrofidagi ramka: lobby, profil va matchda.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970131
+    m_Localized: '"Mening xonam" uchun devor temasi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970132
+    m_Localized: '"Mening xonam" uchun pol temasi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970133
+    m_Localized: "Kosmetika \u2014 faqat ko'rinish."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970134
+    m_Localized: Oddiy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970135
+    m_Localized: Noyob
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970136
+    m_Localized: Epik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970137
+    m_Localized: Afsonaviy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970138
+    m_Localized: Mifik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970139
+    m_Localized: Mening xonam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970140
+    m_Localized: Tahrirlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6451970141
+    m_Localized: Stol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164352
+    m_Localized: Devor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164353
+    m_Localized: Pol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164354
+    m_Localized: Dekor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164355
+    m_Localized: Xona saqlandi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164356
+    m_Localized: '{0}-joy'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164357
+    m_Localized: Bo'sh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164358
+    m_Localized: Do'stlar tez kunda xonangizga tashrif buyura oladi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164359
+    m_Localized: 'Kuboklar: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164360
+    m_Localized: Sozlamalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164361
+    m_Localized: Grafika
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164362
+    m_Localized: Ovoz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164363
+    m_Localized: Boshqaruv
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164364
+    m_Localized: Til
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6456164365
+    m_Localized: Akkaunt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524480
+    m_Localized: Boshqa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524481
+    m_Localized: Sifat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524482
+    m_Localized: Past
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524483
+    m_Localized: O'rta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524484
+    m_Localized: Yuqori
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524485
+    m_Localized: Avto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524486
+    m_Localized: Kadr chastotasi (FPS)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524487
+    m_Localized: Soyalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524488
+    m_Localized: Post-processing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524489
+    m_Localized: Quvvat tejash rejimi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524490
+    m_Localized: 30 FPS, soyasiz, past sifat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524491
+    m_Localized: Umumiy ovoz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524492
+    m_Localized: Musiqa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524493
+    m_Localized: Effektlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524494
+    m_Localized: Ovozli chat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524495
+    m_Localized: Vibratsiya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524496
+    m_Localized: Nishonlash sezgirligi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524497
+    m_Localized: Nozik g'ildirak sezgirligi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524498
+    m_Localized: Chap qo'l rejimi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524499
+    m_Localized: Kuch slayderi o'ng tomonda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524500
+    m_Localized: Nishon chizig'i
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524501
+    m_Localized: Zarbani tasdiqlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524502
+    m_Localized: Zarbadan oldin ikkinchi bosish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524503
+    m_Localized: Interfeys tili
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524504
+    m_Localized: O'yinchi ID
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524505
+    m_Localized: Google bilan bog'lash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524506
+    m_Localized: Chiqish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524507
+    m_Localized: Mehmon akkauntidan chiqsangiz, bog'lanmagan progress faqat shu qurilmada
+      qoladi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524508
+    m_Localized: Akkauntni o'chirish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524509
+    m_Localized: Profil, inventar, valyuta va sozlamalar butunlay o'chiriladi. Buni
+      qaytarib bo'lmaydi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524510
+    m_Localized: Akkaunt o'chirildi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524511
+    m_Localized: Bildirishnomalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524512
+    m_Localized: Maxfiylik siyosati
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524513
+    m_Localized: Foydalanish shartlari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524514
+    m_Localized: Yordam va bog'lanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524515
+    m_Localized: Mualliflar (Credits)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524516
+    m_Localized: Versiya {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524517
+    m_Localized: Siz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524518
+    m_Localized: Mehmon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524519
+    m_Localized: Ochiq stol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524520
+    m_Localized: 8-shar navbatida
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524521
+    m_Localized: "To'liq \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524522
+    m_Localized: "Chiziqli \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524523
+    m_Localized: Zarba
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524524
+    m_Localized: Tasdiqlang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524525
+    m_Localized: Kuch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524526
+    m_Localized: Spin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524527
+    m_Localized: '{0}: break'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524528
+    m_Localized: '{0}: navbat'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524529
+    m_Localized: Sizning navbatingiz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524530
+    m_Localized: '{0}: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524531
+    m_Localized: '8-shar joyiga qaytdi. {0}: navbat'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524532
+    m_Localized: 'Foul: {0}. {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524533
+    m_Localized: '{0}: oq shar qo''lda'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524534
+    m_Localized: '{0}: oq shar qo''lda (bosh chiziq ortida)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524535
+    m_Localized: '{0}: qayta break'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524536
+    m_Localized: oq shar tushdi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524537
+    m_Localized: hech bir sharga tegmadi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524538
+    m_Localized: birinchi bo'lib noto'g'ri shar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524539
+    m_Localized: bortga tegmadi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524540
+    m_Localized: noto'g'ri break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524541
+    m_Localized: vaqt tugadi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524542
+    m_Localized: qoidabuzarlik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524543
+    m_Localized: Pauza
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524544
+    m_Localized: Davom etish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524545
+    m_Localized: Matchdan chiqish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524546
+    m_Localized: Onlayn matchdan chiqish mag'lubiyat hisoblanadi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524547
+    m_Localized: O'yinni tugatib lobbyga qaytasizmi?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524548
+    m_Localized: Stikerlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524549
+    m_Localized: 'Qoidalar: o''z guruhingizni tushiring, keyin 8-sharni.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524550
+    m_Localized: G'alaba!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524551
+    m_Localized: Mag'lubiyat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524552
+    m_Localized: '{0} g''olib'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524553
+    m_Localized: XP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524554
+    m_Localized: Coin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524555
+    m_Localized: "Mashq o'yini \u2014 coin yo'q"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524556
+    m_Localized: 'Yangi daraja: {0}!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524557
+    m_Localized: Yana o'ynash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524558
+    m_Localized: Lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524559
+    m_Localized: 'Tushirilgan sharlar: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524560
+    m_Localized: Yashiklar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524561
+    m_Localized: '{0} yashik'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524562
+    m_Localized: "{0} yashik \u2014 ehtimollar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524563
+    m_Localized: Ehtimollar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524564
+    m_Localized: '{0}''gacha: {1} ta qoldi'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524565
+    m_Localized: Yashik ochilsinmi?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524566
+    m_Localized: "{0} yashik \xD7{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524567
+    m_Localized: O'tkazish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524568
+    m_Localized: Yana ochish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524569
+    m_Localized: "10\xD7 natija \u2014 eng yaxshisi: {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524570
+    m_Localized: +{0} Shard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524571
+    m_Localized: 'Jihozlash: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524572
+    m_Localized: Gem yetarli emas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524573
+    m_Localized: Coin yetarli emas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524574
+    m_Localized: 'Kafolat: {0}-ochishda {1} yoki yuqori. Asosiy {2}%, kafolat bilan
+      umumiy {3}%.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524575
+    m_Localized: "10\xD7 ochishda kamida bitta {0} yoki yuqori."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524576
+    m_Localized: "Raritet ichida har bir item teng ehtimolli. Dublikat \u2192 Shard."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524577
+    m_Localized: Mualliflar va litsenziyalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524578
+    m_Localized: "Rahmat: Poly Haven, ambientCG, Quaternius, Google Fonts, game-icons.net,
+      Material Symbols.\nProtsedural modellar, ovozlar, stikerlar va zal geometriyasi
+      \u2014 o'z ishimiz."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524579
+    m_Localized: credits.json topilmadi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524580
+    m_Localized: Personaj va animatsiyalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524581
+    m_Localized: Shriftlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524582
+    m_Localized: HDRI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524583
+    m_Localized: Mebel va bezaklar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524584
+    m_Localized: Teksturalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524585
+    m_Localized: Stollar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524586
+    m_Localized: Kiylar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524587
+    m_Localized: Zallar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524588
+    m_Localized: Kiyimlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524589
+    m_Localized: Ikonkalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524590
+    m_Localized: Zo'r zarba!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524591
+    m_Localized: Kulgili shar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524592
+    m_Localized: Anor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524593
+    m_Localized: Choy?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524594
+    m_Localized: Moviy gumbaz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524595
+    m_Localized: Chaqmoq break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524596
+    m_Localized: GG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524597
+    m_Localized: Olovli 8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524598
+    m_Localized: Oltin yulduz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524599
+    m_Localized: Toj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524600
+    m_Localized: Oddiy ramka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524601
+    m_Localized: Moviy ramka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524602
+    m_Localized: Qirollik ramkasi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524603
+    m_Localized: Oltin ramka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524604
+    m_Localized: Tungi devor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524605
+    m_Localized: G'isht devor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524606
+    m_Localized: Koshin devor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524607
+    m_Localized: Yog'och pol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524608
+    m_Localized: Marmar pol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524609
+    m_Localized: Gilam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524610
+    m_Localized: Garaj kiyi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524611
+    m_Localized: Zarang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524612
+    m_Localized: Klassik yong'oq
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524613
+    m_Localized: Qirmizi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524614
+    m_Localized: Karbon Ilon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524615
+    m_Localized: Samarqand oltini
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524616
+    m_Localized: Ipak ajdari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524617
+    m_Localized: Klassik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524618
+    m_Localized: Qirollik ko'k
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524619
+    m_Localized: Modern
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524620
+    m_Localized: Ipak yo'li
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524621
+    m_Localized: Garaj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524622
+    m_Localized: Silk Road Lounge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524623
+    m_Localized: Eski Shahar Klubi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524624
+    m_Localized: Bukhara Palace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6485524625
+    m_Localized: Neon Arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819299471360
+    m_Localized: Klassik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385920
+    m_Localized: Premium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385921
+    m_Localized: "1\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7819362385922
+    m_Localized: "10\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11028390821888
+    m_Localized: Rejim
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

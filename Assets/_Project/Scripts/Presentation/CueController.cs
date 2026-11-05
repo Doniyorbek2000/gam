@@ -47,6 +47,10 @@ namespace BilliardGame.Presentation
         private const double MinDragRadius = 0.03;
 
         public Vec2 AimDirection { get; private set; } = Vec2.UnitX;
+        /// <summary>Settings ▸ Controls: scales how far the cue turns per finger sweep (input only, not physics).</summary>
+        public float AimSensitivity { get; set; } = 1f;
+        /// <summary>Settings ▸ Controls: hides the guide lines (they can only be turned off, never lengthened).</summary>
+        public bool ShowGuide { get; set; } = true;
         public Vec2 CuePosition { get; private set; }
 
         public void Begin(IReadOnlyList<BallState> tableBalls, Vec2 cuePosition, bool inHand, TableGeometry geometry, PhysicsConfig physics, Func<Vec2, bool> placementCheck)
@@ -125,7 +129,7 @@ namespace BilliardGame.Presentation
                         if (hasDragAngle)
                         {
                             double delta = Math.IEEERemainder(angle - dragAngle, 2.0 * Math.PI);
-                            AimDirection = Vec2.FromAngle(AimDirection.Angle + delta);
+                            AimDirection = Vec2.FromAngle(AimDirection.Angle + delta * AimSensitivity);
                         }
 
                         dragAngle = angle;
@@ -145,12 +149,14 @@ namespace BilliardGame.Presentation
             Vector3 ghost = TableSpace.ToWorld(aim.GhostPosition, r);
             Vector3 dir = TableSpace.ToWorld(AimDirection, 0f);
 
+            aimLine.enabled = ShowGuide;
             aimLine.SetPosition(0, cue);
             aimLine.SetPosition(1, ghost);
             ghostBall.position = ghost;
+            if (ghostBall.gameObject.activeSelf != ShowGuide) ghostBall.gameObject.SetActive(ShowGuide);
 
-            objectLine.enabled = aim.HitsBall;
-            cueLine.enabled = aim.HitsBall && aim.CueBallDirection != Vec2.Zero;
+            objectLine.enabled = ShowGuide && aim.HitsBall;
+            cueLine.enabled = ShowGuide && aim.HitsBall && aim.CueBallDirection != Vec2.Zero;
             if (aim.HitsBall)
             {
                 Vector3 objectDir = TableSpace.ToWorld(aim.ObjectBallDirection, 0f);

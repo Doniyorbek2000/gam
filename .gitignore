@@ -73,3 +73,6 @@ Thumbs.db
 
 # Raw art downloads (imported copies live under Assets/_Project/Art; ART_PIPELINE §1)
 /ArtSource/Incoming/
+
+# UI generator tools
+Tools/UI/node_modules/

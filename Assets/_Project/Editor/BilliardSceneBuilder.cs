@@ -1,6 +1,7 @@
 using System.Linq;
 using BilliardGame.Content;
 using BilliardGame.Editor.Content;
+using BilliardGame.Editor.UI;
 using BilliardGame.Gameplay;
 using BilliardGame.Online;
 using BilliardGame.Physics;
@@ -8,7 +9,6 @@ using BilliardGame.Presentation;
 using BilliardGame.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -59,9 +59,10 @@ namespace BilliardGame.Editor
             SceneWiring.Set(controller, "cue", cue);
             SceneWiring.Set(controller, "tableAudio", audio);
 
-            HudController hud = HudBuilder.Build(controller, cue, out GameObject hudRoot);
             LobbyStage stage = LobbyStageBuilder.Build(out SkinTarget lobbyCue);
+            RoomStage room = RoomStageBuilder.Build();
             GameServices services = BuildServices(TableTarget(tableRoot, cue), lobbyCue);
+            HudController hud = HudBuilder.Build(controller, cue, services, out GameObject hudRoot);
             var venues = game.AddComponent<VenueLoader>();
             SceneWiring.Set(venues, "garageRoot", garage);
             UseHdriReflections();
@@ -71,8 +72,7 @@ namespace BilliardGame.Editor
             var match = online.AddComponent<OnlineMatchController>();
             SceneWiring.Set(match, "client", client);
             SceneWiring.Set(match, "game", controller);
-            LobbyBuilder.Build(controller, match, hud, hudRoot, services, venues, stage, camera);
-            ApplyFont();
+            LobbyUIBuilder.Build(controller, match, hud, hudRoot, services, venues, stage, room, camera);
 
             BallMaterialFactory.EnsureFolder("Assets/_Project/Scenes");
             EditorSceneManager.SaveScene(scene, ScenePath);
@@ -81,7 +81,6 @@ namespace BilliardGame.Editor
             Debug.Log($"[BilliardGame] Built {ScenePath}");
         }
 
-        private const string FontPath = "Assets/_Project/Art/Fonts/font-montserrat/Montserrat-SemiBold SDF.asset";
         private const string CatalogPath = "Assets/_Project/Content/SkinCatalog.asset";
         private const string CrateTablesPath = "Assets/_Project/Resources/Economy/crates.json";
 
@@ -98,6 +97,9 @@ namespace BilliardGame.Editor
             var holder = new GameObject("Table Model").transform;
             holder.SetParent(tableRoot, false);
             SceneWiring.Set(target, "tableHolder", holder);
+            StickerDecals.AddCueDecal(target);
+            // Long rails: the two "Rail" boxes stretched along x.
+            StickerDecals.AddRailDecals(target, tableRoot, parts.Where(r => r.name.StartsWith("Rail") && r.bounds.size.x > r.bounds.size.z).Take(2));
             return target;
         }
 
@@ -116,13 +118,6 @@ namespace BilliardGame.Editor
             if (hdri == null) return;
             RenderSettings.defaultReflectionMode = DefaultReflectionMode.Custom;
             RenderSettings.customReflectionTexture = hdri;
-        }
-
-        private static void ApplyFont()
-        {
-            var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
-            if (font == null) return;
-            foreach (TMP_Text text in Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include)) text.font = font;
         }
 
         private static Camera BuildCamera()

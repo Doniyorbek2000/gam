@@ -35,6 +35,9 @@ namespace BilliardGame.UI
 
         public Camera Camera => lobbyCamera;
 
+        /// <summary>Screen-space test for where a drag may start (inventory preview box); null = the centre of the screen.</summary>
+        public Func<Vector2, bool> DragFilter { get; set; }
+
         private void Awake()
         {
             cameraHome = lobbyCamera.transform.localPosition;
@@ -125,12 +128,16 @@ namespace BilliardGame.UI
             if (previewing && !dragging) turntable.Rotate(Vector3.up, PreviewSpinSpeed * Time.deltaTime, Space.World);
             Pointer pointer = Pointer.current;
             if (pointer == null || !lobbyCamera.isActiveAndEnabled) return;
+            // Inventory/crates are full screens over the stage: only their own filter may start a drag.
+            if (DragFilter == null && ScreenRouter.Instance != null && ScreenRouter.Instance.Top != null && ScreenRouter.Instance.Top.HidesLobby) return;
 
             Vector2 position = pointer.position.ReadValue();
             if (pointer.press.wasPressedThisFrame)
             {
                 // Only drags that start on the showcase (centre of the screen) rotate; the rails and buttons stay tappable.
-                dragging = position.x > Screen.width * 0.3f && position.x < Screen.width * 0.7f && position.y > Screen.height * 0.18f && position.y < Screen.height * 0.85f;
+                dragging = DragFilter != null
+                    ? DragFilter(position)
+                    : position.x > Screen.width * 0.3f && position.x < Screen.width * 0.7f && position.y > Screen.height * 0.18f && position.y < Screen.height * 0.85f;
                 lastPointer = position;
             }
             else if (!pointer.press.isPressed)

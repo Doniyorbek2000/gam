@@ -21,12 +21,16 @@ namespace BilliardGame.Meta
 
         bool Owns(string itemId);
         string EquippedId(ItemType type);
+        /// <summary>Sticker shown in <paramref name="slot"/>, or null.</summary>
+        string EquippedSticker(StickerSlot slot);
 
         /// <summary>Opens left until <paramref name="rule"/> guarantees its rarity (1 = the next open).</summary>
         int PityRemaining(string crateId, PityRule rule);
 
         Task<CrateOpenResult> OpenCrateAsync(string crateId, int count);
         Task<bool> EquipAsync(string itemId);
+        /// <summary>Puts an owned sticker on the cue or the table rail; null clears the slot.</summary>
+        Task<bool> EquipStickerAsync(string itemId, StickerSlot slot);
     }
 
     public sealed class CrateDrop
@@ -73,9 +77,18 @@ namespace BilliardGame.Meta
         public List<string> owned = new List<string>();
         public string equippedCue;
         public string equippedTable;
+        /// <summary>Equipped items for every other slot ("Frame", "RoomWall", "Sticker:Cue", ...).</summary>
+        public List<SlotItem> slots = new List<SlotItem>();
         public List<PityCounter> pity = new List<PityCounter>();
         public long seed;
         public long rollCounter;
+    }
+
+    [Serializable]
+    public sealed class SlotItem
+    {
+        public string slot;
+        public string itemId;
     }
 
     [Serializable]

@@ -15,4 +15,8 @@ MonoBehaviour:
   id: silk_road_lounge
   displayName: Silk Road Lounge
   sceneName: SilkRoadLounge
-  preview: {fileID: 0}
+  preview: {fileID: 21300000, guid: 9a55acfd14b0c1a4bb3f914b936580f5, type: 3}
+  entryFee: 1000
+  prize: 1900
+  minLevel: 1
+  comingSoon: 0

@@ -41,6 +41,11 @@ namespace BilliardGame.Meta
 
             if (Find(state.equippedCue) == null) state.equippedCue = DefaultOf(ItemType.Cue);
             if (Find(state.equippedTable) == null) state.equippedTable = DefaultOf(ItemType.Table);
+            if (state.slots == null) state.slots = new List<SlotItem>();
+            foreach (ItemType type in new[] { ItemType.Frame, ItemType.RoomWall, ItemType.RoomFloor })
+            {
+                if (Find(Slot(type.ToString())) == null) SetSlot(type.ToString(), DefaultOf(type));
+            }
         }
 
         public event Action Changed;
@@ -54,7 +59,18 @@ namespace BilliardGame.Meta
 
         public bool Owns(string itemId) => itemId != null && owned.Contains(itemId);
 
-        public string EquippedId(ItemType type) => type == ItemType.Cue ? state.equippedCue : state.equippedTable;
+        public string EquippedId(ItemType type)
+        {
+            switch (type)
+            {
+                case ItemType.Cue: return state.equippedCue;
+                case ItemType.Table: return state.equippedTable;
+                case ItemType.Sticker: return EquippedSticker(StickerSlot.Cue);
+                default: return Slot(type.ToString());
+            }
+        }
+
+        public string EquippedSticker(StickerSlot slot) => Slot(StickerKey(slot));
 
         public int PityRemaining(string crateId, PityRule rule) => rule.count - Counter(crateId, rule.MinRarity).misses;
 
@@ -62,10 +78,47 @@ namespace BilliardGame.Meta
         {
             CatalogItem? item = Find(itemId);
             if (item == null || !Owns(itemId)) return Task.FromResult(false);
-            if (item.Value.Type == ItemType.Cue) state.equippedCue = itemId;
-            else state.equippedTable = itemId;
+            switch (item.Value.Type)
+            {
+                case ItemType.Cue: state.equippedCue = itemId; break;
+                case ItemType.Table: state.equippedTable = itemId; break;
+                case ItemType.Sticker: SetSlot(StickerKey(StickerSlot.Cue), itemId); break;
+                default: SetSlot(item.Value.Type.ToString(), itemId); break;
+            }
+
             Commit();
             return Task.FromResult(true);
+        }
+
+        public Task<bool> EquipStickerAsync(string itemId, StickerSlot slot)
+        {
+            if (itemId != null)
+            {
+                CatalogItem? item = Find(itemId);
+                if (item == null || item.Value.Type != ItemType.Sticker || !Owns(itemId)) return Task.FromResult(false);
+            }
+
+            SetSlot(StickerKey(slot), itemId);
+            Commit();
+            return Task.FromResult(true);
+        }
+
+        /// <summary>Mock match prize (M3 moves prizes and entry escrow to the server).</summary>
+        public void GrantMatchReward(int coins)
+        {
+            state.coins += Math.Max(0, coins);
+            Commit();
+        }
+
+        private static string StickerKey(StickerSlot slot) => "Sticker:" + slot;
+
+        private string Slot(string key) => state.slots.Find(s => s.slot == key)?.itemId;
+
+        private void SetSlot(string key, string itemId)
+        {
+            SlotItem entry = state.slots.Find(s => s.slot == key);
+            if (entry == null) state.slots.Add(new SlotItem { slot = key, itemId = itemId });
+            else entry.itemId = itemId;
         }
 
         public Task<CrateOpenResult> OpenCrateAsync(string crateId, int count) => Task.FromResult(OpenCrate(crateId, count));

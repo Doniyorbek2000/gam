@@ -85,11 +85,12 @@ namespace BilliardGame.Editor.Content
             foreach (TableSpec spec in Tables) skins.Add(BuildTable(spec));
             skins.AddRange(ImportedCueSkins(skins));
 
-            VenueDefinition[] venues =
+            var venues = new List<VenueDefinition>
             {
                 Venue("garage", "Garaj", string.Empty),
                 Venue("silk_road_lounge", "Silk Road Lounge", SilkRoadScene),
             };
+            UI.UIContentBuilder.Extend(skins, venues);
 
             var catalog = AssetDatabase.LoadAssetAtPath<SkinCatalog>(CatalogPath);
             if (catalog == null)
@@ -98,10 +99,10 @@ namespace BilliardGame.Editor.Content
                 AssetDatabase.CreateAsset(catalog, CatalogPath);
             }
 
-            catalog.Configure(skins.ToArray(), venues);
+            catalog.Configure(skins.ToArray(), venues.ToArray());
             EditorUtility.SetDirty(catalog);
             AssetDatabase.SaveAssets();
-            Debug.Log($"[Content] Built {skins.Count} skins and {venues.Length} venues → {CatalogPath}");
+            Debug.Log($"[Content] Built {skins.Count} skins and {venues.Count} venues → {CatalogPath}");
         }
 
         public static SkinCatalog LoadCatalog()
@@ -283,7 +284,7 @@ namespace BilliardGame.Editor.Content
                 .Where(s => s != null && generated.All(g => g.Id != s.Id));
         }
 
-        private static SkinDefinition Skin(string id)
+        internal static SkinDefinition Skin(string id)
         {
             string path = $"{ContentFolder}/Skins/{id}.asset";
             var skin = AssetDatabase.LoadAssetAtPath<SkinDefinition>(path);
@@ -293,7 +294,7 @@ namespace BilliardGame.Editor.Content
             return skin;
         }
 
-        private static VenueDefinition Venue(string id, string name, string scene)
+        internal static VenueDefinition Venue(string id, string name, string scene)
         {
             string path = $"{ContentFolder}/Venues/{id}.asset";
             var venue = AssetDatabase.LoadAssetAtPath<VenueDefinition>(path);

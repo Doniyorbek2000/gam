@@ -15,6 +15,22 @@ namespace BilliardGame.Meta
     {
         Cue = 0,
         Table = 1,
+        Balls = 2,
+        VenueTheme = 3,
+        Outfit = 4,
+        Frame = 5,
+        Emote = 6,
+        Sticker = 7,
+        Effect = 8,
+        RoomWall = 9,
+        RoomFloor = 10,
+    }
+
+    /// <summary>Where an equipped sticker is shown (decal on the cue butt or the table rail). Chat stickers need only ownership.</summary>
+    public enum StickerSlot
+    {
+        Cue = 0,
+        Table = 1,
     }
 
     public static class RarityInfo

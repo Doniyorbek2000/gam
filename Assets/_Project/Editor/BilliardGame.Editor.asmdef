@@ -10,6 +10,8 @@
         "BilliardGame.Meta",
         "BilliardGame.Online",
         "BilliardGame.Avatar",
+        "BilliardGame.Cameras",
+        "Unity.Cinemachine",
         "Unity.Animation.Rigging",
         "Unity.AI.Navigation",
         "Unity.TextMeshPro",

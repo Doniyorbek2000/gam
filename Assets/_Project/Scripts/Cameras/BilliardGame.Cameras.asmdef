@@ -1,0 +1,22 @@
+{
+    "name": "BilliardGame.Cameras",
+    "rootNamespace": "BilliardGame.Cameras",
+    "references": [
+        "BilliardGame.Physics",
+        "BilliardGame.Gameplay",
+        "BilliardGame.Presentation",
+        "BilliardGame.Avatar",
+        "BilliardGame.Avatar.Rules",
+        "Unity.Cinemachine",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

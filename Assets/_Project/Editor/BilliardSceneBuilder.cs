@@ -63,12 +63,18 @@ namespace BilliardGame.Editor
             LobbyStage stage = LobbyStageBuilder.Build(out SkinTarget lobbyCue);
             RoomStage room = RoomStageBuilder.Build();
             GameServices services = BuildServices(TableTarget(tableRoot, cue), lobbyCue);
-            HudController hud = HudBuilder.Build(controller, cue, services, out GameObject hudRoot);
-            var venues = game.AddComponent<VenueLoader>();
-            SceneWiring.Set(venues, "garageRoot", garage);
             var cast = new GameObject("Players").AddComponent<BilliardGame.Avatar.MatchCharacterDirector>();
             SceneWiring.Set(cast, "game", controller);
             SceneWiring.Set(cast, "cue", cue);
+            var occlusion = cast.gameObject.AddComponent<BilliardGame.Avatar.CharacterOcclusion>();
+            SceneWiring.Set(occlusion, "cast", cast);
+            SceneWiring.Set(occlusion, "cue", cue);
+            SceneWiring.Set(occlusion, "view", camera);
+            SceneWiring.Set(occlusion, "ditherShader", AssetDatabase.LoadAssetAtPath<Shader>("Assets/_Project/Art/Shaders/DitheredCharacter.shader"));
+            BilliardGame.Cameras.MatchCameraRig rig = BuildCameraRig(camera, controller, cue, playback);
+            HudController hud = HudBuilder.Build(controller, cue, services, rig, out GameObject hudRoot);
+            var venues = game.AddComponent<VenueLoader>();
+            SceneWiring.Set(venues, "garageRoot", garage);
             UseHdriReflections();
 
             var online = new GameObject("Online");
@@ -136,6 +142,41 @@ namespace BilliardGame.Editor
             camera.farClipPlane = 20f;
             cameraObject.transform.SetPositionAndRotation(new Vector3(0f, 3.1f, -1.25f), Quaternion.Euler(68f, 0f, 0f));
             return camera;
+        }
+
+        /// <summary>
+        /// Cinemachine brain on the match camera plus the three mode cameras (M1.6.2); the classic one keeps the old
+        /// fixed top view, so Classic mode looks exactly as before.
+        /// </summary>
+        private static BilliardGame.Cameras.MatchCameraRig BuildCameraRig(Camera camera, GameController game, CueController cue, TablePlayback playback)
+        {
+            var brain = camera.gameObject.AddComponent<Unity.Cinemachine.CinemachineBrain>();
+            brain.DefaultBlend = new Unity.Cinemachine.CinemachineBlendDefinition(Unity.Cinemachine.CinemachineBlendDefinition.Styles.EaseInOut, 0.6f);
+            var root = new GameObject("Match Cameras");
+            Unity.Cinemachine.CinemachineCamera Mode(string name, float fov, float near)
+            {
+                var go = new GameObject(name);
+                go.transform.SetParent(root.transform, false);
+                go.transform.SetPositionAndRotation(camera.transform.position, camera.transform.rotation);
+                var cm = go.AddComponent<Unity.Cinemachine.CinemachineCamera>();
+                Unity.Cinemachine.LensSettings lens = Unity.Cinemachine.LensSettings.Default;
+                lens.FieldOfView = fov;
+                lens.NearClipPlane = near;
+                lens.FarClipPlane = camera.farClipPlane;
+                cm.Lens = lens;
+                return cm;
+            }
+
+            Unity.Cinemachine.CinemachineCamera classic = Mode("Classic Camera", camera.fieldOfView, camera.nearClipPlane);
+            classic.Priority = 20;
+            var rig = root.AddComponent<BilliardGame.Cameras.MatchCameraRig>();
+            SceneWiring.Set(rig, "game", game);
+            SceneWiring.Set(rig, "cue", cue);
+            SceneWiring.Set(rig, "playback", playback);
+            SceneWiring.Set(rig, "classic", classic);
+            SceneWiring.Set(rig, "aim", Mode("Aim Camera", 52f, 0.02f));
+            SceneWiring.Set(rig, "follow", Mode("Follow Camera", 45f, 0.03f));
+            return rig;
         }
 
         private static Transform BuildTable(TableGeometry table)

@@ -24,7 +24,7 @@ namespace BilliardGame.Editor
         private static UITheme T => UIKit.Theme;
 
         /// <summary>Builds the HUD; <paramref name="hudRoot"/> is the in-match part (hidden in the lobby).</summary>
-        public static HudController Build(GameController game, CueController cue, GameServices services, out GameObject hudRoot)
+        public static HudController Build(GameController game, CueController cue, GameServices services, BilliardGame.Cameras.MatchCameraRig cameraRig, out GameObject hudRoot)
         {
             var events = new GameObject("EventSystem");
             events.AddComponent<EventSystem>();
@@ -50,6 +50,8 @@ namespace BilliardGame.Editor
             pause.Rect.At(new Vector2(0.5f, 1f), new Vector2(-56f, -Edge), new Vector2(88f, 88f), new Vector2(0.5f, 1f));
             ButtonParts emote = UIKit.IconButton(safe, "Emote", "emote", 88f);
             emote.Rect.At(new Vector2(0.5f, 1f), new Vector2(56f, -Edge), new Vector2(88f, 88f), new Vector2(0.5f, 1f));
+            ButtonParts cameraButton = UIKit.IconButton(safe, "Camera", "visibility", 88f);
+            cameraButton.Rect.At(new Vector2(0.5f, 1f), new Vector2(168f, -Edge), new Vector2(88f, 88f), new Vector2(0.5f, 1f));
 
             Image bannerBack = UIKit.Image(safe, "Banner", UIAssets.Pill, new Color(0.03f, 0.05f, 0.1f, 0.82f));
             bannerBack.rectTransform.At(new Vector2(0.5f, 1f), new Vector2(0f, -170f), new Vector2(860f, 68f), new Vector2(0.5f, 1f));
@@ -91,7 +93,7 @@ namespace BilliardGame.Editor
                 "powerColumn", power, "powerSlider", slider, "powerValue", powerValue, "rightCluster", cluster,
                 "fineTuneWheel", wheel, "spinPad", spin, "spinIcon", spinIcon, "shootButton", shoot.Button, "shootLabel", shoot.Label,
                 "pauseButton", pause.Button, "pauseView", pauseView, "resumeButton", resume, "leaveButton", leave,
-                "emoteButton", emote.Button, "stickerSheet", stickers, "stickerTemplate", stickerTemplate, "result", result);
+                "emoteButton", emote.Button, "cameraButton", cameraButton.Button, "cameraRig", cameraRig, "stickerSheet", stickers, "stickerTemplate", stickerTemplate, "result", result);
 
             hudRoot = root.gameObject;
             hudRoot.SetActive(false);

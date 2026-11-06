@@ -1455,6 +1455,26 @@ MonoBehaviour:
     m_Localized: '{0} tanlandi'
     m_Metadata:
       m_Items: []
+  - m_Id: 313176521523200
+    m_Localized: Kamera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707392
+    m_Localized: Klassik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707393
+    m_Localized: 3-shaxs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707394
+    m_Localized: 1-shaxs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707395
+    m_Localized: Kino
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

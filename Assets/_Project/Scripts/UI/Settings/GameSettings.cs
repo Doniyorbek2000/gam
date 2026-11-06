@@ -33,6 +33,8 @@ namespace BilliardGame.UI
         public bool leftHanded;
         public bool aimGuide = true;
         public bool confirmShot;
+        /// <summary>Default match camera (Avatar.Rules.MatchCameraMode); the HUD camera button changes it too.</summary>
+        public int cameraMode;
         public bool notifications = true;
     }
 

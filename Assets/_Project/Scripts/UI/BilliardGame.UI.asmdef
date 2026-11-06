@@ -9,6 +9,8 @@
         "BilliardGame.Content",
         "BilliardGame.Meta",
         "BilliardGame.Avatar",
+        "BilliardGame.Avatar.Rules",
+        "BilliardGame.Cameras",
         "Unity.TextMeshPro",
         "UnityEngine.UI",
         "Unity.InputSystem",

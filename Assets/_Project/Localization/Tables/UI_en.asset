@@ -1451,6 +1451,26 @@ MonoBehaviour:
     m_Localized: '{0} selected'
     m_Metadata:
       m_Items: []
+  - m_Id: 313176521523200
+    m_Localized: Camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707392
+    m_Localized: Classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707393
+    m_Localized: 3rd person
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707394
+    m_Localized: 1st person
+    m_Metadata:
+      m_Items: []
+  - m_Id: 313176827707395
+    m_Localized: Cinematic
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

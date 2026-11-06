@@ -42,6 +42,7 @@ namespace BilliardGame.Presentation
         private float pullback01;
         private double dragAngle;
         private bool hasDragAngle;
+        private float lastDragX;
         private bool stroking;
         private float strokeTime;
         private StrokeTimeline stroke;
@@ -49,12 +50,16 @@ namespace BilliardGame.Presentation
 
         /// <summary>Below this distance from the cue ball the sweep angle is too noisy to steer with.</summary>
         private const double MinDragRadius = 0.03;
+        /// <summary>Swipe aim: a full-width swipe turns the cue this many degrees.</summary>
+        private const float SwipeDegreesPerScreen = 90f;
 
         public Vec2 AimDirection { get; private set; } = Vec2.UnitX;
         /// <summary>Settings ▸ Controls: scales how far the cue turns per finger sweep (input only, not physics).</summary>
         public float AimSensitivity { get; set; } = 1f;
         /// <summary>Settings ▸ Controls: hides the guide lines (they can only be turned off, never lengthened).</summary>
         public bool ShowGuide { get; set; } = true;
+        /// <summary>Behind-the-ball cameras: a horizontal swipe turns the cue (the table-plane sweep degenerates near the horizon).</summary>
+        public bool SwipeAim { get; set; }
         public Vec2 CuePosition { get; private set; }
 
         /// <summary>Aim or stroke on screen: the shooter's hands follow <see cref="CueStick"/> (docs/GDD.md §8.1).</summary>
@@ -158,6 +163,17 @@ namespace BilliardGame.Presentation
                 if (IsOverUi(screen) || !TryTablePoint(screen, out Vec2 down)) return;
                 drag = ballInHand && Vec2.Distance(down, CuePosition) < placeGrabRadius ? DragMode.Place : DragMode.Aim;
                 hasDragAngle = false;
+                lastDragX = screen.x;
+            }
+
+            if (drag == DragMode.Aim && SwipeAim && pointer.press.isPressed)
+            {
+                // Swipe right turns the cue right (clockwise from above); scaled by screen width so devices match.
+                float degrees = -(screen.x - lastDragX) / Mathf.Max(1, Screen.width) * SwipeDegreesPerScreen * AimSensitivity;
+                RotateAim(degrees);
+                lastDragX = screen.x;
+                if (pointer.press.wasReleasedThisFrame) drag = DragMode.None;
+                return;
             }
 
             if (drag != DragMode.None && pointer.press.isPressed && TryTablePoint(screen, out Vec2 point))

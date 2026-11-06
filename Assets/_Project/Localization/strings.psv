@@ -355,3 +355,8 @@ character.select|Tanlash|Выбрать|Select
 character.selected|Tanlangan|Выбран|Selected
 character.outfits|Kiyimlar|Одежда|Outfits
 character.saved|{0} tanlandi|Выбран персонаж {0}|{0} selected
+settings.camera|Kamera|Камера|Camera
+camera.classic|Klassik|Классика|Classic
+camera.third|3-shaxs|3-е лицо|3rd person
+camera.first|1-shaxs|1-е лицо|1st person
+camera.cinematic|Kino|Кино|Cinematic

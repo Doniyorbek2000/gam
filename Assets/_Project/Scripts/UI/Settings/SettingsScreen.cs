@@ -41,6 +41,7 @@ namespace BilliardGame.UI
         [SerializeField] private ToggleSwitch leftHanded;
         [SerializeField] private ToggleSwitch aimGuide;
         [SerializeField] private ToggleSwitch confirmShot;
+        [SerializeField] private TabBar cameraMode;
 
         [Header("Language: uz, ru, en")]
         [SerializeField] private Button[] languages = new Button[0];
@@ -75,6 +76,7 @@ namespace BilliardGame.UI
             Toggle(leftHanded, (s, on) => s.leftHanded = on);
             Toggle(aimGuide, (s, on) => s.aimGuide = on);
             Toggle(confirmShot, (s, on) => s.confirmShot = on);
+            cameraMode.Changed += i => Change(s => s.cameraMode = i);
             Toggle(notifications, (s, on) => s.notifications = on);
             Volume(master, (s, v) => s.master = v);
             Volume(music, (s, v) => s.music = v);
@@ -134,6 +136,7 @@ namespace BilliardGame.UI
             leftHanded.Set(s.leftHanded);
             aimGuide.Set(s.aimGuide);
             confirmShot.Set(s.confirmShot);
+            cameraMode.Select(Mathf.Clamp(s.cameraMode, 0, BilliardGame.Avatar.Rules.CameraRules.ModeCount - 1), false);
             notifications.Set(s.notifications);
             for (int i = 0; i < languages.Length; i++) languages[i].GetComponent<UIButtonFx>().SetSelected(Loc.Languages[i] == Loc.Language);
             accountId.text = services.Profile.State.playerId;

@@ -281,6 +281,8 @@ namespace BilliardGame.Editor.UI
             ToggleSwitch left = ToggleRow(controls, "left_hand", "settings.left_hand", "settings.left_hand_hint");
             ToggleSwitch guide = ToggleRow(controls, "visibility", "settings.aim_guide");
             ToggleSwitch confirm = ToggleRow(controls, "check", "settings.confirm_shot", "settings.confirm_shot_hint");
+            TabBar cameraMode = UIKit.Segmented(UIKit.SettingRow(controls, "Camera", "visibility", "settings.camera", null, 600f), "Camera",
+                new[] { "camera.classic", "camera.third", "camera.first", "camera.cinematic" }, 140f);
 
             RectTransform language = Page(area, "Language");
             RectTransform langRow = UIKit.SettingRow(language, "Language", "language", "settings.language", null, 0f);
@@ -318,7 +320,7 @@ namespace BilliardGame.Editor.UI
                 "pages", new Object[] { graphics.parent.gameObject, sound.parent.gameObject, controls.parent.gameObject, language.parent.gameObject, account.parent.gameObject, other.parent.gameObject },
                 "quality", quality, "fps", fps, "shadows", shadows, "postProcessing", post, "batterySaver", battery,
                 "master", master, "music", music, "effects", effects, "voice", voice, "vibration", vibration,
-                "aimSensitivity", aim, "fineSensitivity", fine, "leftHanded", left, "aimGuide", guide, "confirmShot", confirm,
+                "aimSensitivity", aim, "fineSensitivity", fine, "leftHanded", left, "aimGuide", guide, "confirmShot", confirm, "cameraMode", cameraMode,
                 "languages", languages.ToArray(), "accountId", accountId, "copyId", copy.Button, "linkGoogle", google, "logout", logout, "deleteAccount", delete,
                 "notifications", notifications, "privacy", privacy, "terms", terms, "help", help, "creditsButton", creditsButton, "version", version);
             return view;

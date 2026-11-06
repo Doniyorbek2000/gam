@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BilliardGame.Avatar.Rules;
 using BilliardGame.Content;
 using BilliardGame.Gameplay;
 using BilliardGame.Meta;
@@ -44,6 +45,8 @@ namespace BilliardGame.UI
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button leaveButton;
         [SerializeField] private Button emoteButton;
+        [SerializeField] private Button cameraButton;
+        [SerializeField] private BilliardGame.Cameras.MatchCameraRig cameraRig;
         [SerializeField] private ScreenView stickerSheet;
         [SerializeField] private Button stickerTemplate;
         [SerializeField] private ResultScreen result;
@@ -79,6 +82,7 @@ namespace BilliardGame.UI
             resumeButton.onClick.AddListener(() => ScreenRouter.Instance.Close(pauseView));
             leaveButton.onClick.AddListener(ConfirmLeave);
             emoteButton.onClick.AddListener(OpenStickers);
+            cameraButton.onClick.AddListener(NextCamera);
             powerSlider.onValueChanged.AddListener(OnPower);
             spinIcon.onClick.AddListener(ToggleSpinPad);
             fineTuneWheel.Rotated += cue.RotateAim;
@@ -94,7 +98,7 @@ namespace BilliardGame.UI
             game.StateChanged -= Refresh;
             GameSettings.Changed -= ApplySettings;
             Loc.Changed -= Refresh;
-            foreach (Button b in new[] { shootButton, pauseButton, resumeButton, leaveButton, emoteButton, spinIcon }) b.onClick.RemoveAllListeners();
+            foreach (Button b in new[] { shootButton, pauseButton, resumeButton, leaveButton, emoteButton, cameraButton, spinIcon }) b.onClick.RemoveAllListeners();
             powerSlider.onValueChanged.RemoveListener(OnPower);
             fineTuneWheel.Rotated -= cue.RotateAim;
             result.AgainPressed -= OnAgain;
@@ -104,12 +108,25 @@ namespace BilliardGame.UI
         private void ApplySettings()
         {
             GameSettings.ApplyInput(cue, fineTuneWheel);
+            cameraRig.Mode = (MatchCameraMode)Mathf.Clamp(GameSettings.Data.cameraMode, 0, CameraRules.ModeCount - 1);
             bool left = GameSettings.Data.leftHanded;
             if (left == mirrored) return;
             mirrored = left;
             Mirror(powerColumn);
             Mirror(rightCluster);
         }
+
+        /// <summary>HUD camera button: next mode, remembered as the default (Settings ▸ Controls shows the same value).</summary>
+        private void NextCamera()
+        {
+            MatchCameraMode next = CameraRules.Next(cameraRig.Mode);
+            GameSettings.Data.cameraMode = (int)next;
+            GameSettings.Save();
+            Dialogs.Instance.Toast(Loc.Get(CameraKeys[(int)next]));
+            UIFeedback.Tap();
+        }
+
+        private static readonly string[] CameraKeys = { "camera.classic", "camera.third", "camera.first", "camera.cinematic" };
 
         /// <summary>Left-handed mode: the power column and the aim/spin/shoot cluster swap sides (children mirror too).</summary>
         private static void Mirror(RectTransform rect)

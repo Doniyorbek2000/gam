@@ -79,7 +79,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6435192843
-    m_Localized: Lv {0}
+    m_Localized: '{0}-daraja'
     m_Metadata:
       m_Items: []
   - m_Id: 6435192844
@@ -147,11 +147,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6435192859
-    m_Localized: Season Pass
+    m_Localized: Mavsum pasi
     m_Metadata:
       m_Items: []
   - m_Id: 6435192860
-    m_Localized: "1-mavsum \xB7 Lv 1"
+    m_Localized: "1-mavsum \xB7 1-daraja"
     m_Metadata:
       m_Items: []
   - m_Id: 6435192861
@@ -159,7 +159,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6435192862
-    m_Localized: Eventlar
+    m_Localized: Tadbirlar
     m_Metadata:
       m_Items: []
   - m_Id: 6435192863
@@ -187,7 +187,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6447775747
-    m_Localized: Chat
+    m_Localized: Suhbat
     m_Metadata:
       m_Items: []
   - m_Id: 6447775748
@@ -243,7 +243,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6447775761
-    m_Localized: Ranked
+    m_Localized: Reytingli
     m_Metadata:
       m_Items: []
   - m_Id: 6447775762
@@ -263,7 +263,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6447775766
-    m_Localized: Erkin joylashtirish, trick-shot
+    m_Localized: Erkin joylashtirish, maxsus zarbalar
     m_Metadata:
       m_Items: []
   - m_Id: 6447775767
@@ -275,7 +275,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6447775769
-    m_Localized: 'Zal va skinlar faqat ko''rinish: fizika, qoidalar va taymer hamma
+    m_Localized: 'Zal va kosmetika faqat ko''rinish: fizika, qoidalar va taymer hamma
       uchun bir xil.'
     m_Metadata:
       m_Items: []
@@ -421,7 +421,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6451970057
-    m_Localized: Bir zarbada max shar
+    m_Localized: Zarba rekordi
     m_Metadata:
       m_Items: []
   - m_Id: 6451970058
@@ -449,7 +449,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6451970064
-    m_Localized: vs {0}
+    m_Localized: '{0} bilan'
     m_Metadata:
       m_Items: []
   - m_Id: 6451970065
@@ -581,7 +581,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6451970097
-    m_Localized: Emote'lar
+    m_Localized: Emotsiyalar
     m_Metadata:
       m_Items: []
   - m_Id: 6451970098
@@ -605,7 +605,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6451970103
-    m_Localized: Raritet
+    m_Localized: Noyoblik
     m_Metadata:
       m_Items: []
   - m_Id: 6451970104
@@ -697,7 +697,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6451970126
-    m_Localized: Season Pass
+    m_Localized: Mavsum pasi
     m_Metadata:
       m_Items: []
   - m_Id: 6451970127
@@ -705,7 +705,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6451970128
-    m_Localized: 'Stol matosi va bortlari: lobby, xona va matchda ko''rinadi.'
+    m_Localized: 'Stol matosi va bortlari: lobbi, xona va o''yinda ko''rinadi.'
     m_Metadata:
       m_Items: []
   - m_Id: 6451970129
@@ -714,7 +714,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6451970130
-    m_Localized: 'Avatar atrofidagi ramka: lobby, profil va matchda.'
+    m_Localized: 'Avatar atrofidagi ramka: lobbi, profil va o''yinda.'
     m_Metadata:
       m_Items: []
   - m_Id: 6451970131
@@ -850,7 +850,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524488
-    m_Localized: Post-processing
+    m_Localized: Post-effektlar
     m_Metadata:
       m_Items: []
   - m_Id: 6485524489
@@ -960,11 +960,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524515
-    m_Localized: Mualliflar (Credits)
+    m_Localized: Mualliflar
     m_Metadata:
       m_Items: []
   - m_Id: 6485524516
-    m_Localized: Versiya {0}
+    m_Localized: Versiya
     m_Metadata:
       m_Items: []
   - m_Id: 6485524517
@@ -1004,11 +1004,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524526
-    m_Localized: Spin
+    m_Localized: Aylanish
     m_Metadata:
       m_Items: []
   - m_Id: 6485524527
-    m_Localized: '{0}: break'
+    m_Localized: '{0}: ochilish zarbasi'
     m_Metadata:
       m_Items: []
   - m_Id: 6485524528
@@ -1028,7 +1028,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524532
-    m_Localized: 'Foul: {0}. {1}'
+    m_Localized: 'Jarima: {0}. {1}'
     m_Metadata:
       m_Items: []
   - m_Id: 6485524533
@@ -1040,7 +1040,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524535
-    m_Localized: '{0}: qayta break'
+    m_Localized: '{0}: qayta ochilish zarbasi'
     m_Metadata:
       m_Items: []
   - m_Id: 6485524536
@@ -1060,7 +1060,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524540
-    m_Localized: noto'g'ri break
+    m_Localized: noto'g'ri ochilish zarbasi
     m_Metadata:
       m_Items: []
   - m_Id: 6485524541
@@ -1080,15 +1080,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524545
-    m_Localized: Matchdan chiqish
+    m_Localized: O'yindan chiqish
     m_Metadata:
       m_Items: []
   - m_Id: 6485524546
-    m_Localized: Onlayn matchdan chiqish mag'lubiyat hisoblanadi.
+    m_Localized: Onlayn o'yindan chiqish mag'lubiyat hisoblanadi.
     m_Metadata:
       m_Items: []
   - m_Id: 6485524547
-    m_Localized: O'yinni tugatib lobbyga qaytasizmi?
+    m_Localized: O'yinni tugatib lobbiga qaytasizmi?
     m_Metadata:
       m_Items: []
   - m_Id: 6485524548
@@ -1112,7 +1112,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524553
-    m_Localized: XP
+    m_Localized: Tajriba
     m_Metadata:
       m_Items: []
   - m_Id: 6485524554
@@ -1132,7 +1132,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524558
-    m_Localized: Lobby
+    m_Localized: Lobbi
     m_Metadata:
       m_Items: []
   - m_Id: 6485524559
@@ -1205,7 +1205,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524576
-    m_Localized: "Raritet ichida har bir item teng ehtimolli. Dublikat \u2192 Shard."
+    m_Localized: "Bir noyoblikdagi har bir buyum teng ehtimolli. Takrorlansa \u2192
+      Shard."
     m_Metadata:
       m_Items: []
   - m_Id: 6485524577
@@ -1219,7 +1220,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524579
-    m_Localized: credits.json topilmadi
+    m_Localized: Mualliflar ro'yxati topilmadi
     m_Metadata:
       m_Items: []
   - m_Id: 6485524580
@@ -1231,7 +1232,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524582
-    m_Localized: HDRI
+    m_Localized: Osmon panoramalari
     m_Metadata:
       m_Items: []
   - m_Id: 6485524583
@@ -1283,7 +1284,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524595
-    m_Localized: Chaqmoq break
+    m_Localized: Chaqmoq zarba
     m_Metadata:
       m_Items: []
   - m_Id: 6485524596
@@ -1379,7 +1380,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524619
-    m_Localized: Modern
+    m_Localized: Zamonaviy
     m_Metadata:
       m_Items: []
   - m_Id: 6485524620
@@ -1391,7 +1392,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524622
-    m_Localized: Silk Road Lounge
+    m_Localized: Ipak yo'li zali
     m_Metadata:
       m_Items: []
   - m_Id: 6485524623
@@ -1399,11 +1400,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524624
-    m_Localized: Bukhara Palace
+    m_Localized: Buxoro saroyi
     m_Metadata:
       m_Items: []
   - m_Id: 6485524625
-    m_Localized: Neon Arena
+    m_Localized: Neon arena
     m_Metadata:
       m_Items: []
   - m_Id: 7819299471360
@@ -1424,6 +1425,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 11028390821888
     m_Localized: Rejim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 240296584626176
+    m_Localized: 8-shar
     m_Metadata:
       m_Items: []
   references:

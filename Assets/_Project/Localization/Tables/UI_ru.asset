@@ -1040,7 +1040,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6485524516
-    m_Localized: "\u0412\u0435\u0440\u0441\u0438\u044F {0}"
+    m_Localized: "\u0412\u0435\u0440\u0441\u0438\u044F"
     m_Metadata:
       m_Items: []
   - m_Id: 6485524517
@@ -1529,6 +1529,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 11028390821888
     m_Localized: "\u0420\u0435\u0436\u0438\u043C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 240296584626176
+    m_Localized: 8-ball
     m_Metadata:
       m_Items: []
   references:

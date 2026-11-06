@@ -29,7 +29,7 @@
 Ranglar, Montserrat tip shkalasi, 8 pt grid, komponentlar, harakat va ikonkalar: **[DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)** (manba — `UITheme.asset`). Raritet ranglari: [ECONOMY §3](ECONOMY.md#3-raritet).
 
 ### 1.3 Amalga oshirilgan holat (M1.5)
-Lobbi, Rejim+Zal, Profil, Mening xonam, Inventar (9 tab), Yashiklar, Sozlamalar, Credits, match HUD, natija, splash va umumiy dialoglar quriladi (`Editor/UI/*`). Lobbi va match UI alohida canvas'larda: match HUD faqat match paytida yoqiladi. "TEZ KUNDA" tegli tugmalar (Pass, Vazifalar, Eventlar, Kunlik, Klub, Chat, Ranked, Bot, Mashq) hozircha bosilmaydi.
+Lobbi, Rejim+Zal, Profil, Mening xonam, Inventar (9 tab), Yashiklar, Sozlamalar, Credits, match HUD, natija, splash va umumiy dialoglar quriladi (`Editor/UI/*`). Lobbi va match UI alohida canvas'larda: match HUD faqat match paytida yoqiladi. UI faqat touch/pointer bilan boshqariladi: klaviatura/gamepad navigatsiyasi va Submit o'chirilgan (aks holda yashirin ekran tugmasi Enter bilan bosilib qolardi), Android "orqaga"/Escape — `ScreenRouter`. "TEZ KUNDA" tegli tugmalar (Pass, Vazifalar, Eventlar, Kunlik, Klub, Chat, Ranked, Bot, Mashq) hozircha bosilmaydi.
 
 ## 2. Lobby
 
@@ -180,7 +180,7 @@ Texnik: Timeline + VFX Graph (mobil uchun Particle System yetarli), natija serve
 - **Leaderboard:** Global/Mamlakat/Do'stlar × Ranked/Haftalik; o'z o'rning pastda sticky.
 - **Do'stlar / Klub:** ro'yxat, onlayn holat, taklif, chat (TMP + emoji sprite asset).
 - **Turnirlar:** bracket ko'rinishi (8/16), kirish, sovrin fondi.
-- **Sozlamalar (M1.5):** chapda 6 bo'lim — Grafika (sifat Past/O'rta/Yuqori/Avto, FPS 30/60/90/120 — displey qo'llagani, soyalar, post-processing, quvvat tejash), Ovoz (umumiy, musiqa, effektlar, ovozli chat, vibratsiya), Boshqaruv (nishon va g'ildirak sezgirligi, chapaqay rejim — power slider o'ngga, nishon chizig'i, zarba tasdig'i), Til (O'zbek/Русский/English, darhol almashadi), Akkaunt (ID nusxa, Google ulash — tez kunda, chiqish, **akkauntni o'chirish** tasdiq bilan), Boshqa (bildirishnomalar, yordam, maxfiylik, shartlar, Credits, versiya).
+- **Sozlamalar (M1.5):** chapda 6 bo'lim — Grafika (sifat Past/O'rta/Yuqori/Avto, FPS 30/60/90/120 — displey qo'llagani, soyalar, post-processing, quvvat tejash), Ovoz (umumiy, musiqa, effektlar, ovozli chat, vibratsiya), Boshqaruv (nishon va g'ildirak sezgirligi, chapaqay rejim — power slider o'ngga, nishon chizig'i, zarba tasdig'i), Til (O'zbek/Русский/English, darhol almashadi; standart — O'zbek, birinchi ishga tushirishda qurilma tiliga qaramaydi; ru/en faqat shu yerdan tanlanadi va saqlanadi), Akkaunt (ID nusxa, Google ulash — tez kunda, chiqish, **akkauntni o'chirish** tasdiq bilan), Boshqa (bildirishnomalar, yordam, maxfiylik, shartlar, Credits, versiya).
 - **Credits:** `ArtSource/LICENSES.md` dan avtomatik generatsiya ([ART_PIPELINE §4](ART_PIPELINE.md#4-litsenziya-reyestri-va-credits)).
 
 ## 12. Holatlar (har ekran uchun majburiy)

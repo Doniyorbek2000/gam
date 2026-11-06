@@ -141,11 +141,18 @@ namespace BilliardGame.UI
                 MatchRecord match = history[i];
                 VenueDefinition hall = FindVenue(match.venueId);
                 string date = DateTimeOffset.FromUnixTimeSeconds(match.unixTime).ToLocalTime().ToString("dd.MM.yyyy HH:mm", Loc.Culture);
-                historyRows[i].Set(Loc.Format("history.vs", match.opponent), $"{(hall != null ? LobbyController.VenueName(hall) : match.venueId)}  ·  {date}",
+                string where = hall != null ? LobbyController.VenueName(hall) : match.venueId;
+                historyRows[i].Set(Loc.Format("history.vs", OpponentName(match.opponent)), string.IsNullOrEmpty(where) ? date : $"{where}  ·  {date}",
                     Loc.Get(match.won ? "history.won" : "history.lost").ToUpper(Loc.Culture));
                 historyRows[i].SetChip(match.won ? theme.success : theme.danger);
             }
         }
+
+        // Hot-seat saves seat 2 as the guest name in the language of that day; show it in today's language.
+        // shortcut: matches the three shipped translations of "hud.guest"; store a marker instead once names come from the server (M2).
+        private static readonly string[] GuestNames = { "Mehmon", "Гость", "Guest" };
+
+        private static string OpponentName(string saved) => Array.IndexOf(GuestNames, saved) >= 0 ? Loc.Get("hud.guest") : saved;
 
         private void RefreshAchievements(ProfileState profile)
         {

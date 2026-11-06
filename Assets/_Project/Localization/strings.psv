@@ -14,7 +14,7 @@ common.loading|Yuklanmoqda…|Загрузка…|Loading…
 common.error|Xatolik|Ошибка|Error
 common.copied|Nusxa olindi|Скопировано|Copied
 common.level|Daraja {0}|Уровень {0}|Level {0}
-common.lv|Lv {0}|Ур. {0}|Lv {0}
+common.lv|{0}-daraja|Ур. {0}|Lv {0}
 common.coins|Coin|Монеты|Coins
 common.gems|Gem|Гемы|Gems
 common.free|Bepul|Бесплатно|Free
@@ -30,23 +30,24 @@ lobby.play|O'ynash|Играть|Play
 lobby.change|O'zgartirish|Изменить|Change
 lobby.entry|Kirish|Вход|Entry
 lobby.prize|Sovrin|Приз|Prize
-lobby.pass|Season Pass|Боевой пропуск|Season Pass
-lobby.pass_level|1-mavsum · Lv 1|Сезон 1 · Ур. 1|Season 1 · Lv 1
+lobby.pass|Mavsum pasi|Боевой пропуск|Season Pass
+lobby.pass_level|1-mavsum · 1-daraja|Сезон 1 · Ур. 1|Season 1 · Lv 1
 lobby.missions|Vazifalar|Задания|Missions
-lobby.events|Eventlar|События|Events
+lobby.events|Tadbirlar|События|Events
 lobby.daily|Kunlik|Ежедневно|Daily
 lobby.shop|Do'kon|Магазин|Shop
 lobby.crates|Yashiklar|Ящики|Crates
 lobby.inventory|Inventar|Инвентарь|Inventory
 lobby.room|Mening xonam|Моя комната|My Room
 lobby.club|Klub|Клуб|Club
-lobby.chat|Chat|Чат|Chat
+lobby.chat|Suhbat|Чат|Chat
 lobby.mail|Pochta|Почта|Mail
 lobby.friends|Do'stlar|Друзья|Friends
 lobby.settings|Sozlamalar|Настройки|Settings
 lobby.dev_coins|Test rejimi: +{0} Coin|Тестовый режим: +{0} монет|Test mode: +{0} coins
 lobby.dev_gems|Test rejimi: +{0} Gem|Тестовый режим: +{0} гемов|Test mode: +{0} gems
 lobby.no_coins|Bu zal uchun Coin yetarli emas|Недостаточно монет для этого зала|Not enough coins for this hall
+mode.eight_ball|8-shar|8-ball|8-ball
 mode.section|Rejim|Режим|Mode
 mode.title|Rejim va zal|Режим и зал|Mode and hall
 mode.hotseat|Bir qurilmada|На одном устройстве|Same device
@@ -55,15 +56,15 @@ mode.friend|Do'st bilan|С другом|With a friend
 mode.friend.desc|Xona kodi orqali onlayn|Онлайн по коду комнаты|Online with a room code
 mode.quick|Tezkor o'yin|Быстрая игра|Quick match
 mode.quick.desc|Tasodifiy raqib, sovrin uchun|Случайный соперник, на приз|Random opponent, for the prize
-mode.ranked|Ranked|Рейтинг|Ranked
+mode.ranked|Reytingli|Рейтинг|Ranked
 mode.ranked.desc|Daraja va mavsum mukofotlari|Ранги и награды сезона|Ranks and season rewards
 mode.ai|Bot bilan|С ботом|vs AI
 mode.ai.desc|4 qiyinlik darajasi|4 уровня сложности|4 difficulty levels
 mode.practice|Mashq|Тренировка|Practice
-mode.practice.desc|Erkin joylashtirish, trick-shot|Свободная расстановка, трюки|Free placement, trick shots
+mode.practice.desc|Erkin joylashtirish, maxsus zarbalar|Свободная расстановка, трюки|Free placement, trick shots
 mode.venue|Zal|Зал|Hall
 mode.select|Tanlash|Выбрать|Select
-mode.fair|Zal va skinlar faqat ko'rinish: fizika, qoidalar va taymer hamma uchun bir xil.|Зал и скины — только внешний вид: физика, правила и таймер одинаковы для всех.|Halls and skins are looks only: physics, rules and timer are the same for everyone.
+mode.fair|Zal va kosmetika faqat ko'rinish: fizika, qoidalar va taymer hamma uchun bir xil.|Зал и скины — только внешний вид: физика, правила и таймер одинаковы для всех.|Halls and skins are looks only: physics, rules and timer are the same for everyone.
 mode.min_level|Daraja {0} dan|С уровня {0}|From level {0}
 mode.no_stake|Stavkasiz|Без ставки|No stake
 friend.title|Do'st bilan o'ynash|Игра с другом|Play with a friend
@@ -99,14 +100,14 @@ stat.wins|G'alabalar|Победы|Wins
 stat.winrate|G'alaba foizi|Процент побед|Win rate
 stat.streak|Eng uzun seriya|Лучшая серия|Best streak
 stat.accuracy|Zarba aniqligi|Точность ударов|Shot accuracy
-stat.multi|Bir zarbada max shar|Макс. шаров за удар|Most balls in one shot
+stat.multi|Zarba rekordi|Макс. шаров за удар|Most balls in one shot
 stat.potted|Tushirilgan sharlar|Забито шаров|Balls potted
 stat.favourite|Sevimli kiy|Любимый кий|Favourite cue
 history.won|G'alaba|Победа|Win
 history.lost|Mag'lubiyat|Поражение|Loss
 history.empty|Hali o'yinlar yo'q|Пока нет матчей|No matches yet
 history.empty_hint|Birinchi o'yiningizni o'ynang — natijalar shu yerda ko'rinadi.|Сыграйте первый матч — результаты появятся здесь.|Play your first match — results show up here.
-history.vs|vs {0}|против {0}|vs {0}
+history.vs|{0} bilan|против {0}|vs {0}
 achievements.showcase|Vitrina|Витрина|Showcase
 achievements.showcase_empty|Yutuqlarni oching — eng yaxshilari vitrinada|Открывайте достижения — лучшие попадут на витрину|Unlock achievements — the best go to your showcase
 achievement.first_win|Birinchi g'alaba|Первая победа|First win
@@ -139,13 +140,13 @@ category.balls|Sharlar|Шары|Balls
 category.venuetheme|Zal temalari|Темы залов|Hall themes
 category.outfit|Kiyimlar|Одежда|Outfits
 category.frame|Ramkalar|Рамки|Frames
-category.emote|Emote'lar|Эмоции|Emotes
+category.emote|Emotsiyalar|Эмоции|Emotes
 category.sticker|Stikerlar|Стикеры|Stickers
 category.effect|Effektlar|Эффекты|Effects
 category.roomwall|Devorlar|Стены|Walls
 category.roomfloor|Pollar|Полы|Floors
 inventory.title|Inventar|Инвентарь|Inventory
-inventory.sort_rarity|Raritet|Редкость|Rarity
+inventory.sort_rarity|Noyoblik|Редкость|Rarity
 inventory.sort_new|Yangilari|Новые|Newest
 inventory.sort_name|Nomi|Название|Name
 inventory.owned_only|Faqat mavjud|Только мои|Owned only
@@ -168,11 +169,11 @@ inventory.preview_drag|Aylantirish uchun suring|Проведите, чтобы �
 source.starter|Boshlang'ich|Стартовый|Starter
 source.crate|Yashik|Ящик|Crate
 source.shop|Do'kon|Магазин|Shop
-source.pass|Season Pass|Боевой пропуск|Season Pass
+source.pass|Mavsum pasi|Боевой пропуск|Season Pass
 type.cue.desc|Kiy — o'yin uslubingizning ko'rinishi.|Кий — внешний вид вашего стиля.|A cue — the look of your style.
-type.table.desc|Stol matosi va bortlari: lobby, xona va matchda ko'rinadi.|Сукно и борта: видно в лобби, комнате и матче.|Cloth and rails: shown in the lobby, your room and matches.
+type.table.desc|Stol matosi va bortlari: lobbi, xona va o'yinda ko'rinadi.|Сукно и борта: видно в лобби, комнате и матче.|Cloth and rails: shown in the lobby, your room and matches.
 type.sticker.desc|Kiy yoki stol bortiga yopishtiring, chatda yuboring, xona devoriga osing.|Наклейте на кий или борт, отправьте в чат, повесьте на стену комнаты.|Stick it on your cue or table rail, send it in chat, hang it in your room.
-type.frame.desc|Avatar atrofidagi ramka: lobby, profil va matchda.|Рамка аватара: в лобби, профиле и матче.|Avatar frame: in the lobby, profile and matches.
+type.frame.desc|Avatar atrofidagi ramka: lobbi, profil va o'yinda.|Рамка аватара: в лобби, профиле и матче.|Avatar frame: in the lobby, profile and matches.
 type.roomwall.desc|"Mening xonam" uchun devor temasi.|Тема стен для «Моей комнаты».|Wall theme for My Room.
 type.roomfloor.desc|"Mening xonam" uchun pol temasi.|Тема пола для «Моей комнаты».|Floor theme for My Room.
 type.other.desc|Kosmetika — faqat ko'rinish.|Косметика — только внешний вид.|Cosmetic — looks only.
@@ -206,7 +207,7 @@ settings.quality_high|Yuqori|Высокое|High
 settings.quality_auto|Avto|Авто|Auto
 settings.fps|Kadr chastotasi (FPS)|Частота кадров (FPS)|Frame rate (FPS)
 settings.shadows|Soyalar|Тени|Shadows
-settings.post|Post-processing|Постобработка|Post-processing
+settings.post|Post-effektlar|Постобработка|Post-processing
 settings.battery|Quvvat tejash rejimi|Режим энергосбережения|Battery saver
 settings.battery_hint|30 FPS, soyasiz, past sifat|30 FPS, без теней, низкое качество|30 FPS, no shadows, low quality
 settings.master|Umumiy ovoz|Общая громкость|Master volume
@@ -233,8 +234,8 @@ settings.notifications|Bildirishnomalar|Уведомления|Notifications
 settings.privacy|Maxfiylik siyosati|Политика конфиденциальности|Privacy policy
 settings.terms|Foydalanish shartlari|Условия использования|Terms of use
 settings.help|Yordam va bog'lanish|Помощь и связь|Help and contact
-settings.credits|Mualliflar (Credits)|Авторы|Credits
-settings.version|Versiya {0}|Версия {0}|Version {0}
+settings.credits|Mualliflar|Авторы|Credits
+settings.version|Versiya|Версия|Version
 hud.you|Siz|Вы|You
 hud.guest|Mehmon|Гость|Guest
 hud.open_table|Ochiq stol|Открытый стол|Open table
@@ -244,39 +245,39 @@ hud.stripes|Chiziqli · {0}|Полосатые · {0}|Stripes · {0}
 hud.shoot|Zarba|Удар|Shoot
 hud.shoot_confirm|Tasdiqlang|Подтвердите|Confirm
 hud.power|Kuch|Сила|Power
-hud.spin|Spin|Винт|Spin
-hud.break|{0}: break|{0}: разбой|{0} to break
+hud.spin|Aylanish|Винт|Spin
+hud.break|{0}: ochilish zarbasi|{0}: разбой|{0} to break
 hud.turn|{0}: navbat|{0}: ход|{0} to shoot
 hud.your_turn|Sizning navbatingiz|Ваш ход|Your turn
 hud.takes|{0}: {1}|{0}: {1}|{0} takes {1}
 hud.respot|8-shar joyiga qaytdi. {0}: navbat|Чёрный шар возвращён. Ход: {0}|8-ball respotted. {0} to shoot
-hud.foul|Foul: {0}. {1}|Фол: {0}. {1}|Foul: {0}. {1}
+hud.foul|Jarima: {0}. {1}|Фол: {0}. {1}|Foul: {0}. {1}
 hud.ball_in_hand|{0}: oq shar qo'lda|{0}: биток в руке|{0}: ball in hand
 hud.ball_in_hand_kitchen|{0}: oq shar qo'lda (bosh chiziq ortida)|{0}: биток в руке (за линией)|{0}: ball in hand behind the head string
-hud.rebreak|{0}: qayta break|{0}: повторный разбой|{0} to break again
+hud.rebreak|{0}: qayta ochilish zarbasi|{0}: повторный разбой|{0} to break again
 foul.scratch|oq shar tushdi|биток в лузе|cue ball pocketed
 foul.no_hit|hech bir sharga tegmadi|ни один шар не задет|no ball hit
 foul.wrong_first|birinchi bo'lib noto'g'ri shar|первым задет не тот шар|wrong ball hit first
 foul.no_rail|bortga tegmadi|нет касания борта|no cushion after contact
-foul.illegal_break|noto'g'ri break|неправильный разбой|illegal break
+foul.illegal_break|noto'g'ri ochilish zarbasi|неправильный разбой|illegal break
 foul.timeout|vaqt tugadi|время вышло|time ran out
 foul.other|qoidabuzarlik|нарушение|foul
 hud.pause|Pauza|Пауза|Pause
 hud.resume|Davom etish|Продолжить|Resume
-hud.leave|Matchdan chiqish|Выйти из матча|Leave match
-hud.leave_body|Onlayn matchdan chiqish mag'lubiyat hisoblanadi.|Выход из онлайн-матча засчитывается как поражение.|Leaving an online match counts as a loss.
-hud.leave_offline|O'yinni tugatib lobbyga qaytasizmi?|Закончить игру и вернуться в лобби?|End the game and return to the lobby?
+hud.leave|O'yindan chiqish|Выйти из матча|Leave match
+hud.leave_body|Onlayn o'yindan chiqish mag'lubiyat hisoblanadi.|Выход из онлайн-матча засчитывается как поражение.|Leaving an online match counts as a loss.
+hud.leave_offline|O'yinni tugatib lobbiga qaytasizmi?|Закончить игру и вернуться в лобби?|End the game and return to the lobby?
 hud.emotes|Stikerlar|Стикеры|Stickers
 hud.rules|Qoidalar: o'z guruhingizni tushiring, keyin 8-sharni.|Правила: забейте свою группу, затем чёрный шар.|Rules: pot your group, then the 8-ball.
 result.victory|G'alaba!|Победа!|Victory!
 result.defeat|Mag'lubiyat|Поражение|Defeat
 result.winner|{0} g'olib|Победитель: {0}|{0} wins
-result.xp|XP|Опыт|XP
+result.xp|Tajriba|Опыт|XP
 result.coins|Coin|Монеты|Coins
 result.practice|Mashq o'yini — coin yo'q|Тренировочная игра — без монет|Practice game — no coins
 result.level_up|Yangi daraja: {0}!|Новый уровень: {0}!|Level up: {0}!
 result.again|Yana o'ynash|Ещё раз|Play again
-result.lobby|Lobby|Лобби|Lobby
+result.lobby|Lobbi|Лобби|Lobby
 result.potted|Tushirilgan sharlar: {0}|Забито шаров: {0}|Balls potted: {0}
 crates.title|Yashiklar|Ящики|Crates
 crates.name|{0} yashik|Ящик {0}|{0} crate
@@ -294,13 +295,13 @@ crates.not_enough_gems|Gem yetarli emas|Недостаточно гемов|Not 
 crates.not_enough_coins|Coin yetarli emas|Недостаточно монет|Not enough coins
 crates.guarantee|Kafolat: {0}-ochishda {1} yoki yuqori. Asosiy {2}%, kafolat bilan umumiy {3}%.|Гарант: на {0}-м открытии {1} или выше. Базово {2}%, с гарантом {3}%.|Guarantee: {1} or better on open {0}. Base {2}%, with pity {3}%.
 crates.ten_guarantee|10× ochishda kamida bitta {0} yoki yuqori.|В 10× минимум один {0} или выше.|A 10× open has at least one {0} or better.
-crates.equal|Raritet ichida har bir item teng ehtimolli. Dublikat → Shard.|Внутри редкости шансы предметов равны. Дубликат → осколки.|Within a rarity every item is equally likely. Duplicate → shards.
+crates.equal|Bir noyoblikdagi har bir buyum teng ehtimolli. Takrorlansa → Shard.|Внутри редкости шансы предметов равны. Дубликат → осколки.|Within a rarity every item is equally likely. Duplicate → shards.
 credits.title|Mualliflar va litsenziyalar|Авторы и лицензии|Credits and licenses
 credits.thanks|Rahmat: Poly Haven, ambientCG, Quaternius, Google Fonts, game-icons.net, Material Symbols.\nProtsedural modellar, ovozlar, stikerlar va zal geometriyasi — o'z ishimiz.|Спасибо: Poly Haven, ambientCG, Quaternius, Google Fonts, game-icons.net, Material Symbols.\nПроцедурные модели, звуки, стикеры и геометрия зала — наша работа.|Thanks: Poly Haven, ambientCG, Quaternius, Google Fonts, game-icons.net, Material Symbols.\nProcedural models, sounds, stickers and hall geometry are our own work.
-credits.missing|credits.json topilmadi|credits.json не найден|credits.json not found
+credits.missing|Mualliflar ro'yxati topilmadi|credits.json не найден|credits.json not found
 credits.group.avatar|Personaj va animatsiyalar|Персонаж и анимации|Character and animations
 credits.group.font|Shriftlar|Шрифты|Fonts
-credits.group.hdri|HDRI|HDRI|HDRI
+credits.group.hdri|Osmon panoramalari|HDRI|HDRI
 credits.group.prop|Mebel va bezaklar|Мебель и декор|Props
 credits.group.texture|Teksturalar|Текстуры|Textures
 credits.group.table|Stollar|Столы|Tables
@@ -313,7 +314,7 @@ item.sticker_lol_ball|Kulgili shar|Смешной шар|LOL ball
 item.sticker_pomegranate|Anor|Гранат|Pomegranate
 item.sticker_choy|Choy?|Чай?|Choy?
 item.sticker_blue_dome|Moviy gumbaz|Голубой купол|Blue dome
-item.sticker_break_bolt|Chaqmoq break|Молния-разбой|Lightning break
+item.sticker_break_bolt|Chaqmoq zarba|Молния-разбой|Lightning break
 item.sticker_gg|GG|GG|GG
 item.sticker_hot_eight|Olovli 8|Огненная 8|Hot eight
 item.sticker_gold_star|Oltin yulduz|Золотая звезда|Gold star
@@ -337,13 +338,13 @@ item.cue_ornate|Samarqand oltini|Самаркандское золото|Samarka
 item.cue_dragon|Ipak ajdari|Шёлковый дракон|Silk dragon
 item.table_classic|Klassik|Классика|Classic
 item.table_royal|Qirollik ko'k|Королевский синий|Royal blue
-item.table_modern|Modern|Модерн|Modern
+item.table_modern|Zamonaviy|Модерн|Modern
 item.table_silk|Ipak yo'li|Шёлковый путь|Silk Road
 venue.garage|Garaj|Гараж|Garage
-venue.silk_road_lounge|Silk Road Lounge|Silk Road Lounge|Silk Road Lounge
+venue.silk_road_lounge|Ipak yo'li zali|Silk Road Lounge|Silk Road Lounge
 venue.old_city_club|Eski Shahar Klubi|Клуб Старого города|Old City Club
-venue.bukhara_palace|Bukhara Palace|Bukhara Palace|Bukhara Palace
-venue.neon_arena|Neon Arena|Neon Arena|Neon Arena
+venue.bukhara_palace|Buxoro saroyi|Bukhara Palace|Bukhara Palace
+venue.neon_arena|Neon arena|Neon Arena|Neon Arena
 crate.classic|Klassik|Классический|Classic
 crate.premium|Premium|Премиум|Premium
 crates.price_one|1×|1×|1×

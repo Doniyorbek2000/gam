@@ -28,7 +28,12 @@ namespace BilliardGame.Editor
         {
             var events = new GameObject("EventSystem");
             events.AddComponent<EventSystem>();
-            events.AddComponent<InputSystemUIInputModule>();
+            var module = events.AddComponent<InputSystemUIInputModule>();
+            // Touch-only UI: keyboard/gamepad navigation would walk the selection onto hidden screens' buttons and
+            // Enter/Space would press them (e.g. "Play again" landing in the lobby). Escape stays with ScreenRouter.
+            module.move = null;
+            module.submit = null;
+            module.cancel = null;
 
             Canvas canvas = LobbyUIBuilder.CreateCanvas("HUD", 5);
             RectTransform root = UIKit.Node("Match HUD", canvas.transform).Fill();

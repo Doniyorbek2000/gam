@@ -271,7 +271,7 @@ namespace BilliardGame.UI
 
         private void RefreshModeCard()
         {
-            modeLabel.text = "8-BALL · " + ModeName(mode).ToUpper(Loc.Culture);
+            modeLabel.text = (Loc.Get("mode.eight_ball") + " · " + ModeName(mode)).ToUpper(Loc.Culture);
             venueLabel.text = VenueName(venue);
             venueImage.sprite = venue.Preview;
             bool stake = mode == Mode.Quick;

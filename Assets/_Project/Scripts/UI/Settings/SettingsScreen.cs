@@ -137,7 +137,7 @@ namespace BilliardGame.UI
             notifications.Set(s.notifications);
             for (int i = 0; i < languages.Length; i++) languages[i].GetComponent<UIButtonFx>().SetSelected(Loc.Languages[i] == Loc.Language);
             accountId.text = services.Profile.State.playerId;
-            version.text = Loc.Format("settings.version", Application.version);
+            version.text = Application.version;
             refreshing = false;
         }
 

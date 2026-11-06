@@ -235,10 +235,11 @@ namespace BilliardGame.UI
 
             string status = game.Banner ?? (game.IsShotInProgress ? string.Empty : Status(state, game.LastOutcome));
             statusLabel.text = status;
-            banner.alpha = string.IsNullOrEmpty(status) ? 0f : 1f;
 
             MatchSummary summary = recorder.Observe(game, services, venueId, venuePrize);
             if (summary != null) result.Present(summary);
+            // The result screen already names the winner; a banner behind its shade would repeat it.
+            banner.alpha = string.IsNullOrEmpty(status) || result.IsOpen ? 0f : 1f;
         }
 
         private void UpdatePanel(int player, EightBallState state)

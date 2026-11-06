@@ -91,7 +91,7 @@ namespace BilliardGame.Editor.UI
             fade.rectTransform.localScale = new Vector3(1f, -1f, 1f);
             TMP_Text title = UIKit.Text(card.Rect, "Name", null, TextStyle.H2);
             title.fontSize = title.fontSizeMax = 30f;
-            title.rectTransform.Span(new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(20f, 46f), new Vector2(-20f, 92f));
+            title.rectTransform.Span(new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(20f, 56f), new Vector2(-20f, 96f));
             TMP_Text entry = MoneyRow(card.Rect, "Entry", "ticket", "lobby.entry", T.textSecondary, new Vector2(20f, 12f));
             TMP_Text prize = MoneyRow(card.Rect, "Prize", "trophy", "lobby.prize", T.coin, new Vector2(220f, 12f));
             Image lockOverlay = UIKit.Image(card.Rect, "Lock", UIAssets.Rounded(20), new Color(0f, 0f, 0f, 0.62f));

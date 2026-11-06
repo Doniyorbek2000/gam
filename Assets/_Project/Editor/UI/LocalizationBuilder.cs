@@ -114,6 +114,13 @@ namespace BilliardGame.Editor.UI
                 LocalizationEditorSettings.ActiveLocalizationSettings = settings;
             }
 
+            // Saved Settings choice first, else Uzbek whatever the device language is (no system-locale selector).
+            // "-language=ru" on the command line stays for dev/E2E runs.
+            List<IStartupLocaleSelector> selectors = settings.GetStartupLocaleSelectors();
+            selectors.Clear();
+            selectors.Add(new CommandLineLocaleSelector());
+            selectors.Add(new PlayerPrefLocaleSelector { PlayerPreferenceKey = Loc.LanguageKey });
+            selectors.Add(new SpecificLocaleSelector { LocaleId = new LocaleIdentifier(Loc.DefaultLanguage) });
             return settings;
         }
 

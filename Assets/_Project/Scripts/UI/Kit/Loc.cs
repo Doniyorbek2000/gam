@@ -14,7 +14,8 @@ namespace BilliardGame.UI
     {
         public const string Table = "UI";
         public static readonly string[] Languages = { "uz", "ru", "en" };
-        private const string LanguageKey = "language";
+        /// <summary>PlayerPrefs key of the language chosen in Settings (also read by the startup locale selector).</summary>
+        public const string LanguageKey = "language";
 
         /// <summary>Raised after the language changes; <see cref="LocalizedText"/> refreshes itself on it.</summary>
         public static event Action Changed;
@@ -28,7 +29,7 @@ namespace BilliardGame.UI
             get
             {
                 Locale locale = IsReady ? LocalizationSettings.SelectedLocale : null;
-                return locale != null ? locale.Identifier.Code : PlayerPrefs.GetString(LanguageKey, DefaultLanguage());
+                return locale != null ? locale.Identifier.Code : PlayerPrefs.GetString(LanguageKey, DefaultLanguage);
             }
         }
 
@@ -40,13 +41,13 @@ namespace BilliardGame.UI
             // No startup selector matched (fresh settings asset): pick ours before any label asks for text.
             if (LocalizationSettings.SelectedLocale == null)
             {
-                Locale locale = LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier(PlayerPrefs.GetString(LanguageKey, DefaultLanguage())));
+                Locale locale = LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier(PlayerPrefs.GetString(LanguageKey, DefaultLanguage)));
                 if (locale != null) LocalizationSettings.SelectedLocale = locale;
             }
         }
 
-        /// <summary>Picks the saved language, else the device language when we have it, else Uzbek.</summary>
-        public static void ApplySavedLanguage() => SetLanguage(PlayerPrefs.GetString(LanguageKey, DefaultLanguage()));
+        /// <summary>Picks the language saved from Settings, else Uzbek (the device language is ignored on purpose).</summary>
+        public static void ApplySavedLanguage() => SetLanguage(PlayerPrefs.GetString(LanguageKey, DefaultLanguage));
 
         public static void SetLanguage(string code)
         {
@@ -97,19 +98,7 @@ namespace BilliardGame.UI
             LocalizationSettings.SelectedLocaleChanged += _ => Changed?.Invoke();
         }
 
-        private static string DefaultLanguage()
-        {
-            switch (Application.systemLanguage)
-            {
-                case SystemLanguage.Russian:
-                case SystemLanguage.Belarusian:
-                case SystemLanguage.Ukrainian:
-                    return "ru";
-                case SystemLanguage.English:
-                    return "en";
-                default:
-                    return "uz";
-            }
-        }
+        /// <summary>First launch is always Uzbek; ru / en only come from Settings ▸ Language.</summary>
+        public const string DefaultLanguage = "uz";
     }
 }

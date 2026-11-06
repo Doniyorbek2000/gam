@@ -64,6 +64,10 @@ UITheme + UIKit (tugma holatlari, tween, ovoz/haptic), ikonka SpriteAtlas, 1920�
 [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) (yangi), UI_UX.md (lobbi layout, rejim ekrani, Profil, Mening xonam, Stikerlar, Sozlamalar), [ECONOMY §4.4](ECONOMY.md#44-stikerlar-m15) stikerlar; ArtSource/LICENSES.md ga 4 ta `type: icon` yozuvi (Material Symbols — Apache 2.0; game-icons.net — Delapouite, Lorc, Skoll, CC BY 3.0), 10 ta stiker original ish deb qayd etildi; LicenseRegistry'ga CC-BY-3.0/Apache-2.0 (faqat ikonkalar) va `icon` turi; CLAUDE.md, ART_PIPELINE §2, COMPLIANCE yangilandi.
 **Natija (2026-11-05):** Validate All Art toza, Credits 22 yozuv ("Ikonkalar" guruhi bilan), EditMode 86/86.
 
+### M1.5.3 — Tuzatishlar: "Yana o'ynash", standart til, uz audit ✅
+"Yana o'ynash"dan keyin lobbi/Profil (Tarix) ochilib qolishi tuzatildi: UI'da klaviatura/gamepad navigatsiyasi va Submit o'chirildi (WASD/strelka tanlovni yashirin tugmalarga surib, Enter uni bosardi). Standart til — O'zbek: tizim tili selector'i olib tashlandi (CommandLine → saqlangan tanlov → uz), ru/en faqat Sozlamalar'dan, PlayerPrefs `language` da saqlanadi va splash'dan boshlab qo'llanadi. Uz matnlar: break/Spin/Foul/Lobby/Chat/Ranked/Season Pass va boshqalar tarjima qilindi, "8-BALL" kalitga o'tdi, "Versiya {0}" xom satri va zal kartasidagi nom/kirish ustma-ustligi tuzatildi, tarixdagi mehmon nomi joriy tilda ko'rsatiladi.
+**Natija (2026-11-06):** uz tilida 37 ekran/holat skrinshoti (lobbi, rejim, profil 4 tab, xona + tahrir, inventar 9 tab, yashiklar + ehtimollar, sozlamalar 6 tab, credits, do'st xonasi, dialoglar, toast, HUD, pauza, chiqish, stikerlar, g'alaba/mag'lubiyat, yana o'ynash) — TMP audit (bo'sh/kesilgan/sig'magan/tarjimasiz) toza; qurilma tili Russian bo'lganda birinchi ishga tushirish uz; ru tanlovi qayta ishga tushirishdan keyin saqlanadi. Console toza, EditMode 86/86, `npm test` 9/9. Qolganlar: credits'dagi litsenziya atributsiyalari asl (inglizcha) matnda qoldirildi; "NICE SHOT!" stikerining rasmidagi yozuv — art.
+
 
 
 ## M2 — Server iqtisod yadrosi ⬜

@@ -5,6 +5,7 @@ var OP_SNAPSHOT = 1;   // server -> client: full match snapshot (optionally with
 var OP_SHOT = 2;       // client -> server: ShotParams (+ cue ball placement when in hand)
 var OP_FORFEIT = 3;    // client -> server: leave the game, opponent wins
 var OP_REJECTED = 4;   // server -> client: last shot was refused
+var OP_AVATAR = 5;     // client -> server -> opponent: cosmetic character cue (aim stance, chalk); never read by the sim
 
 var PHASE_WAITING = 0;
 var PHASE_PLAYING = 1;
@@ -84,6 +85,37 @@ function encodePlayback(result: SimResult, seq: number, speed: number): object {
     }
 
     return { seq: seq, dt: PHYS.timeStep, fs: steps, f: values, ev: events, dur: result.duration, speed: speed };
+}
+
+var AVATAR_KINDS = ["aim", "chalk"];
+var CHARACTER_ID_PATTERN = /^[a-z0-9_-]{1,32}$/;
+
+interface AvatarEvent {
+    k: string;
+    x: number;
+    y: number;
+}
+
+/** Validates a cosmetic character event: known kind, aim direction within the unit square. Null when malformed. */
+function parseAvatarEvent(raw: string): AvatarEvent | null {
+    var data: any;
+    try {
+        data = JSON.parse(raw);
+    } catch (e) {
+        return null;
+    }
+
+    if (!data || typeof data !== "object" || AVATAR_KINDS.indexOf(data.k) < 0) return null;
+    var x = typeof data.x === "number" && isFinite(data.x) ? data.x : 0;
+    var y = typeof data.y === "number" && isFinite(data.y) ? data.y : 0;
+    if (Math.abs(x) > 1.01 || Math.abs(y) > 1.01) return null;
+    return { k: data.k, x: x, y: y };
+}
+
+/** Character id from join metadata; empty when absent or not a plain id. */
+function parseCharacterId(metadata: { [key: string]: any } | null | undefined): string {
+    var ch = metadata && typeof metadata.ch === "string" ? metadata.ch : "";
+    return CHARACTER_ID_PATTERN.test(ch) ? ch : "";
 }
 
 /** Parses and range-checks a client shot. Returns null for anything malformed. */

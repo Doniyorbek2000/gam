@@ -9,7 +9,7 @@ namespace BilliardGame.Online
     // Wire format of Server/nakama/modules/src/protocol.ts. Field names must match the server's JSON keys.
 #pragma warning disable 0649 // fields are filled by JsonUtility
 
-    [Serializable] public sealed class PlayerDto { public string id; public string name; public bool online; }
+    [Serializable] public sealed class PlayerDto { public string id; public string name; public bool online; public string ch; }
 
     [Serializable] public sealed class BallDto { public int id; public double x; public double y; public int pk; }
 
@@ -55,6 +55,9 @@ namespace BilliardGame.Online
 
     [Serializable] public sealed class RejectDto { public string reason; }
 
+    /// <summary>Cosmetic character cue relayed from the opponent (seat <c>s</c>): "aim" (x, y = aim direction) or "chalk".</summary>
+    [Serializable] public sealed class AvatarDto { public int s; public string k; public double x, y; }
+
     [Serializable] public sealed class RoomDto { public string code; public string matchId; }
 
 #pragma warning restore 0649
@@ -65,6 +68,10 @@ namespace BilliardGame.Online
         public const long OpShot = 2;
         public const long OpForfeit = 3;
         public const long OpRejected = 4;
+        public const long OpAvatar = 5;
+
+        public const string AvatarAim = "aim";
+        public const string AvatarChalk = "chalk";
 
         public const int PhaseWaiting = 0;
         public const int PhasePlaying = 1;
@@ -144,6 +151,10 @@ namespace BilliardGame.Online
 
             return new SimulationResult(frames, events, true);
         }
+
+        /// <summary>Avatar event body; the direction is rounded to 3 decimals (cosmetic, keeps the message tiny).</summary>
+        public static string AvatarJson(string kind, Vec2 direction) =>
+            string.Format(CultureInfo.InvariantCulture, "{{\"k\":\"{0}\",\"x\":{1:0.###},\"y\":{2:0.###}}}", kind, direction.X, direction.Y);
 
         public static string ShotJson(ShotParams shot, Vec2? place)
         {

@@ -34,6 +34,9 @@ namespace BilliardGame.UI
         public event Action MenuShown;
 
         public string Status => waitingStatus.text;
+
+        private float searchStarted;
+        private int shownSearchSeconds = -1;
         public string RoomCode { get; private set; }
 
         private void OnEnable()
@@ -69,8 +72,22 @@ namespace BilliardGame.UI
             });
         }
 
-        public async void QuickMatch() =>
+        public async void QuickMatch()
+        {
+            searchStarted = Time.unscaledTime;
+            shownSearchSeconds = -1;
             await Run("menu.searching", () => online.Client.StartQuickMatchAsync(Nickname()), keepWaiting: true);
+        }
+
+        // "Searching… 0:12" while the matchmaker ticket is open.
+        private void Update()
+        {
+            if (!online.Client.IsSearching || !waitingView.IsOpen) return;
+            int seconds = Mathf.FloorToInt(Time.unscaledTime - searchStarted);
+            if (seconds == shownSearchSeconds) return;
+            shownSearchSeconds = seconds;
+            waitingStatus.text = $"{Loc.Get("menu.searching")}  {seconds / 60}:{seconds % 60:00}";
+        }
 
         public async void CreateRoom() => await Run("menu.creating", async () =>
         {

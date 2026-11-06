@@ -4,7 +4,7 @@
 var MATCH_MODULE = "eightball";
 var TICK_RATE = 10;
 var TURN_SECONDS = 30;
-var RECONNECT_GRACE_SECONDS = 30;
+var RECONNECT_GRACE_SECONDS = 60;
 var MATCHMADE_JOIN_SECONDS = 30;
 var ROOM_WAIT_SECONDS = 600;
 var EMPTY_ROOM_SECONDS = 10;
@@ -12,12 +12,17 @@ var OVER_LINGER_SECONDS = 20;
 /** Network and render slack added on top of the replay before the shot clock starts. */
 var PLAYBACK_MARGIN_SECONDS = 1.5;
 var MAX_NAME_LENGTH = 16;
+/** Cosmetic avatar events relayed per player per second; the rest are dropped. */
+var AVATAR_EVENTS_PER_SECOND = 4;
 
 interface PlayerSlot {
     userId: string;
     name: string;
     presence: nkruntime.Presence | null;
     leftTick: number;
+    character: string;
+    avatarWindowTick: number;
+    avatarCount: number;
 }
 
 interface EightBallMatch {
@@ -33,6 +38,8 @@ interface EightBallMatch {
     readyTick: number;
     overTick: number;
     seq: number;
+    /** Character ids sent with join attempts, picked up when the join completes. */
+    pendingCharacters: { [userId: string]: string };
 }
 
 function matchLabel(code: string): string {
@@ -65,7 +72,7 @@ function sendSnapshot(dispatcher: nkruntime.MatchDispatcher, state: EightBallMat
     var players: object[] = [];
     for (var i = 0; i < state.players.length; i++) {
         var p = state.players[i];
-        players.push({ id: p.userId, name: p.name, online: p.presence !== null });
+        players.push({ id: p.userId, name: p.name, online: p.presence !== null, ch: p.character });
     }
 
     var message = {
@@ -147,6 +154,22 @@ function handleShot(logger: nkruntime.Logger, dispatcher: nkruntime.MatchDispatc
     sendSnapshot(dispatcher, state, tick, encodePlayback(result, state.seq, request.speed), null);
 }
 
+/** Forwards a cosmetic character event to the opponent only, rate-limited; the match state never reads it. */
+function relayAvatar(dispatcher: nkruntime.MatchDispatcher, state: EightBallMatch, tick: number, index: number, message: nkruntime.MatchMessage, nk: nkruntime.Nakama): void {
+    var slot = state.players[index];
+    if (tick - slot.avatarWindowTick >= TICK_RATE) {
+        slot.avatarWindowTick = tick;
+        slot.avatarCount = 0;
+    }
+    if (slot.avatarCount >= AVATAR_EVENTS_PER_SECOND) return;
+
+    var event = parseAvatarEvent(nk.binaryToString(message.data));
+    var other = state.players[1 - index];
+    if (!event || !other || !other.presence) return;
+    slot.avatarCount++;
+    dispatcher.broadcastMessage(OP_AVATAR, JSON.stringify({ s: index, k: event.k, x: event.x, y: event.y }), [other.presence], null, true);
+}
+
 var matchInit: nkruntime.MatchInitFunction<EightBallMatch> = function (ctx, logger, nk, params) {
     var code = typeof params.code === "string" ? params.code : "";
     var expected = typeof params.users === "string" && params.users ? params.users.split(",") : [];
@@ -163,11 +186,13 @@ var matchInit: nkruntime.MatchInitFunction<EightBallMatch> = function (ctx, logg
         readyTick: 0,
         overTick: 0,
         seq: 0,
+        pendingCharacters: {},
     };
     return { state: state, tickRate: TICK_RATE, label: matchLabel(code) };
 };
 
 var matchJoinAttempt: nkruntime.MatchJoinAttemptFunction<EightBallMatch> = function (ctx, logger, nk, dispatcher, tick, state, presence, metadata) {
+    state.pendingCharacters[presence.userId] = parseCharacterId(metadata);
     if (slotIndex(state, presence.userId) >= 0) {
         // A returning player (reconnect) may rejoin until the game is fully over.
         return { state: state, accept: state.phase !== PHASE_OVER || state.overTick + OVER_LINGER_SECONDS * TICK_RATE > tick };
@@ -182,10 +207,13 @@ var matchJoin: nkruntime.MatchJoinFunction<EightBallMatch> = function (ctx, logg
     for (var i = 0; i < presences.length; i++) {
         var presence = presences[i];
         var index = slotIndex(state, presence.userId);
+        var character = state.pendingCharacters[presence.userId] || "";
+        delete state.pendingCharacters[presence.userId];
         if (index >= 0) {
             state.players[index].presence = presence;
+            if (character) state.players[index].character = character;
         } else if (state.players.length < 2) {
-            state.players.push({ userId: presence.userId, name: playerName(nk, presence), presence: presence, leftTick: 0 });
+            state.players.push({ userId: presence.userId, name: playerName(nk, presence), presence: presence, leftTick: 0, character: character, avatarWindowTick: 0, avatarCount: 0 });
         }
     }
 
@@ -222,6 +250,8 @@ var matchLoop: nkruntime.MatchLoopFunction<EightBallMatch> = function (ctx, logg
         if (index < 0) continue;
         if (message.opCode === OP_SHOT) {
             handleShot(logger, dispatcher, state, tick, index, message, nk);
+        } else if (message.opCode === OP_AVATAR && state.phase === PHASE_PLAYING) {
+            relayAvatar(dispatcher, state, tick, index, message, nk);
         } else if (message.opCode === OP_FORFEIT && state.phase === PHASE_PLAYING) {
             endGame(logger, state, 1 - index, END_FORFEIT, tick);
             sendSnapshot(dispatcher, state, tick, null, null);

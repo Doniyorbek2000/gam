@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace BilliardGame.Avatar
 {
+    /// <summary>Cosmetic cues one client tells the other online: where its player aims (stance) and that they chalk.</summary>
+    public enum CharacterCue { Aim, Chalk }
+
     /// <summary>
     /// Puts both players in the hall for a match (docs/GDD.md §8.1) and drives them from the match's own state:
     /// the shooter walks to the stand point behind the cue ball, may chalk, addresses the cue and strokes with it;
@@ -30,6 +33,13 @@ namespace BilliardGame.Avatar
         private bool chalkedThisTurn;
         private float riseAt = float.NaN;
         private bool shotWatch;
+        private Vec2? remoteAim;
+
+        /// <summary>The local player settled an aim (and walks to it) or chalks; online sends it to the opponent.</summary>
+        public event System.Action<CharacterCue, Vec2> LocalCue;
+
+        /// <summary>Online: the opponent's stance and chalk come from <see cref="RemoteCue"/> instead of local guesses.</summary>
+        public bool RemoteDriven { get; set; }
 
         public MatchCharacter Player(int seat) => players[seat];
         public bool IsCast => players[0] != null;
@@ -56,6 +66,25 @@ namespace BilliardGame.Avatar
             shooter = -1;
             seenOutcome = null;
             OnStateChanged();
+        }
+
+        /// <summary>The opponent's cue (online). Cosmetic: only moves their character.</summary>
+        public void RemoteCue(CharacterCue kind, Vec2 aim)
+        {
+            if (!IsCast || shooter < 0 || cue.IsActive) return;   // the local player is shooting: nothing to mirror
+            MatchCharacter active = Get(shooter);
+            if (active == null) return;
+            if (kind == CharacterCue.Aim)
+            {
+                if (aim.Length > 0.1) remoteAim = aim.Normalized;
+                return;
+            }
+
+            if (chalkedThisTurn || active.IsWalking || game.IsShotInProgress) return;
+            chalkedThisTurn = true;
+            Vec2 ball = game.State.GetBall(EightBallSet.CueBall).Position;
+            active.Rise();
+            active.Chalk(() => game.IsShotInProgress, () => Address(active, ball));
         }
 
         public void End()
@@ -132,6 +161,7 @@ namespace BilliardGame.Avatar
             {
                 shooter = state.CurrentPlayer;
                 chalkedThisTurn = false;
+                remoteAim = null;
                 Get(1 - shooter)?.SitOn(seats[1 - shooter]);
                 Get(shooter)?.Rise();
             }
@@ -177,7 +207,7 @@ namespace BilliardGame.Avatar
 
             bool localAim = cue.IsActive;
             Vec2 ball = localAim ? cue.CuePosition : game.State.GetBall(EightBallSet.CueBall).Position;
-            Vec2 aim = localAim ? cue.AimDirection : (ball.Length > 0.05 ? (-ball).Normalized : Vec2.UnitX);
+            Vec2 aim = localAim ? cue.AimDirection : remoteAim ?? (ball.Length > 0.05 ? (-ball).Normalized : Vec2.UnitX);
             Vec2 stand = StancePlanner.StandPoint(ball, aim, tableOuterHalf.x, tableOuterHalf.y);
             Vector3 target = TableSpace.ToWorld(stand, floorY);
             Vector3 face = TableSpace.ToWorld(aim, 0f);
@@ -191,19 +221,22 @@ namespace BilliardGame.Avatar
             }
 
             if (!moved && !active.IsIdle && !active.IsSeated) return;   // already there, or busy (standing up, chalking)
+            if (localAim) LocalCue?.Invoke(CharacterCue.Aim, aim);
             active.WalkTo(target, face, () => OnArrived(active, ball));
         }
 
         private void OnArrived(MatchCharacter active, Vec2 ball)
         {
-            if (!chalkedThisTurn && Random.value < chalkChance)
+            bool mirrored = RemoteDriven && !cue.IsActive;   // the opponent's own client decides their chalk
+            if (!chalkedThisTurn && !mirrored && Random.value < chalkChance)
             {
                 chalkedThisTurn = true;
+                if (cue.IsActive) LocalCue?.Invoke(CharacterCue.Chalk, Vec2.Zero);
                 active.Chalk(() => cue.IsDragging || cue.IsStroking || game.IsShotInProgress, () => Address(active, ball));
                 return;
             }
 
-            chalkedThisTurn = true;
+            if (!mirrored) chalkedThisTurn = true;
             Address(active, ball);
         }
 

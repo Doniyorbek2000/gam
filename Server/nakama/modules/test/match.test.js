@@ -114,19 +114,70 @@ test("a player who stays disconnected past the grace period loses", () => {
     const { nk, d, state } = startedMatch();
     m.matchLeave({}, logger, nk, d, 10, state, [presence("b")]);
     assert.equal(d.lastSnapshot().players[1].online, false);
-    m.matchLoop({}, logger, nk, d, 10 + 29 * TICKS_PER_SECOND, state, []);
-    assert.equal(state.phase, m.PHASE_PLAYING, "still inside the grace period");
+    m.matchLoop({}, logger, nk, d, 10 + 59 * TICKS_PER_SECOND, state, []);
+    assert.equal(state.phase, m.PHASE_PLAYING, "still inside the 60 s grace period");
 
     // Reconnect and drop again restarts the grace timer.
     m.matchJoin({}, logger, nk, d, 300, state, [presence("b", "s2")]);
     m.matchLeave({}, logger, nk, d, 301, state, [presence("b", "old-session")]);
     assert.equal(state.players[1].presence.sessionId, "s2", "stale session leave ignored");
     m.matchLeave({}, logger, nk, d, 301, state, [presence("b", "s2")]);
-    m.matchLoop({}, logger, nk, d, 301 + 30 * TICKS_PER_SECOND, state, []);
+    m.matchLoop({}, logger, nk, d, 301 + 60 * TICKS_PER_SECOND, state, []);
     const snap = d.lastSnapshot();
     assert.equal(snap.phase, m.PHASE_OVER);
     assert.equal(snap.reason, m.END_DISCONNECT);
     assert.equal(snap.game.win, 0);
+});
+
+test("a 20 s network drop resumes the same game and resends the full state", () => {
+    const { nk, d, state } = startedMatch();
+    const before = JSON.stringify(state.game);
+    m.matchLeave({}, logger, nk, d, 10, state, [presence("a")]);
+    m.matchLoop({}, logger, nk, d, 10 + 20 * TICKS_PER_SECOND, state, []);
+    assert.equal(m.matchJoinAttempt({}, logger, nk, d, 211, state, presence("a", "s2"), { ch: "char-timur" }).accept, true);
+    m.matchJoin({}, logger, nk, d, 211, state, [presence("a", "s2")]);
+    const snap = d.lastSnapshot();
+    assert.equal(snap.phase, m.PHASE_PLAYING);
+    assert.equal(snap.players[0].online, true);
+    assert.equal(JSON.stringify(state.game), before, "rack, turn and groups untouched");
+    assert.equal(snap.hasGame, true);
+    assert.equal(snap.players[0].ch, "char-timur", "character id refreshed on rejoin");
+});
+
+test("character ids come from join metadata and are sanitised", () => {
+    const nk = fakeNakama({});
+    const d = fakeDispatcher();
+    let { state } = m.matchInit({}, logger, nk, { users: "a,b" });
+    const meta = { a: { ch: "char-malika" }, b: { ch: "<img src=x>" } };
+    for (const id of ["a", "b"]) {
+        m.matchJoinAttempt({}, logger, nk, d, 1, state, presence(id), meta[id]);
+        state = m.matchJoin({}, logger, nk, d, 1, state, [presence(id)]).state;
+    }
+    const players = d.lastSnapshot().players;
+    assert.equal(players[0].ch, "char-malika");
+    assert.equal(players[1].ch, "", "bad id dropped");
+});
+
+const avatarMessage = (id, body) => ({ sender: presence(id), opCode: m.OP_AVATAR, data: typeof body === "string" ? body : JSON.stringify(body), reliable: true });
+
+test("avatar events reach only the opponent, are validated and rate-limited", () => {
+    const { nk, d, state } = startedMatch();
+    const game = JSON.stringify(state.game);
+    d.sent.length = 0;
+    m.matchLoop({}, logger, nk, d, 20, state, [avatarMessage("a", { k: "aim", x: 0.6, y: -0.8 })]);
+    assert.equal(JSON.stringify(d.sent.pop()), JSON.stringify({ op: m.OP_AVATAR, data: { s: 0, k: "aim", x: 0.6, y: -0.8 }, to: ["b"] }));
+
+    m.matchLoop({}, logger, nk, d, 21, state, [avatarMessage("a", { k: "teleport" }), avatarMessage("a", { k: "aim", x: 50, y: 0 }), avatarMessage("a", "{nope")]);
+    assert.equal(d.sent.length, 0, "unknown kind, out-of-range aim and bad JSON are dropped");
+
+    const burst = [];
+    for (let i = 0; i < 10; i++) burst.push(avatarMessage("b", { k: "chalk" }));
+    m.matchLoop({}, logger, nk, d, 30, state, burst);
+    assert.equal(d.sent.length, m.AVATAR_EVENTS_PER_SECOND, "burst capped per second");
+    assert.ok(d.sent.every((s) => s.to.length === 1 && s.to[0] === "a"));
+    m.matchLoop({}, logger, nk, d, 30 + TICKS_PER_SECOND, state, [avatarMessage("b", { k: "chalk" })]);
+    assert.equal(d.sent.length, m.AVATAR_EVENTS_PER_SECOND + 1, "window refills after a second");
+    assert.equal(JSON.stringify(state.game), game, "cosmetic events never touch the game");
 });
 
 test("forfeit hands the win to the opponent", () => {

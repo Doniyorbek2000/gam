@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Nakama;
@@ -14,7 +15,8 @@ namespace BilliardGame.Online
     {
         private const string MatchIdKey = "online.matchId";
         private const float ReconnectInterval = 2f;
-        private const float ReconnectGiveUpSeconds = 45f;
+        // Server keeps the seat for 60 s; try a little longer so a late reconnect still sees the result.
+        private const float ReconnectGiveUpSeconds = 70f;
 
         [SerializeField] private string scheme = "http";
         [Tooltip("Nakama host. 127.0.0.1 works for the editor and a desktop build; a phone needs the PC's LAN IP.")]
@@ -32,11 +34,18 @@ namespace BilliardGame.Online
 
         public event Action<MatchSnapshot> SnapshotReceived;
         public event Action<string> ShotRejected;
+        public event Action<AvatarDto> AvatarReceived;
 
         /// <summary>Connection problems while in a match ("Reconnecting…"); null when healthy.</summary>
         public event Action<string> ConnectionStatus;
 
         public string UserId => session?.UserId;
+
+        /// <summary>Sent as join metadata so the opponent sees this player's character (cosmetic).</summary>
+        public string CharacterId { get; set; } = string.Empty;
+
+        /// <summary>Quick match only pairs tickets with the same venue.</summary>
+        public string VenueId { get; set; } = string.Empty;
         public string MatchId { get; private set; }
         public bool IsSearching => ticket != null;
         public bool HasSavedMatch => !string.IsNullOrEmpty(PlayerPrefs.GetString(MatchIdKey, string.Empty));
@@ -78,7 +87,9 @@ namespace BilliardGame.Online
         {
             await ConnectAsync(nickname);
             if (ticket != null) return;
-            ticket = await socket.AddMatchmakerAsync("*", 2, 2);
+            string venue = VenueId ?? string.Empty;
+            ticket = await socket.AddMatchmakerAsync("+properties.mode:eightball +properties.venue:" + (venue.Length > 0 ? venue : "any"), 2, 2,
+                new Dictionary<string, string> { { "mode", "eightball" }, { "venue", venue.Length > 0 ? venue : "any" } });
         }
 
         public async Task CancelQuickMatchAsync()
@@ -126,6 +137,11 @@ namespace BilliardGame.Online
 
         public void SendShot(string json) => Send(OnlineProtocol.OpShot, json);
 
+        public void SendAvatar(string json)
+        {
+            if (socket != null && socket.IsConnected) Send(OnlineProtocol.OpAvatar, json);
+        }
+
         /// <summary>Leaves the current match; with <paramref name="forfeit"/> the opponent is awarded the game first.</summary>
         public async Task LeaveMatchAsync(bool forfeit)
         {
@@ -156,8 +172,10 @@ namespace BilliardGame.Online
             MatchId = matchId;
             PlayerPrefs.SetString(MatchIdKey, matchId);
             PlayerPrefs.Save();
-            await socket.JoinMatchAsync(matchId);
+            await socket.JoinMatchAsync(matchId, JoinMetadata());
         }
+
+        private Dictionary<string, string> JoinMetadata() => new Dictionary<string, string> { { "ch", CharacterId ?? string.Empty } };
 
         private async void Send(long opCode, string json)
         {
@@ -182,7 +200,8 @@ namespace BilliardGame.Online
                 MatchId = matched.MatchId;
                 PlayerPrefs.SetString(MatchIdKey, matched.MatchId);
                 PlayerPrefs.Save();
-                await socket.JoinMatchAsync(matched);
+                // Join by id (not the matchmaker token) so the character id travels as join metadata.
+                await socket.JoinMatchAsync(matched.MatchId, JoinMetadata());
             }
             catch (Exception e)
             {
@@ -200,6 +219,7 @@ namespace BilliardGame.Online
             {
                 if (state.OpCode == OnlineProtocol.OpSnapshot) SnapshotReceived?.Invoke(JsonUtility.FromJson<MatchSnapshot>(json));
                 else if (state.OpCode == OnlineProtocol.OpRejected) ShotRejected?.Invoke(JsonUtility.FromJson<RejectDto>(json).reason);
+                else if (state.OpCode == OnlineProtocol.OpAvatar) AvatarReceived?.Invoke(JsonUtility.FromJson<AvatarDto>(json));
             }
             catch (Exception e)
             {
@@ -226,7 +246,7 @@ namespace BilliardGame.Online
                     // A closed Nakama socket does not reconnect cleanly (pending calls get cancelled); start a fresh one.
                     DropSocket();
                     await ConnectAsync(displayName);
-                    await socket.JoinMatchAsync(MatchId);
+                    await socket.JoinMatchAsync(MatchId, JoinMetadata());
                     ConnectionStatus?.Invoke(null);
                     reconnecting = false;
                     return;

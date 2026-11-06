@@ -14,6 +14,7 @@ namespace BilliardGame.Online
 
         private bool started;
         private int lastShotSeq;
+        private MatchSnapshot lastSnapshot;
 
         /// <summary>The game started (or was resumed) and the board is live.</summary>
         public event Action MatchStarted;
@@ -23,6 +24,10 @@ namespace BilliardGame.Online
 
         public OnlineClient Client => client;
         public bool IsInMatch => started;
+
+        /// <summary>Character id the player in <paramref name="seat"/> joined with ("" when unknown).</summary>
+        public string CharacterOf(int seat) =>
+            lastSnapshot != null && seat >= 0 && seat < lastSnapshot.players.Length ? lastSnapshot.players[seat].ch ?? string.Empty : string.Empty;
 
         private void OnEnable()
         {
@@ -51,6 +56,7 @@ namespace BilliardGame.Online
         private void OnSnapshot(MatchSnapshot s)
         {
             int me = Array.FindIndex(s.players, p => p.id == client.UserId);
+            lastSnapshot = s;
             if (!started)
             {
                 if (s.phase == OnlineProtocol.PhaseOver && !s.hasGame)

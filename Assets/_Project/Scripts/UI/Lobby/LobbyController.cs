@@ -119,6 +119,8 @@ namespace BilliardGame.UI
             Loc.Changed += RefreshAll;
             menu.MenuShown += OnMenuShown;
             online.MatchStarted += OnOnlineMatchStarted;
+            online.Client.AvatarReceived += OnRemoteCue;
+            cast.LocalCue += OnLocalCue;
             hud.AgainRequested += PlayAgain;
 
             Bind(profileButton, () => Open(profileScreen));
@@ -142,6 +144,8 @@ namespace BilliardGame.UI
             Loc.Changed -= RefreshAll;
             menu.MenuShown -= OnMenuShown;
             online.MatchStarted -= OnOnlineMatchStarted;
+            online.Client.AvatarReceived -= OnRemoteCue;
+            cast.LocalCue -= OnLocalCue;
             hud.AgainRequested -= PlayAgain;
             foreach (Button b in new[] { profileButton, coins.Plus, gems.Plus, settingsButton, shopButton, cratesButton, inventoryButton, roomButton, characterButton, modeCard, playButton,
                          mailButton, friendsButton, passButton, missionsButton, eventsButton, dailyButton, clubButton, chatButton })
@@ -155,6 +159,8 @@ namespace BilliardGame.UI
             coins.Set(services.Economy.Coins, false);
             gems.Set(services.Economy.Gems, false);
             stage.SetCharacter(CharacterScreen.Saved(services));
+            online.Client.CharacterId = CharacterScreen.Saved(services)?.Id ?? string.Empty;   // dev autopilot matches without PLAY
+            online.Client.VenueId = venue.Id;
             RefreshAll();
         }
 
@@ -176,6 +182,9 @@ namespace BilliardGame.UI
         /// <summary>PLAY: hot-seat loads the hall first; online modes load it once the match starts.</summary>
         public async void Play()
         {
+            // Join metadata / matchmaker properties for the online modes (cosmetic character, same-venue pairing).
+            online.Client.CharacterId = CharacterScreen.Saved(services)?.Id ?? string.Empty;
+            online.Client.VenueId = venue.Id;
             switch (mode)
             {
                 case Mode.HotSeat:
@@ -227,9 +236,27 @@ namespace BilliardGame.UI
             // Own character in this device's seat; the opponent gets a different one (M2 sends the real choice).
             CharacterDefinition own = CharacterScreen.Saved(services);
             CharacterDefinition other = services.Catalog.OtherCharacter(own != null ? own.Id : null);
+            cast.RemoteDriven = game.IsOnline;
+            if (game.IsOnline)
+            {
+                string theirs = online.CharacterOf(1 - game.LocalPlayer);
+                if (theirs.Length > 0) other = services.Catalog.FindCharacter(theirs);
+            }
+
             if (game.IsOnline && game.LocalPlayer == 1) cast.Begin(other, own);
             else cast.Begin(own, other);
             if (hallLife != null) hallLife.Begin(services.Catalog.Characters, GameSettings.QualityLevel);
+        }
+
+        private void OnLocalCue(CharacterCue kind, BilliardGame.Physics.Vec2 aim)
+        {
+            if (game.IsOnline) online.Client.SendAvatar(OnlineProtocol.AvatarJson(kind == CharacterCue.Chalk ? OnlineProtocol.AvatarChalk : OnlineProtocol.AvatarAim, aim));
+        }
+
+        private void OnRemoteCue(AvatarDto e)
+        {
+            if (!game.IsOnline || e.s == game.LocalPlayer) return;
+            cast.RemoteCue(e.k == OnlineProtocol.AvatarChalk ? CharacterCue.Chalk : CharacterCue.Aim, new BilliardGame.Physics.Vec2(e.x, e.y));
         }
 
         private async void OnMenuShown()

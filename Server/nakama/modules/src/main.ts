@@ -34,10 +34,12 @@ var rpcJoinRoom: nkruntime.RpcFunction = function (ctx, logger, nk, payload) {
     return JSON.stringify({ code: code, matchId: room.matchId });
 };
 
+/** Quick match: tickets carry {mode, venue} string properties and only match equal ones (query on the client). */
 var matchmakerMatched: nkruntime.MatchmakerMatchedFunction = function (ctx, logger, nk, matches) {
     var users: string[] = [];
     for (var i = 0; i < matches.length; i++) users.push(matches[i].presence.userId);
-    return nk.matchCreate(MATCH_MODULE, { users: users.join(",") });
+    var venue = matches.length > 0 && matches[0].properties ? String(matches[0].properties.venue || "") : "";
+    return nk.matchCreate(MATCH_MODULE, { users: users.join(","), venue: venue.substring(0, 32) });
 };
 
 function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama, initializer: nkruntime.Initializer) {

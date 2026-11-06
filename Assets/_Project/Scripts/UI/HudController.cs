@@ -55,6 +55,7 @@ namespace BilliardGame.UI
         private readonly List<Button> stickerButtons = new List<Button>();
         private int shownSeconds = int.MinValue;
         private int turnSeconds;
+        private const int WarnSeconds = 5;
         private bool mirrored;
         private float confirmUntil = -1f;
         private string venueId = string.Empty;
@@ -232,10 +233,11 @@ namespace BilliardGame.UI
             if (seconds > shownSeconds) turnSeconds = Mathf.Max(seconds, 1);   // a new turn restarts the clock
             shownSeconds = seconds;
             EightBallState state = game.State;
+            if (seconds == WarnSeconds && game.CanShoot) UIFeedback.Confirm();   // GDD §4: 5 s warning on your own clock
             for (int i = 0; i < panels.Length; i++)
             {
                 bool running = seconds >= 0 && state != null && state.CurrentPlayer == i;
-                Color color = seconds <= 5 ? theme.danger : theme.accent;
+                Color color = seconds <= WarnSeconds ? theme.danger : theme.accent;
                 panels[i].SetTimer(running ? (float)seconds / turnSeconds : -1f, color);
             }
         }

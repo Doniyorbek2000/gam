@@ -10,7 +10,7 @@ namespace BilliardGame.UI
     /// <summary>
     /// Inventory (docs/UI_UX.md §9): nine category tabs, ItemTile grid with sort and "owned only" filter, and a detail
     /// panel with a live 3D preview (the lobby stage camera renders into a texture), rarity, description, source and
-    /// Equip / sticker slots / Mythic upgrade.
+    /// Equip / sticker slots / Mythic upgrade. A locked item with a direct-shop price can be bought here (server shop).
     /// </summary>
     public sealed class InventoryScreen : ScreenView
     {
@@ -49,6 +49,8 @@ namespace BilliardGame.UI
         [SerializeField] private Button stickerTable;
         [SerializeField] private Button stickerRemove;
         [SerializeField] private Button upgradeButton;
+        [SerializeField] private Sprite coinSprite;
+        [SerializeField] private Sprite gemSprite;
 
         private readonly List<ItemTile> tiles = new List<ItemTile>();
         private RenderTexture previewTexture;
@@ -266,12 +268,16 @@ namespace BilliardGame.UI
 
             bool sticker = selected.Type == ItemType.Sticker;
             stickerRow.SetActive(sticker && owned);
-            equipButton.gameObject.SetActive(!sticker);
             stickerRemove.gameObject.SetActive(sticker && owned && IsStickerUsed(selected.Id));
             upgradeButton.gameObject.SetActive(owned && selected.Rarity == Rarity.Mythic);
             bool isEquipped = !sticker && economy.EquippedId(selected.Type) == selected.Id;
-            equipButton.interactable = owned && !isEquipped;
-            equipLabel.text = Loc.Get(isEquipped ? "inventory.equipped" : owned ? "inventory.equip" : "common.locked").ToUpper(Loc.Culture);
+            Currency currency = Currency.Coin;
+            int price = owned ? 0 : ShopPrice(out currency);
+            equipButton.gameObject.SetActive(!sticker || price > 0);
+            equipButton.interactable = price > 0 || (owned && !isEquipped);
+            equipLabel.text = price > 0
+                ? Loc.Format("shop.buy_for", Loc.Number(price), Loc.Get(currency == Currency.Gem ? "shop.gems" : "shop.coins")).ToUpper(Loc.Culture)
+                : Loc.Get(isEquipped ? "inventory.equipped" : owned ? "inventory.equip" : "common.locked").ToUpper(Loc.Culture);
         }
 
         private static string DescriptionKey(ItemType type)
@@ -288,9 +294,43 @@ namespace BilliardGame.UI
             }
         }
 
+        /// <summary>Coin price first, else gem price; 0 = not in the direct shop.</summary>
+        private int ShopPrice(out Currency currency)
+        {
+            currency = Currency.Coin;
+            int coins = services.Economy.ShopPrice(selected.Id, Currency.Coin);
+            if (coins > 0) return coins;
+            currency = Currency.Gem;
+            return services.Economy.ShopPrice(selected.Id, Currency.Gem);
+        }
+
+        private void Buy(SkinDefinition item, int price, Currency currency)
+        {
+            Dialogs.Instance.Confirm("shop.buy_title", Loc.Format("shop.buy_body", RarityStyle.ItemName(item)), "common.confirm", async () =>
+            {
+                string error = await services.Economy.BuyAsync(item.Id, currency);
+                if (error != null)
+                {
+                    Dialogs.Instance.Error("shop.buy_failed", error);
+                    return;
+                }
+
+                UIFeedback.Confirm();
+                MarkSeen(item.Id);
+                Dialogs.Instance.Toast(Loc.Format("shop.bought", RarityStyle.ItemName(item)));
+            }, currency == Currency.Gem ? gemSprite : coinSprite, price);
+        }
+
         private async void Equip()
         {
             if (selected == null) return;
+            if (!services.Economy.Owns(selected.Id))
+            {
+                int price = ShopPrice(out Currency currency);
+                if (price > 0) Buy(selected, price, currency);
+                return;
+            }
+
             if (await services.Economy.EquipAsync(selected.Id))
             {
                 UIFeedback.Confirm();

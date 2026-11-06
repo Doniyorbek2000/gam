@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Server-authoritative 8-ball match handler for Nakama (goja JS runtime).",
   "scripts": {
-    "build": "tsc",
+    "build": "node scripts/gen-seed.js && tsc",
     "fixtures": "dotnet run -c Release --project ../../../Tools/CrossCheck -- test/.fixtures/fixtures.json",
     "test": "npm run build && npm run fixtures && node --test test/*.test.js"
   },

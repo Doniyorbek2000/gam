@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using BilliardGame.Gameplay;
+using BilliardGame.Meta;
 using BilliardGame.Physics;
 
 namespace BilliardGame.Tools
@@ -87,11 +88,59 @@ namespace BilliardGame.Tools
                 }
             }
 
-            string json = JsonSerializer.Serialize(new { sampleEvery = SampleEvery, racks, shots });
+            string json = JsonSerializer.Serialize(new { sampleEvery = SampleEvery, racks, shots, crates = CrateOpens() });
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output)));
             File.WriteAllText(output, json);
             Console.WriteLine($"Wrote {racks.Length} racks and {shots.Count} shots to {output}");
             return 0;
+        }
+
+        /// <summary>
+        /// Crate opens from the shipped tables (Resources/Economy/crates.json) with recorded rolls: the server's
+        /// crateRolls must pick the same rarities and pool indices and leave the same pity counters.
+        /// </summary>
+        private static object[] CrateOpens()
+        {
+            string tablePath = Path.Combine(AppContext.BaseDirectory, "../../../../../Assets/_Project/Resources/Economy/crates.json");
+            var options = new JsonSerializerOptions { IncludeFields = true };
+            CrateDefinition[] crates = JsonSerializer.Deserialize<CrateTableSet>(File.ReadAllText(tablePath), options).crates;
+            int[] sizes = { 7, 5, 4, 3, 2 };
+            var opens = new List<object>();
+            ulong seed = 20261106;
+            ulong counter = 0;
+            foreach (CrateDefinition crate in crates)
+            {
+                int rules = crate.pity?.Length ?? 0;
+                foreach (int count in new[] { 1, 10, 10 })
+                {
+                    for (int start = 0; start < 4; start++)
+                    {
+                        // Start counters near and far from the pity threshold.
+                        var misses = new int[rules];
+                        for (int k = 0; k < rules; k++) misses[k] = start == 0 ? 0 : Math.Max(0, crate.pity[k].count - start * 3);
+                        int[] before = (int[])misses.Clone();
+                        var rolls = new List<double>();
+                        CratePick[] picks = CrateOpening.Open(crate, sizes, misses, count, () =>
+                        {
+                            double r = CrateRoller.Roll(seed, counter++);
+                            rolls.Add(r);
+                            return r;
+                        });
+                        opens.Add(new
+                        {
+                            crate = crate.id,
+                            count,
+                            sizes,
+                            misses = before,
+                            rolls,
+                            picks = picks.Select(p => new[] { (int)p.Rarity, p.PoolIndex }).ToArray(),
+                            after = misses,
+                        });
+                    }
+                }
+            }
+
+            return opens.ToArray();
         }
 
         /// <summary>Half the shots aim straight at a random object ball, the rest anywhere.</summary>

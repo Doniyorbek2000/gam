@@ -146,12 +146,20 @@ namespace BilliardGame.UI
         {
             confirmTitle.text = Loc.Get(titleKey);
             confirmBody.text = body;
-            confirmLabel.text = Loc.Get(confirmKey).ToUpper(Loc.Culture);
-            cancelLabel.text = Loc.Get(cancelKey).ToUpper(Loc.Culture);
+            SetLabel(confirmLabel, confirmKey);
+            SetLabel(cancelLabel, cancelKey);
             cancelButton.gameObject.SetActive(twoButtons);
             onConfirm = confirmed;
             onCancel = cancelled;
             ScreenRouter.Instance.Open(confirmView);
+        }
+
+        // The button labels carry a LocalizedText (built-in default key) that would overwrite plain text when the dialog opens.
+        private static void SetLabel(TMP_Text label, string key)
+        {
+            var localized = label.GetComponent<LocalizedText>();
+            if (localized != null) localized.Key = key;
+            else label.text = Loc.Get(key).ToUpper(Loc.Culture);
         }
 
         private void ConfirmPressed()

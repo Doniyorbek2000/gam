@@ -36,12 +36,14 @@ services:
         --console.username ${NAKAMA_CONSOLE_USER:-admin}
         --console.password ${NAKAMA_CONSOLE_PASSWORD:-password}
         --runtime.js_entrypoint index.js
+        --runtime.env CRATE_SECRET=${CRATE_SECRET:?CRATE_SECRET_missing-copy_Server/.env.example_to_Server/.env}
+        --runtime.env CRATE_SECRET_VERSION=${CRATE_SECRET_VERSION:-1}
     volumes:
       - ./nakama/modules/build:/nakama/data/modules:ro
     ports:
       - "7349:7349"
       - "7350:7350"
-      - "7351:7351"
+      - "127.0.0.1:7351:7351"   # console: this machine only
     healthcheck:
       test: ["CMD", "/nakama/nakama", "healthcheck"]
       interval: 5s

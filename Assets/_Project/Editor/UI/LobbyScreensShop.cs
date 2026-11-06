@@ -104,7 +104,7 @@ namespace BilliardGame.Editor.UI
                 "tileTemplate", tile, "empty", empty, "detail", detail.gameObject, "preview", preview, "previewIcon", previewIcon, "previewHint", hint,
                 "itemName", name, "rarityLabel", rarity, "rarityBar", rarityBar, "description", description, "source", source,
                 "equipButton", equip.Button, "equipLabel", equip.Label, "stickerRow", stickerRow.gameObject, "stickerCue", onCue, "stickerTable", onTable,
-                "stickerRemove", remove, "upgradeButton", upgrade.Button);
+                "stickerRemove", remove, "upgradeButton", upgrade.Button, "coinSprite", UIAssets.Icon("coin"), "gemSprite", UIAssets.Icon("gem"));
             return view;
         }
 

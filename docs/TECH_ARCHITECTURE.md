@@ -126,10 +126,8 @@ Nakama `config` storage kolleksiyasi (system user egasi, faqat o'qish), `config_
 |------|--------|--------|
 | `main.ts` | ✅ | InitModule, ro'yxatdan o'tkazish |
 | `match.ts`, `physics.ts`, `rules.ts`, `protocol.ts`, `random.ts` | ✅ | 8-ball match |
-| `economy/wallet.ts` | M3 | `walletUpdate` o'rami: reason/ref_id/idempotency |
-| `economy/catalog.ts` | M3 | Config'dan katalog, narxlar |
-| `economy/crates.ts` | M3 | RNG (HMAC), pity, dublikat → shard |
-| `economy/shop.ts` | M3 | Kunlik do'kon, xarid |
+| `economy.ts` | ✅ M3.1 | Player ID, `commit` (`multiUpdate`: storage + wallet + idempotency yozuvi atomik, ledger metadata `{reason, ref_id, request_id}`), inventar (OCC), yashik RNG (HMAC) + pity + dublikat → shard, to'g'ridan-to'g'ri do'kon, 7 kunlik login, `config/<name>` seed. Kunlik do'kon takliflari (`shop_list`) — M3.2 |
+| `seed.ts` | ✅ M3.1 | GENERATED (`scripts/gen-seed.js`) `Assets/_Project/Resources/Economy/{catalog,crates}.json` dan — birinchi ishga tushirishdagi config; admin (M4) ustiga yozadi |
 | `economy/craft.ts` | M11 | Craft, Mythic upgrade |
 | `progress/*.ts` | M3 / M7 / M8 / M11 | vazifalar, login, Pass, eventlar (M3); XP/level (M7); ranked (M8); achievements (M11) |
 | `venues.ts` | M7 | Kirish escrow, sovrin, rake |
@@ -146,16 +144,18 @@ Barcha javoblar: `{ ok: boolean, data?: T, error?: { code: string, message: stri
 | RPC | Kirish | Chiqish | Milestone |
 |-----|--------|---------|-----------|
 | `create_room` / `join_room` | mavjud | mavjud | ✅ |
-| `config_get` | `{version?}` | config (yoki `not_modified`) | M3 |
+| `config_get` | `{name}` (catalog, crates, shop, login) | `{name, version, value}` | ✅ M3.1 |
+| `economy_state` | — | `{pid, wallet, owned, equipped, pity, login{index, claimable, resetInMs}}` (yangi akkaunt: Player ID + start balansi) | ✅ M3.1 |
+| `friend_add_by_pid` | `{pid}` | `{added}` | ✅ M3.1 |
 | `profile_get` | — | player_id, level, xp, rank, equipped, wallet | M3 |
 | `inventory_list` | `{type?}` | itemlar, shard, kristall | M3 |
-| `equip` | `{slot, item_id}` | equipped | M3 |
-| `crate_open` | `{crate_id, count: 1\|10, request_id}` | `[{item_id, rarity, duplicate, shards}]`, pity, wallet | M3 |
+| `equip` | `{item_id, slot?}` (stiker: `slot` Cue/Table, `item_id: null` tozalaydi) | equipped | ✅ M3.1 |
+| `crate_open` | `{crate_id, count: 1\|10, use_key?, request_id}` | `{drops[{id, rarity, isNew, shards, crystals}], pity, counter, secretVersion}` | ✅ M3.1 |
 | `crate_odds` | `{crate_id}` | jadval + pity holati | M3 |
 | `shop_list` | — | takliflar, bundle'lar | M3 |
-| `shop_buy` | `{offer_id, request_id}` | wallet, items | M3 |
+| `shop_buy` | `{item_id, currency: coin\|gem, request_id}` (narx raritet bo'yicha `config/shop`) | `{id, price, currency}` | ✅ M3.1 (taklif/bundle — M3.2) |
 | `craft` / `upgrade` | `{item_id, request_id}` | item, materiallar | M11 |
-| `daily_login_claim` | `{request_id}` | mukofot (7 kunlik kalendar) | M3 |
+| `daily_claim` | — (request_id serverda: `login:<kun>`, kuniga bitta kredit) | `{day, reward}` | ✅ M3.1 |
 | `venue_list` / `venue_enter` | `{venue_id}` | matchmaker ticket ma'lumoti | M7 |
 | `ranked_status` | — | RP, daraja, mavsum | M8 |
 | `missions_list` / `missions_claim` / `missions_reroll` | | | M3 |
@@ -172,7 +172,7 @@ Server-to-server (http_key, faqat NestJS'dan): `web_topup_credit`, `admin_grant`
 
 Nakama o'rnatilgan jadvallari: `users`, `user_device`, `wallet` (users.wallet JSON), `wallet_ledger`, `storage`, `leaderboard`, `leaderboard_record`, `groups`, `group_edge`, `user_edge`, `message`, `purchase`, `subscription`, `notification`.
 
-Storage kolleksiyalari (owner = user, read 1 / write 0 — klient yozolmaydi):
+Storage kolleksiyalari (owner = user, read 1 / write 0 — klient yozolmaydi). M3.1 da amalda: `profile/pid`, `inventory/items` `{owned[], equipped{slot: id}, pity{crate: [miss per rule]}, rolls}`, `login/calendar` `{day, index}`, `idempotency/<op>:<request_id>` `{result, at}` (read 0; yashik uchun shu yozuv `crate_roll` audit ham — secretVersion + counter + pity), `player_ids/<pid>`. Quyidagi jadval — to'liq reja:
 
 | Kolleksiya / key | Maydonlar |
 |------------------|-----------|

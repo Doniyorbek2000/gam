@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BilliardGame.Avatar;
 using BilliardGame.Content;
@@ -134,8 +135,11 @@ namespace BilliardGame.UI
             Bind(characterButton, () => Open(characterScreen));
             Bind(modeCard, () => Open(modeSelect));
             Bind(playButton, Play);
-            foreach (Button soon in new[] { mailButton, friendsButton, passButton, missionsButton, eventsButton, dailyButton, clubButton, chatButton }) Bind(soon, ComingSoon);
+            foreach (Button soon in new[] { mailButton, friendsButton, passButton, missionsButton, eventsButton, clubButton, chatButton }) Bind(soon, ComingSoon);
+            Bind(dailyButton, ShowDailyLogin);
         }
+
+        private bool dailyPrompted;
 
         private void OnDisable()
         {
@@ -290,6 +294,48 @@ namespace BilliardGame.UI
             gems.Set(services.Economy.Gems);
             inventoryBadge.Set(InventoryScreen.NewCount(services));
             RefreshFrame();
+            // Once per session, the first time the server says today's login reward is open.
+            if (!dailyPrompted && services.Economy.LoginClaimable && !DevAutoPilot.Requested && isActiveAndEnabled)
+            {
+                dailyPrompted = true;
+                ShowDailyLogin();
+            }
+        }
+
+        /// <summary>7-day login calendar (docs/GDD.md §6.5): claim today's reward from the server.</summary>
+        private void ShowDailyLogin()
+        {
+            IEconomyService economy = services.Economy;
+            if (!economy.LoginClaimable)
+            {
+                Dialogs.Instance.Toast(Loc.Get(economy.PlayerId == null ? "common.soon_toast" : "daily.claimed"));
+                return;
+            }
+
+            Dialogs.Instance.Confirm("daily.title", Loc.Format("daily.body", economy.LoginDay + 1), "daily.claim", async () =>
+            {
+                IReadOnlyDictionary<string, int> reward = await economy.ClaimLoginAsync();
+                if (reward == null)
+                {
+                    Dialogs.Instance.Error("daily.title", Loc.Get("daily.failed"));
+                    return;
+                }
+
+                UIFeedback.Confirm();
+                Dialogs.Instance.Toast(Loc.Format("daily.got", RewardText(reward)));
+            });
+        }
+
+        private static string RewardText(IReadOnlyDictionary<string, int> reward)
+        {
+            var parts = new List<string>();
+            foreach (KeyValuePair<string, int> pair in reward)
+            {
+                string key = pair.Key == "coins" ? "shop.coins" : pair.Key == "gems" ? "shop.gems" : pair.Key.StartsWith("key_") ? "daily.key_" + pair.Key.Substring(4) : pair.Key;
+                parts.Add("+" + Loc.Number(pair.Value) + " " + Loc.Get(key, pair.Key));
+            }
+
+            return string.Join(", ", parts);
         }
 
         private void RefreshProfile()

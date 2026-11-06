@@ -13,5 +13,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="../../Assets/_Project/Scripts/Physics/**/*.cs" />
     <Compile Include="../../Assets/_Project/Scripts/Gameplay/**/*.cs" />
+    <Compile Include="../../Assets/_Project/Scripts/Meta/CrateOpening.cs" />
+    <Compile Include="../../Assets/_Project/Scripts/Meta/CrateRoller.cs" />
+    <Compile Include="../../Assets/_Project/Scripts/Meta/CrateDefinition.cs" />
+    <Compile Include="../../Assets/_Project/Scripts/Meta/Rarity.cs" />
   </ItemGroup>
 </Project>

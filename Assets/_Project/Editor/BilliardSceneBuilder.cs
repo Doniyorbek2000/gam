@@ -80,6 +80,7 @@ namespace BilliardGame.Editor
 
             var online = new GameObject("Online");
             var client = online.AddComponent<OnlineClient>();
+            SceneWiring.Set(services, "online", client);
             var match = online.AddComponent<OnlineMatchController>();
             SceneWiring.Set(match, "client", client);
             SceneWiring.Set(match, "game", controller);

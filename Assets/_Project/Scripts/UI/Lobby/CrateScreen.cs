@@ -112,6 +112,12 @@ namespace BilliardGame.UI
 
         private void Grant(int coinAmount, int gemAmount, string key, int amount)
         {
+            if (services.Mock == null)
+            {
+                Dialogs.Instance.Toast(Loc.Get("common.soon_toast"));   // real top-ups: web shop (M5) / Play Billing (M10)
+                return;
+            }
+
             services.Mock.DevGrant(coinAmount, gemAmount);
             Dialogs.Instance.Toast(Loc.Format(key, Loc.Number(amount)));
         }

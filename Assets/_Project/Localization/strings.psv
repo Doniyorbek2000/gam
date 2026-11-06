@@ -360,3 +360,18 @@ camera.classic|Klassik|Классика|Classic
 camera.third|3-shaxs|3-е лицо|3rd person
 camera.first|1-shaxs|1-е лицо|1st person
 camera.cinematic|Kino|Кино|Cinematic
+shop.buy_for|{0} {1} ga olish|Купить за {0} {1}|Buy for {0} {1}
+shop.coins|Coin|монет|coins
+shop.gems|Gem|гемов|gems
+shop.buy_title|Sotib olish|Покупка|Buy
+shop.buy_body|{0} sotib olinsinmi?|Купить {0}?|Buy {0}?
+shop.bought|{0} kolleksiyangizda|{0} теперь ваш|{0} is yours
+shop.buy_failed|Xarid amalga oshmadi|Покупка не удалась|Purchase failed
+daily.title|Kunlik mukofot|Ежедневная награда|Daily reward
+daily.body|{0}-kun mukofoti tayyor (7 kunlik kalendar). Kun o'tkazib yuborilsa ham progress saqlanadi.|Награда за день {0} готова (календарь на 7 дней). Пропуск дня не сбрасывает прогресс.|Day {0} reward is ready (7-day calendar). Missing a day keeps your progress.
+daily.claim|Olish|Забрать|Claim
+daily.got|Olindi: {0}|Получено: {0}|Received: {0}
+daily.claimed|Bugungi mukofot olindi — ertaga 00:00 (Toshkent) da yangisi|Сегодняшняя награда получена — новая в 00:00 (Ташкент)|Today's reward is claimed — the next one at 00:00 (Tashkent)
+daily.failed|Server bilan aloqa yo'q, keyinroq urinib ko'ring|Нет связи с сервером, попробуйте позже|No connection to the server, try again later
+daily.key_classic|Classic kalit|ключ Classic|Classic key
+daily.key_premium|Premium kalit|ключ Premium|Premium key

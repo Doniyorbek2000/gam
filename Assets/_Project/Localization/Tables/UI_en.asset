@@ -1471,6 +1471,67 @@ MonoBehaviour:
     m_Localized: Cinematic
     m_Metadata:
       m_Items: []
+  - m_Id: 338104390074368
+    m_Localized: Buy for {0} {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514880
+    m_Localized: coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514881
+    m_Localized: gems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514882
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514883
+    m_Localized: Buy {0}?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514884
+    m_Localized: '{0} is yours'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514885
+    m_Localized: Purchase failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514886
+    m_Localized: Daily reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514887
+    m_Localized: Day {0} reward is ready (7-day calendar). Missing a day keeps your
+      progress.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514888
+    m_Localized: Claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514889
+    m_Localized: 'Received: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514890
+    m_Localized: "Today's reward is claimed \u2014 the next one at 00:00 (Tashkent)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514891
+    m_Localized: No connection to the server, try again later
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514892
+    m_Localized: Classic key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514893
+    m_Localized: Premium key
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

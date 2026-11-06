@@ -64,6 +64,48 @@ namespace BilliardGame.Editor
             Debug.Log($"[BilliardGame] Built {DevApkPath}: {apkBytes / (1024f * 1024f):F1} MB in {summary.totalTime.TotalMinutes:F1} min.");
         }
 
+        public const string WindowsBotPath = "Builds/Win/BilliardGame.exe";
+
+        /// <summary>
+        /// Windows dev player for E2E (run with <c>-autopilot [-profile name]</c>). Addressables (localization tables)
+        /// are rebuilt for Windows first: a player only reads the catalog of the active target, and the Android one
+        /// made the bot log "SelectedLocale is null". The editor is switched back to Android afterwards.
+        /// </summary>
+        [MenuItem("BilliardGame/Build Windows Dev Bot")]
+        public static void BuildWindowsDevBot()
+        {
+            if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64))
+            {
+                throw new System.InvalidOperationException("Could not switch to Windows (Windows Build Support module missing?).");
+            }
+
+            try
+            {
+                UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.BuildPlayerContent(out var content);
+                if (!string.IsNullOrEmpty(content.Error)) throw new System.InvalidOperationException("Addressables build failed: " + content.Error);
+
+                var options = new BuildPlayerOptions
+                {
+                    scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
+                    locationPathName = WindowsBotPath,
+                    target = BuildTarget.StandaloneWindows64,
+                    targetGroup = BuildTargetGroup.Standalone,
+                    options = BuildOptions.Development,
+                };
+                var summary = BuildPipeline.BuildPlayer(options).summary;
+                if (summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
+                {
+                    throw new System.InvalidOperationException($"Windows build {summary.result}: {summary.totalErrors} errors, see Console.");
+                }
+
+                Debug.Log($"[BilliardGame] Built {WindowsBotPath} in {summary.totalTime.TotalMinutes:F1} min.");
+            }
+            finally
+            {
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
+            }
+        }
+
         /// <summary>
         /// The whole scene fits in a 3 m box, so a short shadow distance gives crisp ball shadows;
         /// MSAA keeps ball silhouettes and aim lines clean, full render scale keeps the numbers legible.

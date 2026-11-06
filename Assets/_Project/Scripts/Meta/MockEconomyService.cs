@@ -123,6 +123,14 @@ namespace BilliardGame.Meta
 
         public Task<CrateOpenResult> OpenCrateAsync(string crateId, int count) => Task.FromResult(OpenCrate(crateId, count));
 
+        // Shop and login calendar are server features (M3); the offline mock does not fake them.
+        public string PlayerId => null;
+        public int ShopPrice(string itemId, Currency currency) => 0;
+        public Task<string> BuyAsync(string itemId, Currency currency) => Task.FromResult("offline");
+        public int LoginDay => 0;
+        public bool LoginClaimable => false;
+        public Task<IReadOnlyDictionary<string, int>> ClaimLoginAsync() => Task.FromResult<IReadOnlyDictionary<string, int>>(null);
+
         /// <summary>Editor/mock-only top-up so the crate flow is testable without payments (M5/M10).</summary>
         public void DevGrant(int coins, int gems)
         {
@@ -142,53 +150,23 @@ namespace BilliardGame.Meta
             if (crate.Currency == Currency.Gem) state.gems -= cost;
             else state.coins -= cost;
 
-            bool hasTen = crate.HasTenGuarantee(out Rarity tenRarity) && count == 10;
-            bool tenMet = false;
+            PityRule[] rules = crate.pity ?? Array.Empty<PityRule>();
+            var misses = new int[rules.Length];
+            for (int k = 0; k < rules.Length; k++) misses[k] = Counter(crate.id, rules[k].MinRarity).misses;
+
+            var pools = new List<CatalogItem>[RarityInfo.Count];
+            var sizes = new int[RarityInfo.Count];
+            for (int r = 0; r < pools.Length; r++) pools[r] = new List<CatalogItem>();
+            foreach (CatalogItem item in catalog) pools[(int)item.Rarity].Add(item);
+            for (int r = 0; r < pools.Length; r++) sizes[r] = pools[r].Count;
+
+            CratePick[] picks = CrateOpening.Open(crate, sizes, misses, count, NextRoll);
+            for (int k = 0; k < rules.Length; k++) Counter(crate.id, rules[k].MinRarity).misses = misses[k];
             var drops = new List<CrateDrop>(count);
-            for (int i = 0; i < count; i++)
-            {
-                Rarity floor = PityFloor(crate);
-                if (hasTen && !tenMet && i == count - 1 && tenRarity > floor) floor = tenRarity;
-                Rarity rarity = CrateRoller.RollRarity(crate.weights, NextRoll(), floor);
-                if (rarity >= tenRarity) tenMet = true;
-                UpdatePity(crate, rarity);
-                drops.Add(Grant(PickItem(rarity)));
-            }
+            foreach (CratePick pick in picks) drops.Add(Grant(pools[(int)pick.Rarity][pick.PoolIndex]));
 
             Commit();
             return CrateOpenResult.Ok(drops);
-        }
-
-        private Rarity PityFloor(CrateDefinition crate)
-        {
-            Rarity floor = Rarity.Common;
-            foreach (PityRule rule in crate.pity ?? Array.Empty<PityRule>())
-            {
-                if (Counter(crate.id, rule.MinRarity).misses + 1 >= rule.count && rule.MinRarity > floor) floor = rule.MinRarity;
-            }
-
-            return floor;
-        }
-
-        private void UpdatePity(CrateDefinition crate, Rarity rarity)
-        {
-            foreach (PityRule rule in crate.pity ?? Array.Empty<PityRule>())
-            {
-                PityCounter counter = Counter(crate.id, rule.MinRarity);
-                counter.misses = rarity >= rule.MinRarity ? 0 : counter.misses + 1;
-            }
-        }
-
-        private CatalogItem PickItem(Rarity rarity)
-        {
-            var pool = new List<CatalogItem>();
-            foreach (CatalogItem item in catalog)
-            {
-                if (item.Rarity == rarity) pool.Add(item);
-            }
-
-            int index = Math.Min(pool.Count - 1, (int)(NextRoll() * pool.Count));
-            return pool[index];
         }
 
         private CrateDrop Grant(CatalogItem item)

@@ -1475,6 +1475,67 @@ MonoBehaviour:
     m_Localized: Kino
     m_Metadata:
       m_Items: []
+  - m_Id: 338104390074368
+    m_Localized: '{0} {1} ga olish'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514880
+    m_Localized: Coin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514881
+    m_Localized: Gem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514882
+    m_Localized: Sotib olish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514883
+    m_Localized: '{0} sotib olinsinmi?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514884
+    m_Localized: '{0} kolleksiyangizda'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514885
+    m_Localized: Xarid amalga oshmadi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514886
+    m_Localized: Kunlik mukofot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514887
+    m_Localized: '{0}-kun mukofoti tayyor (7 kunlik kalendar). Kun o''tkazib yuborilsa
+      ham progress saqlanadi.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514888
+    m_Localized: Olish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514889
+    m_Localized: 'Olindi: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514890
+    m_Localized: "Bugungi mukofot olindi \u2014 ertaga 00:00 (Toshkent) da yangisi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514891
+    m_Localized: Server bilan aloqa yo'q, keyinroq urinib ko'ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514892
+    m_Localized: Classic kalit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 338104507514893
+    m_Localized: Premium kalit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

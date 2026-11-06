@@ -89,9 +89,9 @@ namespace BilliardGame.UI
             EightBallState state = game.State;
             bool won = state.Winner == seat;
             bool practice = !game.IsOnline;
-            // Online prize comes from the server in M7; the mock grants it so the loop is testable now.
+            // Online prizes move to the server with venue escrow (M7); until then only the offline mock grants them.
             int coins = !practice && won ? prize : 0;
-            if (coins > 0) services.Mock.GrantMatchReward(coins);
+            if (coins > 0) services.Mock?.GrantMatchReward(coins);
 
             int xpBefore = services.Profile.State.xp;
             var record = new MatchRecord

@@ -24,7 +24,10 @@ namespace BilliardGame.UI
         private BilliardSimulator simulator;
         private float readySince = -1f;
 
-        private void Awake() => enabled = Array.IndexOf(Environment.GetCommandLineArgs(), Argument) >= 0;
+        /// <summary>Launched with -autopilot: lobby pop-ups stay closed so the bot's flow is not blocked.</summary>
+        public static bool Requested => Array.IndexOf(Environment.GetCommandLineArgs(), Argument) >= 0;
+
+        private void Awake() => enabled = Requested;
 
         // -autopilot alone: quick match. With "-join 123456": joins that friend room instead.
         private void Start()

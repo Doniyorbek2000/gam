@@ -198,6 +198,6 @@ Har bir ekran tuzilmasi: [UI_UX](UI_UX.md).
 ## 12. Fair play va anti-cheat (dizayn darajasida)
 - Server-authoritative: klient faqat `ShotParams` yuboradi; server cheklovlarni tekshiradi (kuch, spin radiusi, vaqt, navbat).
 - Uzilish: 60 s qayta ulanish oynasi; keyin texnik mag'lubiyat (M2).
-- Zarba taymeri serverda (M2): tugasa navbat raqibga o'tadi.
+- Zarba taymeri serverda (M2): tugasa foul — navbat raqibga o'tadi va u ball-in-hand oladi (standart qoida).
 - Ranked'da "rage quit" jarimasi: 3 marta tark etish → 10 daqiqa matchmaking bloki.
 - Report: harakat sababli (haqorat, cheat gumon), 3+ tasdiqlangan report → admin ko'rib chiqadi.

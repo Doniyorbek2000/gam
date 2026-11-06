@@ -31,6 +31,22 @@ namespace BilliardGame.Meta
         Task<bool> EquipAsync(string itemId);
         /// <summary>Puts an owned sticker on the cue or the table rail; null clears the slot.</summary>
         Task<bool> EquipStickerAsync(string itemId, StickerSlot slot);
+
+        /// <summary>The server's 10-digit Player ID; null until known (or in the mock).</summary>
+        string PlayerId { get; }
+
+        /// <summary>Direct-shop price (docs/ECONOMY.md §4.3); 0 = not sold for that currency.</summary>
+        int ShopPrice(string itemId, Currency currency);
+
+        /// <summary>Buys an item from the direct shop. Null on success, else a message for the player.</summary>
+        Task<string> BuyAsync(string itemId, Currency currency);
+
+        /// <summary>7-day login calendar: next day to claim (0-6) and whether today's reward is still open.</summary>
+        int LoginDay { get; }
+        bool LoginClaimable { get; }
+
+        /// <summary>Claims today's login reward; returns the credited amounts (wallet key → amount), or null.</summary>
+        Task<IReadOnlyDictionary<string, int>> ClaimLoginAsync();
     }
 
     public sealed class CrateDrop

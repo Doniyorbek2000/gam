@@ -55,5 +55,15 @@ function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkrunt
     initializer.registerRpc("create_room", rpcCreateRoom);
     initializer.registerRpc("join_room", rpcJoinRoom);
     initializer.registerMatchmakerMatched(matchmakerMatched);
+    // Economy (src/economy.ts). Nakama reads each handler's name from this function's body, so registrations stay here.
+    seedConfig(nk, logger);
+    initializer.registerRpc("economy_state", rpcEconomyState);
+    initializer.registerRpc("config_get", rpcConfigGet);
+    initializer.registerRpc("crate_open", rpcCrateOpen);
+    initializer.registerRpc("shop_buy", rpcShopBuy);
+    initializer.registerRpc("equip", rpcEquip);
+    initializer.registerRpc("daily_claim", rpcDailyClaim);
+    initializer.registerRpc("friend_add_by_pid", rpcFriendAddByPid);
+    initializer.registerAfterAuthenticateDevice(afterAuthenticateDevice);
     logger.info("billiard module loaded");
 }

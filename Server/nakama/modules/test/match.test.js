@@ -75,7 +75,8 @@ test("only the current player may shoot; a valid shot broadcasts frames, events 
     const sum = new Array(balls * 2).fill(0);
     for (let f = 0; f < frameCount; f++) for (let k = 0; k < balls * 2; k++) sum[k] += snap.shot.f[f * balls * 2 + k];
     snap.game.balls.forEach((b, i) => {
-        if (b.pk >= 0) return;
+        // Pocketed balls have no position; one pocketed and re-spotted by the rules (8 on the break) moved after the sim.
+        if (b.pk >= 0 || snap.shot.ev.some((e) => e.ty === m.EVENT_POCKET && e.b === b.id)) return;
         assert.ok(Math.abs(sum[2 * i] / 10000 - b.x) <= 0.00005 + 1e-12, "x of ball " + b.id);
         assert.ok(Math.abs(sum[2 * i + 1] / 10000 - b.y) <= 0.00005 + 1e-12, "y of ball " + b.id);
     });

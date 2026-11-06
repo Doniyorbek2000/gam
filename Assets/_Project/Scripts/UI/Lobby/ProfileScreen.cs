@@ -91,7 +91,7 @@ namespace BilliardGame.UI
             int level = ProfileRules.Level(profile.xp, out int into, out int needed);
             nickname.text = profile.nickname;
             levelChip.text = level.ToString(Loc.Culture);
-            playerId.text = Loc.Format("profile.id", profile.playerId);
+            playerId.text = Loc.Format("profile.id", PlayerId);
             rank.text = LobbyController.RankText(profile.rankPoints);
             country.text = Loc.Get("profile.country");
             club.text = string.IsNullOrEmpty(profile.clubName) ? Loc.Get("profile.no_club") : profile.clubName;
@@ -211,9 +211,12 @@ namespace BilliardGame.UI
         private void EditNickname() =>
             Dialogs.Instance.Input("profile.edit_nick", services.Profile.State.nickname, ProfileRules.MaxNickname, services.Profile.SetNickname);
 
+        // The server's 10-digit ID; the offline mock keeps its local one.
+        private string PlayerId => services.Economy.PlayerId ?? services.Profile.State.playerId;
+
         private void CopyId()
         {
-            GUIUtility.systemCopyBuffer = services.Profile.State.playerId;
+            GUIUtility.systemCopyBuffer = PlayerId;
             Dialogs.Instance.Toast(Loc.Get("common.copied"));
         }
 

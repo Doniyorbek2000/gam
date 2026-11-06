@@ -13,7 +13,7 @@ namespace BilliardGame.Online
     /// </summary>
     public sealed class OnlineClient : MonoBehaviour
     {
-        private const string MatchIdKey = "online.matchId";
+        private static readonly string MatchIdKey = "online.matchId" + BilliardGame.Presentation.LocalProfile.Suffix;
         private const float ReconnectInterval = 2f;
         // Server keeps the seat for 60 s; try a little longer so a late reconnect still sees the result.
         private const float ReconnectGiveUpSeconds = 70f;
@@ -60,12 +60,7 @@ namespace BilliardGame.Online
         /// <summary>Logs in with this device's id (creating the account once) and sets the nickname.</summary>
         public async Task ConnectAsync(string nickname)
         {
-            client ??= new Client(scheme, host, port, serverKey, UnityWebRequestAdapter.Instance);
-            if (session == null || session.HasExpired(DateTime.UtcNow.AddMinutes(5)))
-            {
-                session = await client.AuthenticateDeviceAsync(DeviceId());
-            }
-
+            await EnsureSessionAsync();
             if (nickname != displayName)
             {
                 await client.UpdateAccountAsync(session, null, nickname);
@@ -81,6 +76,38 @@ namespace BilliardGame.Online
             }
 
             if (!socket.IsConnected) await socket.ConnectAsync(session, true, 10);
+        }
+
+        private async Task EnsureSessionAsync()
+        {
+            client ??= new Client(scheme, host, port, serverKey, UnityWebRequestAdapter.Instance);
+            if (session == null || session.HasExpired(DateTime.UtcNow.AddMinutes(5)))
+            {
+                session = await client.AuthenticateDeviceAsync(DeviceId());
+            }
+        }
+
+        /// <summary>Server RPC over HTTP (no socket needed); returns the payload or throws with the server's message.</summary>
+        public async Task<string> RpcAsync(string id, string payload)
+        {
+            await EnsureSessionAsync();
+            try
+            {
+                return (await client.RpcAsync(session, id, payload)).Payload;
+            }
+            catch (ApiResponseException e)
+            {
+                throw new InvalidOperationException(ServerMessage(e.Message), e);
+            }
+        }
+
+        /// <summary>"Error: not enough coins at commit (index.js:…)" → "not enough coins".</summary>
+        public static string ServerMessage(string raw)
+        {
+            if (string.IsNullOrEmpty(raw)) return "server error";
+            string text = raw.StartsWith("Error: ", StringComparison.Ordinal) ? raw.Substring(7) : raw;
+            int at = text.IndexOf(" at ", StringComparison.Ordinal);
+            return at > 0 ? text.Substring(0, at) : text;
         }
 
         public async Task StartQuickMatchAsync(string nickname)
@@ -276,6 +303,6 @@ namespace BilliardGame.Online
         public static bool IsRoomCode(string code) => code != null && System.Text.RegularExpressions.Regex.IsMatch(code, "^[1-9][0-9]{5}$");
 
         // The editor gets its own account so it can play a build on the same PC.
-        private static string DeviceId() => SystemInfo.deviceUniqueIdentifier + (Application.isEditor ? "-editor" : string.Empty);
+        private static string DeviceId() => SystemInfo.deviceUniqueIdentifier + (Application.isEditor ? "-editor" : string.Empty) + BilliardGame.Presentation.LocalProfile.Suffix;
     }
 }

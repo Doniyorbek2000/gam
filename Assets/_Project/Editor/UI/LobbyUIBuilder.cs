@@ -162,7 +162,7 @@ namespace BilliardGame.Editor.UI
             passBar.transform.Find("Fill").GetComponent<Image>().fillAmount = 0.15f;
             ButtonParts missions = RailCard(rail, "Missions", "missions", "lobby.missions", t.textPrimary, true);
             ButtonParts events = RailCard(rail, "Events", "events", "lobby.events", t.textPrimary, true);
-            ButtonParts daily = RailCard(rail, "Daily", "daily", "lobby.daily", t.success, true);
+            ButtonParts daily = RailCard(rail, "Daily", "daily", "lobby.daily", t.success, false);
             UIKit.Wire(lobby, "passButton", pass.Button, "missionsButton", missions.Button, "eventsButton", events.Button, "dailyButton", daily.Button);
         }
 

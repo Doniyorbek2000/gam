@@ -42,6 +42,10 @@ namespace BilliardGame.Presentation
         private float pullback01;
         private double dragAngle;
         private bool hasDragAngle;
+        private bool stroking;
+        private float strokeTime;
+        private StrokeTimeline stroke;
+        private Action onContact;
 
         /// <summary>Below this distance from the cue ball the sweep angle is too noisy to steer with.</summary>
         private const double MinDragRadius = 0.03;
@@ -52,6 +56,16 @@ namespace BilliardGame.Presentation
         /// <summary>Settings ▸ Controls: hides the guide lines (they can only be turned off, never lengthened).</summary>
         public bool ShowGuide { get; set; } = true;
         public Vec2 CuePosition { get; private set; }
+
+        /// <summary>Aim or stroke on screen: the shooter's hands follow <see cref="CueStick"/> (docs/GDD.md §8.1).</summary>
+        public bool IsActive => isActive;
+        public bool IsStroking => stroking;
+        /// <summary>The visible cue: pivot at the tip, butt along local +Z.</summary>
+        public Transform CueStick => cueStick;
+        /// <summary>The cue ball's view; characters watch it while the shot plays.</summary>
+        public Transform CueBallView => cueBall.transform;
+        /// <summary>True while a finger or mouse drag is aiming or placing the cue ball.</summary>
+        public bool IsDragging => drag != DragMode.None;
 
         public void Begin(IReadOnlyList<BallState> tableBalls, Vec2 cuePosition, bool inHand, TableGeometry geometry, PhysicsConfig physics, Func<Vec2, bool> placementCheck)
         {
@@ -70,8 +84,32 @@ namespace BilliardGame.Presentation
         public void End()
         {
             isActive = false;
+            stroking = false;
+            onContact = null;
             drag = DragMode.None;
             SetVisualsVisible(false);
+        }
+
+        /// <summary>
+        /// Plays the forward stroke from the current pullback and calls <paramref name="contact"/> on the frame the tip
+        /// reaches the cue ball. Aiming is frozen meanwhile; the shot itself was fixed by the caller before the stroke.
+        /// </summary>
+        public void PlayStroke(float power01, Action contact)
+        {
+            if (!isActive || stroking)
+            {
+                contact?.Invoke();
+                return;
+            }
+
+            float contactPull = -0.5f * (float)config.BallRadius / maxPullback;
+            stroke = new StrokeTimeline(pullback01, power01, contactPull);
+            strokeTime = 0f;
+            stroking = true;
+            onContact = contact;
+            drag = DragMode.None;
+            aimLine.enabled = objectLine.enabled = cueLine.enabled = false;
+            ghostBall.gameObject.SetActive(false);
         }
 
         public void SetPullback(float power01) => pullback01 = Mathf.Clamp01(power01);
@@ -86,8 +124,26 @@ namespace BilliardGame.Presentation
         private void Update()
         {
             if (!isActive) return;
+            if (stroking)
+            {
+                UpdateStroke();
+                return;
+            }
+
             HandlePointer();
             UpdateVisuals();
+        }
+
+        private void UpdateStroke()
+        {
+            strokeTime += Time.deltaTime;
+            bool reached = strokeTime >= stroke.ContactTime;
+            PlaceCue(reached ? stroke.ContactPull : stroke.PullAt(strokeTime));
+            if (!reached) return;
+            Action contact = onContact;
+            onContact = null;
+            stroking = false;
+            contact?.Invoke();
         }
 
         private void HandlePointer()
@@ -168,7 +224,15 @@ namespace BilliardGame.Presentation
                 cueLine.SetPosition(1, ghost + cueDir * (objectLineLength * 0.6f));
             }
 
-            Vector3 tip = cue - dir * (r * 1.5f + pullback01 * maxPullback);
+            PlaceCue(pullback01);
+        }
+
+        private void PlaceCue(float pull)
+        {
+            float r = (float)config.BallRadius;
+            Vector3 cue = TableSpace.ToWorld(CuePosition, r);
+            Vector3 dir = TableSpace.ToWorld(AimDirection, 0f);
+            Vector3 tip = cue - dir * (r * 1.5f + pull * maxPullback);
             // Butt raised like a real stroke so the stick clears the rails.
             Vector3 axis = (dir - Vector3.up * Mathf.Tan(cueElevation * Mathf.Deg2Rad)).normalized;
             // Cue skins pivot at the tip with the butt along local +Z (docs/ART_PIPELINE.md §3.1).

@@ -165,6 +165,49 @@ namespace BilliardGame.Editor.UI
             return view;
         }
 
+        // ---- Character -----------------------------------------------------------------------------------------------
+
+        public static CharacterScreen Character(RectTransform parent, GameServices services, LobbyStage stage, InventoryScreen inventory)
+        {
+            const int Slots = 4;
+            var view = UIKit.Screen<CharacterScreen>(parent, "Character", Transition.Fade, true, out RectTransform safe, Backdrop.None);
+            view.BindBack(UIKit.Header(safe, "character.title", "person", out RectTransform bar));
+            TMP_Text nameLabel = UIKit.Text(bar, "Name", null, TextStyle.H1, T.textPrimary, TextAlignmentOptions.MidlineRight);
+            nameLabel.rectTransform.Span(new Vector2(0.5f, 0f), Vector2.one, Vector2.zero, new Vector2(-Gutter, 0f));
+
+            Image panelFill = UIKit.Panel(safe, "Panel", new Color(T.surface.r, T.surface.g, T.surface.b, 0.92f), 32, true);
+            var panel = (RectTransform)panelFill.transform.parent;
+            panel.Span(Vector2.zero, new Vector2(1f, 0f), new Vector2(Gutter, Gutter), new Vector2(-Gutter, Gutter + 300f));
+
+            RectTransform row = UIKit.Row(panel, "Cards", 20f, TextAnchor.MiddleLeft, false);
+            row.Fill(24f, 20f, 420f, 20f);
+            var cards = new List<Object>();
+            var portraits = new List<Object>();
+            var names = new List<Object>();
+            for (int i = 0; i < Slots; i++)
+            {
+                ButtonParts card = UIKit.Button(row, "Card " + i, ButtonKind.Secondary, null, null, new Vector2(210f, 260f), 24);
+                UIKit.Size(card.Rect, 210f, 260f);
+                ((RectTransform)card.Label.transform.parent).Span(Vector2.zero, new Vector2(1f, 0f), new Vector2(8f, 6f), new Vector2(-8f, 56f));
+                card.Label.fontSize = card.Label.fontSizeMax = 30f;
+                Image portrait = UIKit.Image(card.Rect, "Portrait", null, Color.white);
+                portrait.preserveAspect = true;
+                portrait.rectTransform.Fill(14f, 60f, 14f, 14f);
+                cards.Add(card.Button);
+                portraits.Add(portrait);
+                names.Add(card.Label);
+            }
+
+            ButtonParts select = UIKit.Button(panel, "Select", ButtonKind.Primary, "character.select", "check", new Vector2(360f, 104f));
+            select.Rect.At(new Vector2(1f, 0.5f), new Vector2(-24f, 10f), new Vector2(360f, 104f), new Vector2(1f, 0f));
+            ButtonParts outfits = UIKit.Button(panel, "Outfits", ButtonKind.Secondary, "character.outfits", "outfit", new Vector2(360f, 88f));
+            outfits.Rect.At(new Vector2(1f, 0.5f), new Vector2(-24f, -10f), new Vector2(360f, 88f), new Vector2(1f, 1f));
+
+            UIKit.Wire(view, "services", services, "stage", stage, "inventory", inventory, "cards", cards.ToArray(), "portraits", portraits.ToArray(),
+                "names", names.ToArray(), "nameLabel", nameLabel, "selectButton", select.Button, "selectLabel", select.Label, "outfitsButton", outfits.Button);
+            return view;
+        }
+
         // ---- Crates --------------------------------------------------------------------------------------------------
 
         public static CrateScreen Crates(RectTransform parent, GameServices services, LobbyStage stage)

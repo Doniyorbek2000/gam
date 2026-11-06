@@ -87,14 +87,17 @@ UITheme + UIKit (tugma holatlari, tween, ovoz/haptic), ikonka SpriteAtlas, 1920�
 6. **Animatsiyalar:** CC0 Quaternius Universal Animation Library (yurish, turish, o'tirish, gaplashish, ko'tarish) + procedural IK (zarba holati, bridge, bo'rlash, ichish, qarsak, xafa bo'lish). Yetishmaganlari ro'yxati foydalanuvchiga beriladi; Mixamo kliplari faqat mixamo.com dan to'g'ridan-to'g'ri yuklangan FBX bo'lsa ([ART_PIPELINE §2](ART_PIPELINE.md#2-litsenziya-siyosati)). Yuz blendshape'lari bo'lsa ishlatiladi (hozirgi CC0 modellarda yo'q — procedural bosh/qosh harakati).
 
 **Qabul qilish mezonlari**
-- [ ] 4+ personaj tanlash ekranida (MCP skrinshot), tanlov saqlanadi va match'da ko'rinadi.
-- [ ] Hot-seat match'da: navbat almashganda personaj stol atrofida NavMesh bo'ylab zarba nuqtasiga yuradi (stol/mebelga kirmaydi), egiladi, chap qo'l stolda, kiy aim yo'nalishida; raqib stulga o'tiradi; reaksiyalar ishlaydi (skrinshotlar).
-- [ ] Zarba vaqtida kiy harakati va fizika `Shoot()` bir kadrda (EditMode test: `StrokeTimeline` kontakt kadri = shoot kadri).
+- [x] 4+ personaj tanlash ekranida (MCP skrinshot), tanlov saqlanadi va match'da ko'rinadi.
+- [x] Hot-seat match'da: navbat almashganda personaj stol atrofida NavMesh bo'ylab zarba nuqtasiga yuradi (stol/mebelga kirmaydi), egiladi, chap qo'l stolda, kiy aim yo'nalishida; raqib stulga o'tiradi; reaksiyalar ishlaydi (skrinshotlar).
+- [x] Zarba vaqtida kiy harakati va fizika `Shoot()` bir kadrda (EditMode test: `StrokeTimeline` kontakt kadri = shoot kadri).
 - [ ] 4 kamera rejimi, Sozlamalar'dagi standart saqlanadi; 1-shaxsda nishonlash ishlaydi; kino kamera skip qilinadi.
 - [ ] Personaj kamerani to'ssa shaffof bo'ladi (skrinshot).
 - [ ] NPC'lar + ambient ovoz; Past sifatda NPC 0; match kadri ≤ 300k tri, ≤ 180 draw call (Profiler hisoboti).
-- [ ] Animatsiya natijaga ta'sir qilmasligi testi: bir xil `ShotParams` personaj bilan va personajsiz bir xil `SimulationResult` beradi; online cross-check (`npm test`) yashil.
-- [ ] Barcha yangi assetlar `LICENSES.md` da, Credits'da.
+- [x] Animatsiya natijaga ta'sir qilmasligi testi: bir xil `ShotParams` personaj bilan va personajsiz bir xil `SimulationResult` beradi; online cross-check (`npm test`) yashil.
+- [x] Barcha yangi assetlar `LICENSES.md` da, Credits'da.
+
+**Holat (2026-11-06):** **M1.6.1 ✅** — 4 personaj (Timur, Aziz, Malika, Dilnoza; Quaternius CC0 UBC + Fantasy Outfits, Humanoid), bitta `PlayerCharacter.controller` (Locomotion blend, Address, Sit Enter/Idle/Exit, Disappointed/Celebrate — Address/reaksiyalar procedural `.anim`), lobby ▸ "Personaj" ekrani (portretlar, turntable preview, Tanlash → profil `characterId`, "Kiyimlar" → Inventar ▸ Outfit), match'da `MatchCharacterDirector`: NavMesh bo'ylab zarba nuqtasiga yurish (tezlik = yurish klipi stride 1.03 m/s, sirpanishsiz), ~35% bo'rlash (skip), egilish + Two Bone IK (o'ng qo'l kiyda, chap qo'l bridge), zarba `StrokeTimeline` kontakt kadrida fizika bilan, raqib kreslada o'tiradi va choy ho'playdi, qarsak/xafa/xursand reaksiyalar; stolga oyoqlar qo'shildi. Farqlar: Multi-Aim o'rniga Humanoid `SetLookAt` (bosh/ko'krak), foot IK yo'q (yurish tezligi stride'ga moslangan). **Keyingi: M1.6.2** (kamera rejimlari + shaffoflik), so'ng M1.6.3.
+Mixamo papkasidagi 13 zip Sketchfab'dan uchinchi shaxs qayta yuklamalari (3 tasi *Neverness to Everness* o'yin personaji) — ishlatilmadi (CLAUDE.md qoida 8). Kerak bo'lsa mixamo.com dan to'g'ridan-to'g'ri (FBX, Without Skin, In Place): `Sitting Idle`, `Sitting Clap`, `Sitting Drinking`, `Clapping`, `Disappointed`, `Victory Idle`, `Thinking`, `Leaning` — `ArtSource/Incoming/mixamo/` ga.
 
 **Bo'linish:** M1.6.1 personajlar + import + tanlash ekrani + match holat mashinasi (yurish, o'tirish, zarba IK, bo'r, reaksiya); M1.6.2 kamera rejimlari (Cinemachine) + shaffoflik; M1.6.3 zal hayoti (NPC, ambient, sifat sozlamasi) + unumdorlik hisobot. **Hajm:** L.
 

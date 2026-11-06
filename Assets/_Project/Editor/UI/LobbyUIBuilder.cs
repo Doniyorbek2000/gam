@@ -20,7 +20,7 @@ namespace BilliardGame.Editor.UI
         private const float TopBand = 168f;
 
         public static void Build(GameController game, OnlineMatchController online, HudController hud, GameObject hudRoot, GameServices services,
-            VenueLoader venues, LobbyStage stage, RoomStage room, Camera matchCamera)
+            VenueLoader venues, LobbyStage stage, RoomStage room, Camera matchCamera, BilliardGame.Avatar.MatchCharacterDirector cast)
         {
             Canvas canvas = CreateCanvas("Lobby UI", 10);
             Transform host = canvas.transform;
@@ -35,15 +35,17 @@ namespace BilliardGame.Editor.UI
             CrateScreen crates = LobbyScreens.Crates(menuRoot, services, stage);
             InventoryScreen inventory = LobbyScreens.Inventory(menuRoot, services, stage, crates);
             CreditsScreen credits = LobbyScreens.Credits(menuRoot);
+            CharacterScreen character = LobbyScreens.Character(menuRoot, services, stage, inventory);
             UIKit.Wire(lobby,
-                "services", services, "menu", menu, "online", online, "game", game, "hud", hud, "venues", venues, "stage", stage, "matchCamera", matchCamera,
+                "services", services, "menu", menu, "online", online, "game", game, "hud", hud, "venues", venues, "stage", stage, "matchCamera", matchCamera, "cast", cast,
                 "chrome", chrome,
                 "modeSelect", LobbyScreens.ModeSelect(menuRoot, lobby, services),
                 "profileScreen", LobbyScreens.Profile(menuRoot, services),
                 "inventory", inventory,
                 "room", LobbyScreens.Room(menuRoot, services, room, stage),
                 "settings", LobbyScreens.Settings(menuRoot, services, credits),
-                "crates", crates);
+                "crates", crates,
+                "characterScreen", character);
 
             LobbyScreens.MatchEntry(menuRoot, menu);
             UIKit.Wire(menu, "game", game, "online", online, "hud", hud, "services", services, "menuRoot", menuRoot.gameObject, "hudRoot", hudRoot);
@@ -183,7 +185,9 @@ namespace BilliardGame.Editor.UI
         private static void BottomLeft(RectTransform safe, LobbyController lobby)
         {
             RectTransform row = UIKit.Row(safe, "Social", 12f, TextAnchor.LowerLeft, false);
-            row.At(Vector2.zero, new Vector2(Edge, Edge), new Vector2(260f, 104f), Vector2.zero);
+            row.At(Vector2.zero, new Vector2(Edge, Edge), new Vector2(396f, 104f), Vector2.zero);
+            ButtonParts character = UIKit.IconCard(row, "Character", "person", "lobby.character", new Vector2(124f, 104f), ButtonKind.Secondary, 44f);
+            UIKit.Size(character.Rect, 124f, 104f);
             ButtonParts club = UIKit.IconCard(row, "Club", "club", "lobby.club", new Vector2(124f, 104f), ButtonKind.Secondary, 44f);
             ButtonParts chat = UIKit.IconCard(row, "Chat", "chat", "lobby.chat", new Vector2(124f, 104f), ButtonKind.Secondary, 44f);
             foreach (ButtonParts b in new[] { club, chat })
@@ -192,7 +196,7 @@ namespace BilliardGame.Editor.UI
                 UIKit.SoonTag(b.Rect).GetComponent<RectTransform>().anchoredPosition = new Vector2(6f, 14f);
             }
 
-            UIKit.Wire(lobby, "clubButton", club.Button, "chatButton", chat.Button);
+            UIKit.Wire(lobby, "characterButton", character.Button, "clubButton", club.Button, "chatButton", chat.Button);
         }
 
         private static void PlayArea(RectTransform safe, LobbyController lobby)

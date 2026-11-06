@@ -33,8 +33,12 @@ namespace BilliardGame.Presentation
         private EightBallState pendingState;
         private ShotOutcome pendingOutcome;
         private float turnDeadline = float.NaN;
+        private bool stroking;
 
         public event Action StateChanged;
+
+        /// <summary>The cue touched the cue ball (local stroke contact or the opponent's shot arriving). Visual cue for characters.</summary>
+        public event Action ShotStruck;
 
         /// <summary>Null while no game is running (main menu).</summary>
         public EightBallState State { get; private set; }
@@ -52,7 +56,7 @@ namespace BilliardGame.Presentation
         /// <summary>Connection or match-end message that overrides the normal status line, or null.</summary>
         public string Banner { get; private set; }
 
-        public bool IsShotInProgress => playback.IsPlaying || awaitingServer;
+        public bool IsShotInProgress => playback.IsPlaying || awaitingServer || stroking;
         public bool IsLocalTurn => State != null && (LocalPlayer < 0 || State.CurrentPlayer == LocalPlayer);
         public bool CanShoot => State != null && !State.IsGameOver && !IsShotInProgress && IsLocalTurn;
 
@@ -94,6 +98,7 @@ namespace BilliardGame.Presentation
 
         public void StopGame()
         {
+            stroking = false;
             playback.Cancel();
             sendShot = null;
             awaitingServer = false;
@@ -142,7 +147,17 @@ namespace BilliardGame.Presentation
             double speed = Mathf.Lerp(minShotSpeed, maxShotSpeed, Mathf.Pow(Mathf.Clamp01(power01), powerCurve));
             Vector2 tip = Vector2.ClampMagnitude(spin, 1f) * (float)(ShotParams.MaxTipOffset * 0.999);
             var shot = new ShotParams(cue.AimDirection, speed, tip.x, tip.y, EightBallSet.CueBall);
-            Shoot(shot, State.BallInHand ? cue.CuePosition : (Vec2?)null);
+            Vec2? placement = State.BallInHand ? cue.CuePosition : (Vec2?)null;
+            if (State.BallInHand && !State.CanPlaceCueBall(placement.Value, table, config)) return;
+
+            // The shot is fixed here; the stroke only decides on which frame physics starts (docs/GDD.md §8.1).
+            stroking = true;
+            StateChanged?.Invoke();
+            cue.PlayStroke(power01, () =>
+            {
+                stroking = false;
+                Shoot(shot, placement);
+            });
         }
 
         /// <summary>Shoots exactly <paramref name="shot"/>; <paramref name="cuePlacement"/> is required when the cue ball is in hand.</summary>
@@ -153,6 +168,7 @@ namespace BilliardGame.Presentation
 
             float power01 = Mathf.Clamp01((float)(shot.Speed / maxShotSpeed));
             cue.End();
+            ShotStruck?.Invoke();
             if (IsOnline)
             {
                 awaitingServer = true;
@@ -195,7 +211,11 @@ namespace BilliardGame.Presentation
         {
             awaitingServer = false;
             cue.End();
-            if (shotByOpponent) tableAudio.PlayCueStrike(0.6f);
+            if (shotByOpponent)
+            {
+                tableAudio.PlayCueStrike(0.6f);
+                ShotStruck?.Invoke();
+            }
             Replay(result, outcome);
         }
 

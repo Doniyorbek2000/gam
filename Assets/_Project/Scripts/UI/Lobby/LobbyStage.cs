@@ -19,6 +19,8 @@ namespace BilliardGame.UI
         [SerializeField] private Camera lobbyCamera;
         [SerializeField] private Transform turntable;
         [SerializeField] private GameObject showcase;
+        [Tooltip("Mannequin shown until a character prefab is set.")]
+        [SerializeField] private GameObject defaultAvatar;
         [SerializeField] private GameObject previewCue;
         [SerializeField] private GameObject previewTable;
         [SerializeField] private SkinTarget previewTarget;
@@ -32,6 +34,8 @@ namespace BilliardGame.UI
         private bool previewing;
         private Vector2 lastPointer;
         private MaterialPropertyBlock seamBlock;
+        private GameObject character;
+        private string characterId;
 
         public Camera Camera => lobbyCamera;
 
@@ -53,6 +57,26 @@ namespace BilliardGame.UI
             previewTable.SetActive(false);
             crate.gameObject.SetActive(false);
             turntable.localRotation = Quaternion.identity;
+        }
+
+        /// <summary>Shows <paramref name="definition"/> on the turntable instead of the mannequin (idle only, no match logic).</summary>
+        public void SetCharacter(CharacterDefinition definition)
+        {
+            if (definition == null || definition.Prefab == null || definition.Id == characterId) return;
+            if (character != null) Destroy(character);
+            characterId = definition.Id;
+            // Inactive parent while instantiating: MatchCharacter/NavMeshAgent never wake up on the lobby stage.
+            var holder = new GameObject("Character " + definition.Id);
+            holder.SetActive(false);
+            holder.transform.SetParent(showcase.transform, false);
+            Transform anchor = defaultAvatar != null ? defaultAvatar.transform : showcase.transform;
+            holder.transform.localPosition = anchor.localPosition;
+            holder.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+            GameObject instance = Instantiate(definition.Prefab, holder.transform, false);
+            foreach (Behaviour behaviour in instance.GetComponents<Behaviour>()) behaviour.enabled = false;
+            if (defaultAvatar != null) defaultAvatar.SetActive(false);
+            holder.SetActive(true);
+            character = holder;
         }
 
         /// <summary>Inventory preview: the item alone on the turntable, slowly spinning.</summary>

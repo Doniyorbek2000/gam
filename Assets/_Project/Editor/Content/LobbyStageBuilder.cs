@@ -44,7 +44,7 @@ namespace BilliardGame.Editor.Content
 
             var showcase = new GameObject("Showcase");
             showcase.transform.SetParent(turntable, false);
-            BuildCharacter(showcase.transform, folder);
+            GameObject mannequin = BuildCharacter(showcase.transform, folder);
             equippedCue = CueSlot("Equipped Cue", showcase.transform, new Vector3(0.48f, 1.48f, 0.05f), Quaternion.LookRotation(Vector3.down, Vector3.forward));
             StickerDecals.AddCueDecal(equippedCue);
 
@@ -69,6 +69,7 @@ namespace BilliardGame.Editor.Content
             SceneWiring.Set(stage, "lobbyCamera", camera);
             SceneWiring.Set(stage, "turntable", turntable);
             SceneWiring.Set(stage, "showcase", showcase);
+            SceneWiring.Set(stage, "defaultAvatar", mannequin);
             SceneWiring.Set(stage, "previewCue", previewCue);
             SceneWiring.Set(stage, "previewTable", mini);
             SceneWiring.Set(stage, "previewTarget", preview);
@@ -91,15 +92,14 @@ namespace BilliardGame.Editor.Content
             SceneWiring.SetArray(target, "builtInTable", builtIn);
         }
 
-        private static void BuildCharacter(Transform parent, string folder)
+        private static GameObject BuildCharacter(Transform parent, string folder)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AvatarPrefab);
             if (prefab == null)
             {
                 // Placeholder until avatar-ual (or avatar-base) is imported.
                 Material skin = GeneratedArt.Lit($"{folder}/placeholder_avatar.mat", new Color(0.6f, 0.62f, 0.68f), 0.4f, 0f);
-                Local(PrimitiveType.Capsule, "Placeholder Avatar", parent, new Vector3(0f, 0.9f, 0f), new Vector3(0.5f, 0.9f, 0.35f), skin);
-                return;
+                return Local(PrimitiveType.Capsule, "Placeholder Avatar", parent, new Vector3(0f, 0.9f, 0f), new Vector3(0.5f, 0.9f, 0.35f), skin);
             }
 
             var character = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
@@ -113,6 +113,7 @@ namespace BilliardGame.Editor.Content
             animator.runtimeAnimatorController = Controller(folder);
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.CullUpdateTransforms;
+            return character;
         }
 
         private static AnimatorController Controller(string folder)

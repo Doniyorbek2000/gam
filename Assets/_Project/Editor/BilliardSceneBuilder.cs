@@ -40,6 +40,7 @@ namespace BilliardGame.Editor
             Transform tableRoot = BuildTable(table);
             var garage = new GameObject("Venue Garage");
             TableDressingBuilder.Build(table, tableRoot, garage.transform);
+            Content.PlayerSeats.BakeNavMesh(garage, -0.8f, Content.GeneratedArt.Folder("Characters") + "/garage_navmesh.asset");
             TableDressingBuilder.BuildLightingAndPostFx(camera);
             BallView[] balls = BuildBalls(table, config);
 
@@ -65,6 +66,9 @@ namespace BilliardGame.Editor
             HudController hud = HudBuilder.Build(controller, cue, services, out GameObject hudRoot);
             var venues = game.AddComponent<VenueLoader>();
             SceneWiring.Set(venues, "garageRoot", garage);
+            var cast = new GameObject("Players").AddComponent<BilliardGame.Avatar.MatchCharacterDirector>();
+            SceneWiring.Set(cast, "game", controller);
+            SceneWiring.Set(cast, "cue", cue);
             UseHdriReflections();
 
             var online = new GameObject("Online");
@@ -72,7 +76,7 @@ namespace BilliardGame.Editor
             var match = online.AddComponent<OnlineMatchController>();
             SceneWiring.Set(match, "client", client);
             SceneWiring.Set(match, "game", controller);
-            LobbyUIBuilder.Build(controller, match, hud, hudRoot, services, venues, stage, room, camera);
+            LobbyUIBuilder.Build(controller, match, hud, hudRoot, services, venues, stage, room, camera, cast);
 
             BallMaterialFactory.EnsureFolder("Assets/_Project/Scenes");
             EditorSceneManager.SaveScene(scene, ScenePath);

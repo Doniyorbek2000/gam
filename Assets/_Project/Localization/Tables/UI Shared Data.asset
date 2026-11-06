@@ -1415,6 +1415,30 @@ MonoBehaviour:
     m_Key: mode.eight_ball
     m_Metadata:
       m_Items: []
+  - m_Id: 305666326609920
+    m_Key: lobby.character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462464
+    m_Key: character.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462465
+    m_Key: character.select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462466
+    m_Key: character.selected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462467
+    m_Key: character.outfits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462468
+    m_Key: character.saved
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

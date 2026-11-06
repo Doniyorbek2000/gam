@@ -1427,6 +1427,30 @@ MonoBehaviour:
     m_Localized: 8-ball
     m_Metadata:
       m_Items: []
+  - m_Id: 305666326609920
+    m_Localized: Character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462464
+    m_Localized: Character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462465
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462466
+    m_Localized: Selected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462467
+    m_Localized: Outfits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462468
+    m_Localized: '{0} selected'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

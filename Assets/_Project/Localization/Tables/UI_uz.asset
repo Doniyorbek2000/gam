@@ -1431,6 +1431,30 @@ MonoBehaviour:
     m_Localized: 8-shar
     m_Metadata:
       m_Items: []
+  - m_Id: 305666326609920
+    m_Localized: Personaj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462464
+    m_Localized: Personaj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462465
+    m_Localized: Tanlash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462466
+    m_Localized: Tanlangan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462467
+    m_Localized: Kiyimlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 305666582462468
+    m_Localized: '{0} tanlandi'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

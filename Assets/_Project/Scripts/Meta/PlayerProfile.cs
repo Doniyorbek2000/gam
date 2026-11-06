@@ -12,6 +12,8 @@ namespace BilliardGame.Meta
         public string nickname;
         public string countryCode = "UZ";
         public string clubName;
+        /// <summary>Selected 3D character (docs/GDD.md §8); empty = the first one in the character list.</summary>
+        public string characterId;
         public int xp;
         public int rankPoints;
         public ProfileStats stats = new ProfileStats();

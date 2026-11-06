@@ -67,6 +67,13 @@ namespace BilliardGame.UI
             upgradeButton.onClick.AddListener(() => Dialogs.Instance.Toast(Loc.Get("common.soon_toast")));
         }
 
+        /// <summary>Opens the inventory on one category (Character screen ▸ Outfits).</summary>
+        public void OpenAt(ItemType type)
+        {
+            categories.Select(System.Array.IndexOf(Categories, type), false);
+            ScreenRouter.Instance.Open(this);
+        }
+
         /// <summary>Owned items the player has not opened in the inventory yet (lobby badge).</summary>
         public static int NewCount(GameServices services)
         {

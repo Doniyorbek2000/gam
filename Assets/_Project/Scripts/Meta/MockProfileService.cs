@@ -63,6 +63,12 @@ namespace BilliardGame.Meta
             Commit();
         }
 
+        public void SetCharacter(string characterId)
+        {
+            State.characterId = characterId;
+            Commit();
+        }
+
         public void SetShowcase(params string[] achievementIds)
         {
             State.showcase.Clear();

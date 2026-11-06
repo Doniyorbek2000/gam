@@ -1,0 +1,17 @@
+{
+    "name": "BilliardGame.Avatar.Rules",
+    "rootNamespace": "BilliardGame.Avatar.Rules",
+    "references": [
+        "BilliardGame.Physics",
+        "BilliardGame.Gameplay"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

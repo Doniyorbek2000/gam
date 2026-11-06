@@ -146,6 +146,7 @@ namespace BilliardGame.Editor.Art
             importer.materialImportMode = isAvatar || hasSidecar ? ModelImporterMaterialImportMode.ImportViaMaterialDescription : ModelImporterMaterialImportMode.None;
             importer.generateMeshLods = false;
             importer.SaveAndReimport();
+            if (isAvatar && FixHips(importer)) report.Line("Humanoid: Hips remapped root → pelvis / duplicate skeleton names dropped");
             if (isAvatar && importer.defaultClipAnimations.Length > 0)
             {
                 // Clips named *_Loop (Quaternius/Mixamo convention) loop; one-shots don't.
@@ -223,6 +224,39 @@ namespace BilliardGame.Editor.Art
         }
 
         // Node transforms often carry the unit scale (cm FBX), so measure renderers, not raw mesh bounds.
+        /// <summary>
+        /// UE-mannequin-style rigs (Quaternius) put a 'root' bone at the feet above 'pelvis'; the auto-mapper takes it
+        /// as Hips, which breaks every body pose. Remaps Hips to pelvis; true when it changed.
+        /// Also drops skeleton entries that repeat a bone name: Quaternius ships a face mesh node called 'Head', and the
+        /// avatar then takes that mesh's pose as the head bone's T-pose (head thrown back in every clip).
+        /// </summary>
+        internal static bool FixHips(ModelImporter importer)
+        {
+            HumanDescription description = importer.humanDescription;
+            bool changed = false;
+            HumanBone[] human = description.human;
+            int hips = Array.FindIndex(human, h => h.humanName == "Hips");
+            if (hips >= 0 && human[hips].boneName == "root" && description.skeleton.Any(b => b.name == "pelvis"))
+            {
+                human[hips].boneName = "pelvis";
+                description.human = human;
+                changed = true;
+            }
+
+            var seen = new HashSet<string>();
+            SkeletonBone[] unique = description.skeleton.Where(b => seen.Add(b.name)).ToArray();
+            if (unique.Length != description.skeleton.Length)
+            {
+                description.skeleton = unique;
+                changed = true;
+            }
+
+            if (!changed) return false;
+            importer.humanDescription = description;
+            importer.SaveAndReimport();
+            return true;
+        }
+
         private static Bounds WorldBounds(string modelPath)
         {
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(modelPath));
@@ -347,7 +381,8 @@ namespace BilliardGame.Editor.Art
 
                 Texture2D baseMap = Map(m.@base, TextureImporterFormat.ASTC_6x6, true, false);
                 material.SetTexture("_BaseMap", baseMap);
-                material.SetColor("_BaseColor", baseMap != null || m.color == null || m.color.Length < 4 ? Color.white : new Color(m.color[0], m.color[1], m.color[2], m.color[3]));
+                // glTF: the factor multiplies the texture (character garments/hair are neutral maps tinted this way).
+                material.SetColor("_BaseColor", m.color == null || m.color.Length < 4 ? Color.white : new Color(m.color[0], m.color[1], m.color[2], m.color[3]));
 
                 Texture2D normalMap = Map(m.normal, TextureImporterFormat.ASTC_5x5, false, true);
                 material.SetTexture("_BumpMap", normalMap);

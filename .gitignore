@@ -76,3 +76,4 @@ Thumbs.db
 
 # UI generator tools
 Tools/UI/node_modules/
+Tools/Art/__pycache__/

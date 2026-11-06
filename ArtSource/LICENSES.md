@@ -289,3 +289,55 @@ Allowed licenses: CC0, CC-BY-4.0, Sketchfab-Standard, CGTrader-RF, OFL; for UI i
 - attribution: Icons by Skoll (game-icons.net), CC BY 3.0, recoloured
 - downloaded: 2026-11-05
 - used_in: Assets/_Project/UI/Icons/ (source SVGs: ArtSource/Icons/)
+
+## char-timur
+- name: Timur (player character)
+- type: avatar
+- source_url: https://quaternius.itch.io/universal-base-characters
+- author: Quaternius
+- author_url: https://quaternius.com
+- license: CC0
+- license_url: https://creativecommons.org/publicdomain/zero/1.0/
+- modified: yes
+- attribution: "Timur" built from "Universal Base Characters" and "Modular Character Outfits - Fantasy" by Quaternius, CC0 1.0, assembled and recoloured (Tools/Art/build_characters.py)
+- downloaded: 2026-11-06
+- used_in: Assets/_Project/Art/Avatars/char-timur/
+
+## char-aziz
+- name: Aziz (player character)
+- type: avatar
+- source_url: https://quaternius.itch.io/universal-base-characters
+- author: Quaternius
+- author_url: https://quaternius.com
+- license: CC0
+- license_url: https://creativecommons.org/publicdomain/zero/1.0/
+- modified: yes
+- attribution: "Aziz" built from "Universal Base Characters" and "Modular Character Outfits - Fantasy" by Quaternius, CC0 1.0, assembled and recoloured (Tools/Art/build_characters.py)
+- downloaded: 2026-11-06
+- used_in: Assets/_Project/Art/Avatars/char-aziz/
+
+## char-malika
+- name: Malika (player character)
+- type: avatar
+- source_url: https://quaternius.itch.io/universal-base-characters
+- author: Quaternius
+- author_url: https://quaternius.com
+- license: CC0
+- license_url: https://creativecommons.org/publicdomain/zero/1.0/
+- modified: yes
+- attribution: "Malika" built from "Universal Base Characters" and "Modular Character Outfits - Fantasy" by Quaternius, CC0 1.0, assembled and recoloured (Tools/Art/build_characters.py)
+- downloaded: 2026-11-06
+- used_in: Assets/_Project/Art/Avatars/char-malika/
+
+## char-dilnoza
+- name: Dilnoza (player character)
+- type: avatar
+- source_url: https://quaternius.itch.io/universal-base-characters
+- author: Quaternius
+- author_url: https://quaternius.com
+- license: CC0
+- license_url: https://creativecommons.org/publicdomain/zero/1.0/
+- modified: yes
+- attribution: "Dilnoza" built from "Universal Base Characters" and "Modular Character Outfits - Fantasy" by Quaternius, CC0 1.0, assembled and recoloured (Tools/Art/build_characters.py)
+- downloaded: 2026-11-06
+- used_in: Assets/_Project/Art/Avatars/char-dilnoza/

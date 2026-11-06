@@ -349,3 +349,9 @@ crate.classic|Klassik|Классический|Classic
 crate.premium|Premium|Премиум|Premium
 crates.price_one|1×|1×|1×
 crates.price_ten|10×|10×|10×
+lobby.character|Personaj|Персонаж|Character
+character.title|Personaj|Персонаж|Character
+character.select|Tanlash|Выбрать|Select
+character.selected|Tanlangan|Выбран|Selected
+character.outfits|Kiyimlar|Одежда|Outfits
+character.saved|{0} tanlandi|Выбран персонаж {0}|{0} selected

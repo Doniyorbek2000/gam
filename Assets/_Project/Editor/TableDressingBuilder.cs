@@ -29,7 +29,19 @@ namespace BilliardGame.Editor
 
             BilliardSceneBuilder.Box("Body", root, new Vector3(0f, -0.15f, 0f), Quaternion.identity,
                 new Vector3(2f * (hl + frame), 0.22f, 2f * (hw + frame)), wood);
+            // Legs body → floor (the table used to float); named Rail* so table skins tint them with the rails.
+            const float floorY = -0.8f, bodyBottom = -0.26f, leg = 0.16f;
+            for (int sx = -1; sx <= 1; sx += 2)
+            {
+                for (int sz = -1; sz <= 1; sz += 2)
+                {
+                    var legPos = new Vector3(sx * (hl + frame - 0.16f), (floorY + bodyBottom) * 0.5f, sz * (hw + frame - 0.14f));
+                    BilliardSceneBuilder.Box($"Rail Leg {sx},{sz}", root, legPos, Quaternion.identity, new Vector3(leg, bodyBottom - floorY, leg), wood);
+                }
+            }
+
             BilliardSceneBuilder.Box("Floor", garage, new Vector3(0f, -0.8f, 0f), Quaternion.identity, new Vector3(12f, 0.02f, 8f), floor);
+            Content.PlayerSeats.Build(garage, -0.8f, new[] { (new Vector3(-2.6f, 0f, 1.5f), 120f), (new Vector3(2.6f, 0f, 1.5f), -120f) }, buildChairs: true);
 
             // Chrome castings around the pocket openings.
             const float plateHeight = 0.006f;

@@ -17,6 +17,8 @@ namespace BilliardGame.Editor.Content
         public const string ScenePath = "Assets/_Project/Scenes/" + ContentBuilder.SilkRoadScene + ".unity";
 
         private const float FloorY = -0.8f;
+        public const float Floor = FloorY;
+        public const string NavMeshPath = GeneratedArt.Root + "/Venues/silk-road-lounge/navmesh.asset";
         private const float HalfX = 5.5f, HalfZ = 4.5f, Height = 4.6f;
         private const float DadoHeight = 1.3f, BandHeight = 0.22f;
 
@@ -54,6 +56,9 @@ namespace BilliardGame.Editor.Content
                     StaticEditorFlags.ContributeGI | StaticEditorFlags.ReflectionProbeStatic | StaticEditorFlags.BatchingStatic | StaticEditorFlags.OccluderStatic | StaticEditorFlags.OccludeeStatic);
             }
 
+            // Seats come after the static flags: the tea glass moves (characters drink from it).
+            BuildSeats(root);
+            PlayerSeats.BakeNavMesh(root.gameObject, FloorY, NavMeshPath);
             ConfigureLightingSettings(folder);
             EditorSceneManager.SaveScene(scene, ScenePath);
             AddToBuild();
@@ -281,6 +286,10 @@ namespace BilliardGame.Editor.Content
                 instance.transform.SetLocalPositionAndRotation(new Vector3(-0.5f + i * 0.2f, 1.82f, -0.07f), Quaternion.Euler(90f, 0f, 0f));
             }
         }
+
+        /// <summary>Player seats on the two armchairs beside the table (docs/GDD.md §8.1).</summary>
+        public static void BuildSeats(Transform root) => PlayerSeats.Build(root, FloorY,
+            new[] { (new Vector3(-2.75f, 0f, 1.35f), 145f), (new Vector3(2.75f, 0f, 1.35f), -145f) }, buildChairs: false);
 
         private static void BuildProps(Transform root)
         {

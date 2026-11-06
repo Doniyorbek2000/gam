@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using BilliardGame.Avatar;
 using BilliardGame.Content;
 using BilliardGame.Meta;
 using BilliardGame.Online;
@@ -37,6 +38,7 @@ namespace BilliardGame.UI
         [SerializeField] private GameController game;
         [SerializeField] private HudController hud;
         [SerializeField] private VenueLoader venues;
+        [SerializeField] private MatchCharacterDirector cast;
         [SerializeField] private LobbyStage stage;
         [SerializeField] private Camera matchCamera;
 
@@ -48,6 +50,7 @@ namespace BilliardGame.UI
         [SerializeField] private MyRoomScreen room;
         [SerializeField] private SettingsScreen settings;
         [SerializeField] private CrateScreen crates;
+        [SerializeField] private CharacterScreen characterScreen;
 
         [Header("Profile card")]
         [SerializeField] private Button profileButton;
@@ -74,6 +77,7 @@ namespace BilliardGame.UI
         [SerializeField] private Button inventoryButton;
         [SerializeField] private BadgeView inventoryBadge;
         [SerializeField] private Button roomButton;
+        [SerializeField] private Button characterButton;
         [SerializeField] private Button clubButton;
         [SerializeField] private Button chatButton;
 
@@ -124,6 +128,7 @@ namespace BilliardGame.UI
             Bind(cratesButton, () => Open(crates));
             Bind(inventoryButton, () => Open(inventory));
             Bind(roomButton, () => Open(room));
+            Bind(characterButton, () => Open(characterScreen));
             Bind(modeCard, () => Open(modeSelect));
             Bind(playButton, Play);
             foreach (Button soon in new[] { mailButton, friendsButton, passButton, missionsButton, eventsButton, dailyButton, clubButton, chatButton }) Bind(soon, ComingSoon);
@@ -137,7 +142,7 @@ namespace BilliardGame.UI
             menu.MenuShown -= OnMenuShown;
             online.MatchStarted -= OnOnlineMatchStarted;
             hud.AgainRequested -= PlayAgain;
-            foreach (Button b in new[] { profileButton, coins.Plus, gems.Plus, settingsButton, shopButton, cratesButton, inventoryButton, roomButton, modeCard, playButton,
+            foreach (Button b in new[] { profileButton, coins.Plus, gems.Plus, settingsButton, shopButton, cratesButton, inventoryButton, roomButton, characterButton, modeCard, playButton,
                          mailButton, friendsButton, passButton, missionsButton, eventsButton, dailyButton, clubButton, chatButton })
             {
                 b.onClick.RemoveAllListeners();
@@ -148,6 +153,7 @@ namespace BilliardGame.UI
         {
             coins.Set(services.Economy.Coins, false);
             gems.Set(services.Economy.Gems, false);
+            stage.SetCharacter(CharacterScreen.Saved(services));
             RefreshAll();
         }
 
@@ -217,10 +223,16 @@ namespace BilliardGame.UI
             hud.SetMatchContext(venue);
             await venues.LoadAsync(venue);
             SetLobbyView(false);
+            // Own character in this device's seat; the opponent gets a different one (M2 sends the real choice).
+            CharacterDefinition own = CharacterScreen.Saved(services);
+            CharacterDefinition other = services.Catalog.OtherCharacter(own != null ? own.Id : null);
+            if (game.IsOnline && game.LocalPlayer == 1) cast.Begin(other, own);
+            else cast.Begin(own, other);
         }
 
         private async void OnMenuShown()
         {
+            cast.End();
             SetLobbyView(true);
             stage.ShowCharacter();
             RefreshAll();

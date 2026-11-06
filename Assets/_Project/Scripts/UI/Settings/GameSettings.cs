@@ -1,4 +1,5 @@
 using System;
+using BilliardGame.Avatar;
 using BilliardGame.Presentation;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -48,6 +49,9 @@ namespace BilliardGame.UI
 
         public static event Action Changed;
 
+        /// <summary>Effective tier after Auto and battery saver: 0 Low, 1 Medium, 2 High.</summary>
+        public static int QualityLevel { get; private set; } = (int)GraphicsQuality.High;
+
         public static GameSettingsData Data => data ?? (data = Load());
 
         /// <summary>Frame rates the screen can show; 90/120 only on high-refresh panels.</summary>
@@ -67,11 +71,14 @@ namespace BilliardGame.UI
             GameSettingsData s = Data;
             int level = s.quality == GraphicsQuality.Auto ? AutoQuality() : (int)s.quality;
             if (s.batterySaver) level = 0;
+            QualityLevel = level;
             ApplyQuality(level);
             Application.targetFrameRate = s.batterySaver ? BatteryFps : Mathf.Min(s.fps, MaxFps);
             QualitySettings.vSyncCount = 0;
             AudioListener.volume = s.master;
             TableAudio.EffectsVolume = s.effects;
+            HallLife.AmbienceVolume = s.effects;
+            HallLife.MusicVolume = s.music;
             UIFeedback.Volume = s.effects;
             UIFeedback.Vibration = s.vibration;
             foreach (Camera camera in Camera.allCameras) ApplyCamera(camera);

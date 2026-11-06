@@ -69,6 +69,112 @@ namespace BilliardGame.Editor
             return Save("CueStrike", s);
         }
 
+        /// <summary>Hall background (M1.6.3): room tone, a murmur of far voices and the odd cup clink; seamless 12 s loop.</summary>
+        public static AudioClip HallAmbience()
+        {
+            const float seconds = 12f, fade = 1.5f;
+            float[] s = Buffer(seconds + fade);
+            var random = new System.Random(1606);
+            AddBrownNoise(s, 0.5f, random);
+            for (int voice = 0; voice < 7; voice++) AddMurmur(s, 0.35f, random);
+            for (int i = 0; i < 5; i++)
+            {
+                float at = (float)random.NextDouble() * seconds;
+                AddPartial(s, 2600f + (float)random.NextDouble() * 900f, 0.06f, 0.05f, 0.0005f, at);
+                AddPartial(s, 4100f + (float)random.NextDouble() * 700f, 0.04f, 0.03f, 0.0005f, at);
+            }
+
+            return Save("HallAmbience", Loop(s, fade), AudioClipLoadType.CompressedInMemory);
+        }
+
+        /// <summary>Low lounge pad (M1.6.3): four soft chords, 4 s each, seamless 16 s loop. Original, no licence.</summary>
+        public static AudioClip HallMusic()
+        {
+            const float chord = 4f, fade = 1.2f;
+            float[][] chords =
+            {
+                new[] { 110f, 220f, 261.63f, 329.63f },   // Am
+                new[] { 87.31f, 174.61f, 220f, 261.63f }, // F
+                new[] { 130.81f, 196f, 261.63f, 329.63f }, // C
+                new[] { 98f, 196f, 246.94f, 293.66f },    // G
+            };
+            float[] s = Buffer(chord * chords.Length + fade);
+            for (int c = 0; c <= chords.Length; c++)
+            {
+                float[] notes = chords[c % chords.Length];
+                for (int n = 0; n < notes.Length; n++) AddPad(s, notes[n], c * chord, chord + 0.8f, n == 0 ? 0.5f : 0.22f);
+            }
+
+            return Save("HallMusic", Loop(s, fade), AudioClipLoadType.CompressedInMemory);
+        }
+
+        private static void AddBrownNoise(float[] samples, float amplitude, System.Random random)
+        {
+            float brown = 0f, low = 0f;
+            for (int i = 0; i < samples.Length; i++)
+            {
+                brown = brown * 0.998f + ((float)random.NextDouble() * 2f - 1f) * 0.04f;
+                low += (brown - low) * 0.05f;
+                samples[i] += low * amplitude;
+            }
+        }
+
+        // One far voice: band-passed noise gated by syllables (3-5 Hz) inside phrases that come and go.
+        private static void AddMurmur(float[] samples, float amplitude, System.Random random)
+        {
+            float centre = 250f + (float)random.NextDouble() * 500f;
+            float w = 2f * Mathf.PI * centre / SampleRate, r = 0.985f;
+            float a1 = 2f * r * Mathf.Cos(w), a2 = r * r, y1 = 0f, y2 = 0f;
+            float rate = 3f + (float)random.NextDouble() * 2f, phase = (float)random.NextDouble() * 6.283f;
+            float gate = 0f, gateTarget = 0f, nextPhrase = 0f;
+            for (int i = 0; i < samples.Length; i++)
+            {
+                float t = (float)i / SampleRate;
+                if (t >= nextPhrase)
+                {
+                    gateTarget = random.NextDouble() < 0.6 ? 1f : 0f;
+                    nextPhrase = t + 1f + (float)random.NextDouble() * 2.5f;
+                }
+
+                gate += (gateTarget - gate) * 0.0004f;
+                float x = (float)random.NextDouble() * 2f - 1f;
+                float y = (1f - r) * x + a1 * y1 - a2 * y2;
+                y2 = y1;
+                y1 = y;
+                float syllable = Mathf.Sin(2f * Mathf.PI * rate * t + phase + Mathf.Sin(t * 1.7f + phase));
+                samples[i] += y * amplitude * gate * syllable * syllable * 40f;
+            }
+        }
+
+        // Soft pad note: sine plus a quiet octave, raised-cosine swell so chords overlap without clicks.
+        private static void AddPad(float[] samples, float frequency, float start, float length, float amplitude)
+        {
+            int from = Mathf.RoundToInt(start * SampleRate), count = Mathf.RoundToInt(length * SampleRate);
+            for (int i = 0; i < count && from + i < samples.Length; i++)
+            {
+                float t = (float)i / SampleRate;
+                float envelope = 0.5f - 0.5f * Mathf.Cos(2f * Mathf.PI * i / count);
+                float wobble = 1f + 0.002f * Mathf.Sin(2f * Mathf.PI * 0.3f * t);
+                float phase = 2f * Mathf.PI * frequency * wobble * t;
+                samples[from + i] += amplitude * envelope * (Mathf.Sin(phase) + 0.2f * Mathf.Sin(2f * phase));
+            }
+        }
+
+        /// <summary>Cross-fades the tail (last <paramref name="fade"/> s) into the head so the clip loops seamlessly.</summary>
+        private static float[] Loop(float[] samples, float fade)
+        {
+            int f = Mathf.RoundToInt(fade * SampleRate), length = samples.Length - f;
+            var loop = new float[length];
+            Array.Copy(samples, loop, length);
+            for (int i = 0; i < f; i++)
+            {
+                float k = (float)i / f;
+                loop[i] = samples[i] * k + samples[length + i] * (1f - k);
+            }
+
+            return loop;
+        }
+
         private static float[] Buffer(float seconds) => new float[Mathf.CeilToInt(seconds * SampleRate)];
 
         /// <summary>Exponentially decaying sine (one vibration mode) with a short linear attack against clicks.</summary>
@@ -99,7 +205,7 @@ namespace BilliardGame.Editor
             }
         }
 
-        private static AudioClip Save(string name, float[] samples)
+        private static AudioClip Save(string name, float[] samples, AudioClipLoadType loadType = AudioClipLoadType.DecompressOnLoad)
         {
             float peak = 0f;
             foreach (float v in samples) peak = Mathf.Max(peak, Mathf.Abs(v));
@@ -118,7 +224,7 @@ namespace BilliardGame.Editor
             var importer = (AudioImporter)AssetImporter.GetAtPath(path);
             importer.forceToMono = true;
             AudioImporterSampleSettings settings = importer.defaultSampleSettings;
-            settings.loadType = AudioClipLoadType.DecompressOnLoad;   // tiny clips: no decode latency on hit
+            settings.loadType = loadType;   // tiny hit clips decompress (no decode latency); long loops stay compressed
             importer.defaultSampleSettings = settings;
             importer.SaveAndReimport();
             return AssetDatabase.LoadAssetAtPath<AudioClip>(path) ?? throw new InvalidOperationException("Audio import failed: " + path);

@@ -39,6 +39,7 @@ namespace BilliardGame.UI
         [SerializeField] private HudController hud;
         [SerializeField] private VenueLoader venues;
         [SerializeField] private MatchCharacterDirector cast;
+        [SerializeField] private HallLife hallLife;
         [SerializeField] private LobbyStage stage;
         [SerializeField] private Camera matchCamera;
 
@@ -228,11 +229,13 @@ namespace BilliardGame.UI
             CharacterDefinition other = services.Catalog.OtherCharacter(own != null ? own.Id : null);
             if (game.IsOnline && game.LocalPlayer == 1) cast.Begin(other, own);
             else cast.Begin(own, other);
+            if (hallLife != null) hallLife.Begin(services.Catalog.Characters, GameSettings.QualityLevel);
         }
 
         private async void OnMenuShown()
         {
             cast.End();
+            if (hallLife != null) hallLife.End();
             SetLobbyView(true);
             stage.ShowCharacter();
             RefreshAll();

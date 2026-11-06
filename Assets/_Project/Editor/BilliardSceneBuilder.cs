@@ -71,6 +71,7 @@ namespace BilliardGame.Editor
             SceneWiring.Set(occlusion, "cue", cue);
             SceneWiring.Set(occlusion, "view", camera);
             SceneWiring.Set(occlusion, "ditherShader", AssetDatabase.LoadAssetAtPath<Shader>("Assets/_Project/Art/Shaders/DitheredCharacter.shader"));
+            BilliardGame.Avatar.HallLife hall = BuildHallLife(cue, playback);
             BilliardGame.Cameras.MatchCameraRig rig = BuildCameraRig(camera, controller, cue, playback);
             HudController hud = HudBuilder.Build(controller, cue, services, rig, out GameObject hudRoot);
             var venues = game.AddComponent<VenueLoader>();
@@ -83,6 +84,7 @@ namespace BilliardGame.Editor
             SceneWiring.Set(match, "client", client);
             SceneWiring.Set(match, "game", controller);
             LobbyUIBuilder.Build(controller, match, hud, hudRoot, services, venues, stage, room, camera, cast);
+            SceneWiring.Set(Object.FindAnyObjectByType<LobbyController>(), "hallLife", hall);
 
             BallMaterialFactory.EnsureFolder("Assets/_Project/Scenes");
             EditorSceneManager.SaveScene(scene, ScenePath);
@@ -148,6 +150,29 @@ namespace BilliardGame.Editor
         /// Cinemachine brain on the match camera plus the three mode cameras (M1.6.2); the classic one keeps the old
         /// fixed top view, so Classic mode looks exactly as before.
         /// </summary>
+        /// <summary>Background NPCs and the hall's ambience + music loops (M1.6.3); 2D sources, the listener never moves far.</summary>
+        private static BilliardGame.Avatar.HallLife BuildHallLife(CueController cue, TablePlayback playback)
+        {
+            var hall = new GameObject("Hall Life").AddComponent<BilliardGame.Avatar.HallLife>();
+            AudioSource ambience = HallSource(hall.gameObject, ProceduralAudio.HallAmbience());
+            AudioSource music = HallSource(hall.gameObject, ProceduralAudio.HallMusic());
+            SceneWiring.Set(hall, "cue", cue);
+            SceneWiring.Set(hall, "playback", playback);
+            SceneWiring.Set(hall, "ambience", ambience);
+            SceneWiring.Set(hall, "music", music);
+            return hall;
+        }
+
+        private static AudioSource HallSource(GameObject host, AudioClip clip)
+        {
+            var source = host.AddComponent<AudioSource>();
+            source.clip = clip;
+            source.loop = true;
+            source.playOnAwake = false;
+            source.spatialBlend = 0f;
+            return source;
+        }
+
         private static BilliardGame.Cameras.MatchCameraRig BuildCameraRig(Camera camera, GameController game, CueController cue, TablePlayback playback)
         {
             var brain = camera.gameObject.AddComponent<Unity.Cinemachine.CinemachineBrain>();

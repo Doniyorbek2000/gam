@@ -42,6 +42,7 @@ namespace BilliardGame.Editor
 
             BilliardSceneBuilder.Box("Floor", garage, new Vector3(0f, -0.8f, 0f), Quaternion.identity, new Vector3(12f, 0.02f, 8f), floor);
             Content.PlayerSeats.Build(garage, -0.8f, new[] { (new Vector3(-2.6f, 0f, 1.5f), 120f), (new Vector3(2.6f, 0f, 1.5f), -120f) }, buildChairs: true);
+            Content.HallNpcs.BuildGarage(garage, -0.8f);
 
             // Chrome castings around the pocket openings.
             const float plateHeight = 0.006f;
@@ -75,6 +76,33 @@ namespace BilliardGame.Editor
                 BilliardSceneBuilder.Primitive(PrimitiveType.Cylinder, "Diamond", root, new Vector3(hl + railMid, top + 0.0008f, z), Quaternion.identity, diamond, pearl);
                 BilliardSceneBuilder.Primitive(PrimitiveType.Cylinder, "Diamond", root, new Vector3(-hl - railMid, top + 0.0008f, z), Quaternion.identity, diamond, pearl);
             }
+
+            MergeDiamonds(root, pearl);
+            // Millimetre-thin inlays and the cloth (the body below shades the floor) cast no visible shadow: drop ~25 shadow draws.
+            foreach (Renderer r in root.GetComponentsInChildren<Renderer>())
+            {
+                string n = r.name;
+                if (n == "Cloth" || n == "Diamonds" || n == "Foot Spot" || n == "Head String" || n.Contains("Casting")) r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            }
+        }
+
+        /// <summary>The 18 sights as one mesh: one draw instead of eighteen.</summary>
+        private static void MergeDiamonds(Transform root, Material pearl)
+        {
+            var parts = new System.Collections.Generic.List<CombineInstance>();
+            foreach (MeshFilter f in root.GetComponentsInChildren<MeshFilter>())
+            {
+                if (f.name != "Diamond") continue;
+                parts.Add(new CombineInstance { mesh = f.sharedMesh, transform = root.worldToLocalMatrix * f.transform.localToWorldMatrix });
+                Object.DestroyImmediate(f.gameObject);
+            }
+
+            var mesh = new Mesh { name = "Diamonds" };
+            mesh.CombineMeshes(parts.ToArray(), true, true);
+            var merged = new GameObject("Diamonds");
+            merged.transform.SetParent(root, false);
+            merged.AddComponent<MeshFilter>().sharedMesh = mesh;
+            merged.AddComponent<MeshRenderer>().sharedMaterial = pearl;
         }
 
         public static void BuildLightingAndPostFx(Camera camera)

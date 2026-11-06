@@ -144,7 +144,7 @@ namespace BilliardGame.Editor.Art
             importer.animationType = isAvatar ? ModelImporterAnimationType.Human : ModelImporterAnimationType.None;
             importer.generateSecondaryUV = type == "prop" || type == "venue" || type == "table";
             importer.materialImportMode = isAvatar || hasSidecar ? ModelImporterMaterialImportMode.ImportViaMaterialDescription : ModelImporterMaterialImportMode.None;
-            importer.generateMeshLods = false;
+            importer.generateMeshLods = isAvatar;   // NPCs force a low LOD; players drop LODs with distance
             importer.SaveAndReimport();
             if (isAvatar && FixHips(importer)) report.Line("Humanoid: Hips remapped root → pelvis / duplicate skeleton names dropped");
             if (isAvatar && importer.defaultClipAnimations.Length > 0)

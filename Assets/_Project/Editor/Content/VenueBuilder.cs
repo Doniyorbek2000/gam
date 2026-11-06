@@ -58,6 +58,7 @@ namespace BilliardGame.Editor.Content
 
             // Seats come after the static flags: the tea glass moves (characters drink from it).
             BuildSeats(root);
+            HallNpcs.BuildSilkRoad(root, FloorY);
             PlayerSeats.BakeNavMesh(root.gameObject, FloorY, NavMeshPath);
             ConfigureLightingSettings(folder);
             EditorSceneManager.SaveScene(scene, ScenePath);

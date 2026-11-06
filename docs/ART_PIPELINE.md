@@ -31,6 +31,9 @@ Foydalanuvchi yuklaydi (Sketchfab / CGTrader / Poly Haven / ambientCG ...)
 | SIL OFL (shriftlar) | ✅ | Shrift faylini alohida sotmaslik |
 | CC BY 3.0 (faqat UI ikonkalar, game-icons.net) | ✅ | Muallif nomi Credits'da |
 | Apache 2.0 (faqat UI ikonkalar, Material Symbols) | ✅ | Litsenziya havolasi Credits'da |
+| **Mixamo** (faqat animatsiya va personajlar, v2.0) | ✅ | Faqat **mixamo.com dan loyiha egasining Adobe akkaunti bilan to'g'ridan-to'g'ri** yuklangan FBX (Adobe General Terms: o'yin ichida royalty-free; xom fayl qayta tarqatilmaydi — `ArtSource/Incoming/` git'da emas). `source.txt` da `source_url: mixamo.com`, klip nomi, yuklash sanasi. |
+| Mixamo kontentining **Sketchfab/boshqa saytdagi qayta yuklamalari** | ❌ | Yuklovchi Mixamo kontentiga CC-BY bera olmaydi (belgilari: `mixamorig*` suyaklari, `Ch01…Ch45`/`kachujin` teksturalari, `mixamo.com` animatsiya nomi) |
+| O'yinlardan olingan modellar (rip) | ❌ | Litsenziya qanday yozilgan bo'lmasin (masalan "<o'yin nomi>" sarlavhali personajlar) |
 | **CC-BY-NC** (har qanday NC) | ❌ | Tijoriy foydalanish taqiqlangan |
 | **Editorial** | ❌ | Faqat tahririy/yangilik maqsadida |
 | **CC-BY-ND** | ❌ | O'zgartirish taqiqlangan — biz har doim optimallashtiramiz (decimate, re-texture) |
@@ -115,7 +118,7 @@ Menyu: `BilliardGame ▸ Art ▸ Import Incoming` (+ `Validate All Art`, `Genera
 | Material | URP Lit, map'larni nom bo'yicha ulash (`_BaseColor/_albedo/_diffuse`, `_Normal`, `_Metallic`, `_Roughness` → smoothness = 1 − roughness, Mask map yig'ish) | Ogohlantirish |
 | Prefab | `<slug>.prefab` (LODGroup, collider yo'q — fizika o'zimizniki) | — |
 | SkinDefinition | `ScriptableObject`: id, type, rarity, displayName (lokalizatsiya kaliti), prefab (AssetReference), preview icon, unlock manbai | — |
-| Addressables | Guruh: `Remote_Cues`, `Remote_Tables`, `Remote_Venues`, `Remote_Avatars`; label = rarity. **M3 ga qoldirildi** — M1 da skinlar oddiy asset havolasi, venue sahnasi build'da | — |
+| Addressables | Guruh: `Remote_Cues`, `Remote_Tables`, `Remote_Venues`, `Remote_Avatars`; label = rarity. **M4 ga qoldirildi** (admin orqali yangi skin oqimi) — M1 da skinlar oddiy asset havolasi, venue sahnasi build'da | — |
 | Hisobot | `ArtSource/Reports/<slug>.md` | — |
 
 Ikonka/preview: Icon Studio (preview scene, HDRI reflection) orqali 256×256 shaffof sprite (M1 da kiy va stol uchun).
@@ -147,5 +150,13 @@ Format: **FBX** (afzal) yoki **GLB**. Teksturalar PBR (BaseColor, Normal, Roughn
 **Sketchfab partiyasi (2026-11-05, [hisobot](../ArtSource/Reports/incoming-2026-11-05.md)).** Qabul: #1 `table-classic` (fizyman "Pool Table Traditional", CC BY) va #2 `table-modern` (Pieter Ferreira "Pool Table", CC BY) — `table_classic`/`table_modern` skinlari endi model (procedural stol yashiriladi). Rad: snooker_table (CC BY-NC), cue_stick_lp (CC BY-SA), billiard_bar (Evermotion Archmodels qismlari qayta litsenziyalangan + 2.3M tri), Mixamo personajlarining qayta yuklamalari (happy_idle, doctorsurgeon), jeff_johansen_idle (Dead by Daylight personaji), mint_swimsuit (uslub/reyting). Hali yo'q: #3–#6 (kiylar, Silk Road Lounge interyeri), #7, #8, #10 (avatar).
 
 **glTF manbalar.** Sketchfab zip'lari glTF beradi; import tool FBX/OBJ o'qiydi. Konvertatsiya: `Tools/Blender/convert_table.py` (Blender 4.2 headless) — shar/kiy/lampa olib tashlanadi, mato tekisligi va cushion burunlari ray-cast bilan o'lchanib o'yin maydoni 2.54 × 1.27 m ga moslanadi (mato y = 0, pol y = −0.8), teksturalar ≤ 2K, URP mask (R metal, G AO, A smoothness) yig'iladi, `materials.json` yoziladi. Import tool `materials.json` ni ko'rsa har bir FBX materiali uchun URP Lit yaratadi va remap qiladi (cutout alfa, ixtiyoriy `smoothness:` ko'paytiruvchisi LICENSES.md da).
+
+## 7. Personajlar va animatsiyalar (M1.6)
+
+**Qabul qilindi (2026-11-06):** Quaternius *Universal Base Characters* (Standard, CC0 — Superhero erkak/ayol tanasi, 8 soch/qosh/soqol, Humanoid rig, UAL bilan mos) + *Modular Character Outfits – Fantasy* (Standard, CC0 — Peasant va Ranger kiyimlari, erkak/ayol; o'yinda zamonaviy ranglarga qayta bo'yaladi) + mavjud *Universal Animation Library* (CC0, 46 klip). Ulardan 4 personaj: erkak/ayol × 2 kiyim uslubi × soch/teri rangi. Yuz blendshape'lari yo'q — yuz ifodasi procedural (bosh/qosh suyagi).
+
+**Rad etildi** (`ArtSource/Incoming/mixamo/`, 2026-11-06): Mixamo qayta yuklamalari — `2-_thinking` (Ch22), `clapping`, `sitting_clap`, `sitting_idle` (kachujin), `male_sitting_idle` (Ch08), `man_sitting_idle` (Ch28; Sketchfab Standard yozilgan, lekin Mixamo personaji); o'yin riplari — `esper_zero`, `lacrimosa`, `mint_swimsuit` ("Neverness to Everness"); `girl_sitting_v10`, `indo_woman_sitting_v10` (rigsiz statik skan, 100–141k tri, real shaxs skanlari bo'lishi mumkin); `walking_test` (Character Creator eksporti, kontent litsenziyasi noaniq). Qabul (prop): `3december_-_fizz_drinks` (warbossdil, CC BY 4.0) — bar ichimliklari.
+
+**Kerak (foydalanuvchidan, ixtiyoriy — sifatni oshiradi):** mixamo.com dan to'g'ridan-to'g'ri, "FBX for Unity", "Without Skin", 30 fps: `Sitting Idle`, `Sitting Clap`, `Sitting Disapproval` yoki `Sad Idle`, `Drinking` (sitting), `Thinking`, `Clapping`, `Standing Idle`, `Walking`, `Disappointed`. Ular kelguncha shu harakatlar UAL kliplari + procedural IK bilan qilinadi. Zarba holati (egilish + bridge), bo'rlash va kiy zarbasi — har doim procedural IK (kiy fizika bilan sinxron bo'lishi uchun).
 
 Sketchfab'da qidiruvda "Downloadable" va License filtrini (CC Attribution / CC0) yoqing; "NonCommercial", "NoDerivs", "Editorial" yozuvi bo'lganlarni olmang. Ovozlar hozircha procedural ([ProceduralAudio](../Assets/_Project/Editor/ProceduralAudio.cs)); keyin CC0 SFX (freesound CC0 filtr) ro'yxati alohida beriladi.

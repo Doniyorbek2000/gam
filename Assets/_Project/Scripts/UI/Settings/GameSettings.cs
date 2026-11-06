@@ -143,7 +143,7 @@ namespace BilliardGame.UI
             runtimeAsset.shadowDistance = ShadowDistance[level];
         }
 
-        // Rough device tiering until M11 adds a benchmark: RAM and GPU memory.
+        // Rough device tiering until M15 adds a benchmark: RAM and GPU memory.
         private static int AutoQuality()
         {
             int ram = SystemInfo.systemMemorySize;

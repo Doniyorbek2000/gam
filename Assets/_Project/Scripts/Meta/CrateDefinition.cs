@@ -10,7 +10,7 @@ namespace BilliardGame.Meta
 
     /// <summary>
     /// One crate table (docs/ECONOMY.md §5.1). Deserialized from Resources/Economy/crates.json, which stands in for the
-    /// server table until M2; the odds window is generated from it, never hand-written (CLAUDE.md rule 6).
+    /// server table until M3; the odds window is generated from it, never hand-written (CLAUDE.md rule 6).
     /// </summary>
     [Serializable]
     public sealed class CrateDefinition

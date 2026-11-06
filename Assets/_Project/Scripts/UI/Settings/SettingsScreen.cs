@@ -164,7 +164,7 @@ namespace BilliardGame.UI
             Dialogs.Instance.Toast(Loc.Get("common.copied"));
         }
 
-        // Guest accounts only (Google link arrives with M2): logging out restarts the session on this device.
+        // Guest accounts only (Google link arrives with M3): logging out restarts the session on this device.
         private void Logout() =>
             Dialogs.Instance.Confirm("settings.logout", Loc.Get("settings.logout_body"), "settings.logout", Restart);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BilliardGame.Content
 {
-    /// <summary>Every cosmetic and venue the client knows about. M3 replaces the direct references with Addressables keys.</summary>
+    /// <summary>Every cosmetic and venue the client knows about. M4 replaces the direct references with Addressables keys.</summary>
     [CreateAssetMenu(menuName = "BilliardGame/Skin Catalog")]
     public sealed class SkinCatalog : ScriptableObject
     {

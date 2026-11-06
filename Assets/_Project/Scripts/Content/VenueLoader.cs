@@ -6,7 +6,7 @@ namespace BilliardGame.Content
 {
     /// <summary>
     /// Loads a venue scene additively around the table (its baked lightmaps come with it) and hides the built-in garage.
-    /// shortcut: scenes are in the build; M3 moves venues to remote Addressables bundles.
+    /// shortcut: scenes are in the build; M4 moves venues to remote Addressables bundles.
     /// </summary>
     public sealed class VenueLoader : MonoBehaviour
     {

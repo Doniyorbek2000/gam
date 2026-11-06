@@ -149,7 +149,7 @@ namespace BilliardGame.UI
         }
 
         // Hot-seat saves seat 2 as the guest name in the language of that day; show it in today's language.
-        // shortcut: matches the three shipped translations of "hud.guest"; store a marker instead once names come from the server (M2).
+        // shortcut: matches the three shipped translations of "hud.guest"; store a marker instead once names come from the server (M3).
         private static readonly string[] GuestNames = { "Mehmon", "Гость", "Guest" };
 
         private static string OpponentName(string saved) => Array.IndexOf(GuestNames, saved) >= 0 ? Loc.Get("hud.guest") : saved;

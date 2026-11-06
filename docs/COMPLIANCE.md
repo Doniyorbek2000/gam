@@ -47,7 +47,7 @@
 ## 3. Yosh reytingi (IARC, PEGI, ESRB)
 - Google Play IARC so'rovnomasi to'ldiriladi: "In-game purchases" = Ha, "random items" = Ha. ESRB label: **"In-Game Purchases (Includes Random Items)"** — loot box, gacha, prize wheel, sandiq va boshqa random pulli elementlar uchun (2020-04 dan) ([ESRB](https://www.esrb.org/news/in-game-purchases-includes-random-items/), [ESRB guide](https://www.esrb.org/ratings-guide/in-game-purchases)).
 - **PEGI (Yevropa):** 2026-yil iyundan pulli random itemli o'yinlar default **kamida PEGI 16**; countdown/cheklangan takliflar va battle pass PEGI 12 trigger ([VGC](https://www.videogameschronicle.com/news/all-games-with-loot-boxes-in-them-will-be-rated-minimum-pegi-16-starting-this-summer), [pocketgamer.biz](https://www.pocketgamer.biz/pegi-expands-age-ratings-to-cover-loot-boxes-and-in-game-spending), [Bird & Bird](https://mediawrites.twobirds.com/post/102mn2b/pegi-age-rating-classification-update)). Mavjud o'yinlarni qayta reytinglash bo'yicha manbalar ziddiyatli.
-- **Qaror:** o'yin 16+ auditoriyaga mo'ljallanadi. Agar Yevropada pastroq reyting kerak bo'lsa — `paid_random_disabled` ni EEA uchun yoqish (yashiklar faqat bepul/to'g'ridan-to'g'ri sotuv) varianti mavjud; bu biznes qarori (ROADMAP M11 da).
+- **Qaror:** o'yin 16+ auditoriyaga mo'ljallanadi. Agar Yevropada pastroq reyting kerak bo'lsa — `paid_random_disabled` ni EEA uchun yoqish (yashiklar faqat bepul/to'g'ridan-to'g'ri sotuv) varianti mavjud; bu biznes qarori (ROADMAP M15 da).
 - Families (bolalar) dasturiga kirmaymiz; birinchi ishga tushirishda yosh so'rovi (neutral age gate) — 16 yoshdan kichiklarga ovozli chat va xaridlar o'chiq (konservativ default).
 
 ## 4. Google Play texnik talablari
@@ -77,7 +77,7 @@
 - Refund: Play — Google qoidalari bo'yicha; veb — maxfiylik/oferta shartlarida (sarflanmagan Gem 14 kun ichida).
 - Oferta (ommaviy shartnoma) veb-do'konda UZS to'lovlar uchun; fiskal chek (Payme `detail` / OFD) — O'zbekiston talabi.
 
-## 8. Launch oldidan checklist (M11)
+## 8. Launch oldidan checklist (M15)
 - [ ] IARC so'rovnomasi (random items = Ha), reytinglar tekshirildi
 - [ ] Data safety formasi, maxfiylik siyosati URL, akkaunt o'chirish URL
 - [ ] targetSdk 36, 64-bit, AAB

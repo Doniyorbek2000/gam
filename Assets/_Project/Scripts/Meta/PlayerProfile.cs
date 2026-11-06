@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BilliardGame.Meta
 {
-    /// <summary>Persisted mock profile (JSON). Public fields so Unity's JsonUtility can serialize it. M2 moves it to Nakama.</summary>
+    /// <summary>Persisted mock profile (JSON). Public fields so Unity's JsonUtility can serialize it. M3 moves it to Nakama.</summary>
     [Serializable]
     public sealed class ProfileState
     {

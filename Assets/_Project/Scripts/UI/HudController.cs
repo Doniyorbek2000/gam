@@ -192,7 +192,7 @@ namespace BilliardGame.UI
             ScreenRouter.Instance.Open(stickerSheet);
         }
 
-        // shortcut: the sticker shows on this device only; M7 (voice/chat) sends it to the opponent over the match socket.
+        // shortcut: the sticker shows on this device only; M12 (quick chat) sends it to the opponent over the match socket.
         private void SendSticker(SkinDefinition sticker)
         {
             ScreenRouter.Instance.Close(stickerSheet);

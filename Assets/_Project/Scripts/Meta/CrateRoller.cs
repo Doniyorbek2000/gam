@@ -2,7 +2,7 @@ using System;
 
 namespace BilliardGame.Meta
 {
-    /// <summary>Pure crate maths shared by the mock and (in M2) the server: rarity roll, deterministic RNG, odds.</summary>
+    /// <summary>Pure crate maths shared by the mock and (in M3) the server: rarity roll, deterministic RNG, odds.</summary>
     public static class CrateRoller
     {
         /// <summary>Picks a rarity from <paramref name="roll"/> in [0,1), considering only rarities at or above <paramref name="floor"/>.</summary>

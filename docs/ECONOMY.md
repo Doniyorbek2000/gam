@@ -94,7 +94,7 @@ Yangi kosmetika turi `Sticker` (`ItemType.Sticker`). Faqat ko'rinish: ShotParams
 | Stol borti (`StickerSlot.Table`) | Uzun bortlardagi decal (match stoli va lobbi preview'i) |
 | Chat / emote | Match ichidagi stiker panelida yuboriladi; faqat egalik kerak, jihozlash shart emas |
 
-Narx va manba §4.3 dagi raritet jadvali bo'yicha (Common → Legendary); Mythic stiker yo'q. Dublikat → Shard qoidasi boshqa kosmetika bilan bir xil. Stikerlar yashik pool'iga kiradi (M2 dan server jadvali orqali, odds avtomatik generatsiya qilinadi, CLAUDE.md qoida 6).
+Narx va manba §4.3 dagi raritet jadvali bo'yicha (Common → Legendary); Mythic stiker yo'q. Dublikat → Shard qoidasi boshqa kosmetika bilan bir xil. Stikerlar yashik pool'iga kiradi (M3 dan server jadvali orqali, odds avtomatik generatsiya qilinadi, CLAUDE.md qoida 6).
 
 **10 ta boshlang'ich stiker** (o'zimizning original chizma, `ArtSource/Stickers/`):
 
@@ -111,7 +111,7 @@ Narx va manba §4.3 dagi raritet jadvali bo'yicha (Common → Legendary); Mythic
 | `sticker_gold_star` | Epic | Yashik |
 | `sticker_crown_cue` | Legendary | Yashik |
 
-M1.5 da egalik va jihozlash mock (`MockEconomyService`), M2 da server inventariga o'tadi.
+M1.5 da egalik va jihozlash mock (`MockEconomyService`), M3 da server inventariga o'tadi.
 
 ## 5. Yashiklar (crates)
 
@@ -145,7 +145,7 @@ Hard pity `N` va asosiy ehtimol `p` uchun birinchi tushishgacha kutilgan ochishl
 | Event | Legendary+ | 7.0% | 30 | 12.7 | 7.9% | ≈ 1 370 Gem |
 | Event | Mythic | 1.0% | 80 | 55.3 | 1.81% | ≈ 5 970 Gem ≈ $65 |
 
-UI'da asosiy ehtimol **va** "pity bilan umumiy (konsolidatsiyalangan) ehtimol" ko'rsatiladi. Server testi (M2) 10⁶ ochishni simulyatsiya qilib shu jadval bilan ±0.1% mosligini tekshiradi.
+UI'da asosiy ehtimol **va** "pity bilan umumiy (konsolidatsiyalangan) ehtimol" ko'rsatiladi. Server testi (M3) 10⁶ ochishni simulyatsiya qilib shu jadval bilan ±0.1% mosligini tekshiradi.
 
 ### 5.3 RNG
 - Serverda: `roll = HMAC-SHA256(server_secret_vN, user_id + ":" + crate_type + ":" + roll_counter)` → birinchi 52 bit → [0,1). `server_secret` env'da (klientga hech qachon chiqmaydi), versiyalanadi va rotatsiya qilinadi. Natija deterministik va auditga yaroqli, lekin oldindan bilib bo'lmaydi.

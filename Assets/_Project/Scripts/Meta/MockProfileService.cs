@@ -4,7 +4,7 @@ namespace BilliardGame.Meta
 {
     /// <summary>
     /// Offline profile (nickname, ID, XP, stats, history, room). Like <see cref="MockEconomyService"/> it is a local stand-in:
-    /// M2 moves the profile to Nakama, M4 adds real ranked points.
+    /// M3 moves the profile to Nakama, M8 adds real ranked points.
     /// </summary>
     public sealed class MockProfileService
     {

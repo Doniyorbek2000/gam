@@ -30,7 +30,7 @@ namespace BilliardGame.Editor.UI
                 Type = type;
                 Rarity = rarity;
                 Default = owned;
-                // Every non-starter item is in the crate pool (MockEconomyService.PickItem); the shop sells them too from M2.
+                // Every non-starter item is in the crate pool (MockEconomyService.PickItem); the shop sells them too from M3.
             Source = owned ? "source.starter" : source;
             }
         }

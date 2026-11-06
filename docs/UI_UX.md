@@ -173,6 +173,8 @@ Texnik: Timeline + VFX Graph (mobil uchun Particle System yetarli), natija serve
 
 ## 11. Boshqa ekranlar (qisqa)
 - **Profil (M1.5):** chapda sarlavha kartasi — avatar + ramka, tahrirlanadigan nik (3–16 belgi), ID + nusxalash, daraja/XP, rank, bayroq, klub. O'ngda tablar: Statistika (o'yinlar, g'alaba %, eng uzun seriya, aniqlik, bir zarbada max shar, sevimli kiy), Tarix (oxirgi 20 match), Yutuqlar (3 tasi vitrinada + to'liq ro'yxat), Kolleksiya (har tur bo'yicha progress).
+- **Personaj (M1.6):** lobbidagi personajga tegish yoki Inventar ▸ Personaj tabi → to'liq ekran: chapda personaj kartalari (portret, ism, "Tanlangan" belgisi), markazda 3D personaj (aylantirish, idle/emotsiya), pastda "Tanlash". Tanlov lobbi va match'da darhol qo'llanadi; M14 da shu ekranga kiyim slotlari qo'shiladi.
+- **Match kamera tugmasi (M1.6):** HUD o'ng yuqorida (pauza yonida) kamera ikonkasi — Klassik → 3-shaxs → 1-shaxs aylanadi; Kino kamera zarbadan keyin avtomatik (Sozlamalar ▸ Boshqaruv'da o'chirsa bo'ladi), istalgan joyga tegish — skip.
 - **Mening xonam (M1.5):** alohida 3D xona — stol, 6 kiyli tokcha, 8 kubokli javon, 3 poster, devor/pol temalari. "Tahrirlash" rejimida faqat egalik qilingan itemlar; saqlash/bekor qilish. Ma'lumot `RoomLayout` da, keyin do'stlar tashrifi uchun serverga ko'chadi.
 - **Stikerlar (M1.5):** inventarda alohida tab; kiy dastasi va stol bortiga decal, match ichida stiker paneli ([ECONOMY §4.4](ECONOMY.md#44-stikerlar-m15)).
 - **Vazifalar:** Kunlik/Haftalik/Mavsumiy tablar, progress bar, "Almashtirish" (1/kun).

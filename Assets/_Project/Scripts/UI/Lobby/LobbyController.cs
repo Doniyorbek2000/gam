@@ -182,7 +182,7 @@ namespace BilliardGame.UI
                     menu.ShowFriendPanel();
                     break;
                 case Mode.Quick:
-                    // Entry is shown here and charged by the server when the match starts (M2); the mock only checks it.
+                    // Entry is shown here and charged by the server when the match starts (M7); the mock only checks it.
                     if (services.Economy.Coins < venue.EntryFee)
                     {
                         Dialogs.Instance.Toast(Loc.Get("lobby.no_coins"));

@@ -28,15 +28,15 @@ Mobil uchun realistik 3D billiard: haqiqiy zallar atmosferasi, aniq fizika, adol
 
 | Rejim | Tavsif | Valyuta oqimi | Holat |
 |-------|--------|---------------|-------|
-| **Tezkor o'yin (Quick Match)** | Venue tanlanadi → MMR'ga yaqin raqib. 8-ball (keyin 9-ball). | Coin kirish to'lovi → g'olib sovrini (venue jadvali) | M3 |
-| **Do'st bilan (xona kodi)** | 6 belgili kod yoki do'stlar ro'yxatidan taklif. Stavka ixtiyoriy (0 yoki venue kirishi). | Ixtiyoriy | Mavjud (Stage 2), M8'da do'stlar bilan |
-| **Ranked** | Mavsumiy. Kirish to'lovi yo'q. Ball (RP) yutib/yo'qotib daraja oshadi. | XP + mavsum oxiri mukofoti | M4 |
-| **Turnirlar** | 8 yoki 16 o'yinchi, olib tashlanish (knockout). Kirish coin, mukofot fondi. | Kirish × N × 0.9 → 1/2/3–4 o'rinlar | M9 |
-| **Offline vs AI** | 4 qiyinlik: Yangi boshlovchi, O'rta, Tajribali, Usta. Internetsiz. | Coin yo'q, faqat kichik XP (kunlik limit) | M5 |
-| **Mashq** | Erkin shar joylashtirish, aim yordamchisi, vazifalar (trick shots). | Yo'q | M5 |
+| **Tezkor o'yin (Quick Match)** | Venue tanlanadi → MMR'ga yaqin raqib. 8-ball (keyin 9-ball). | Coin kirish to'lovi → g'olib sovrini (venue jadvali) | M2 (matchmaker), M7 (venue/MMR) |
+| **Do'st bilan (xona kodi)** | 6 belgili kod yoki do'stlar ro'yxatidan taklif. Stavka ixtiyoriy (0 yoki venue kirishi). | Ixtiyoriy | Mavjud (Stage 2), M2 yangi UI, M3 do'stlar bilan |
+| **Ranked** | Mavsumiy. Kirish to'lovi yo'q. Ball (RP) yutib/yo'qotib daraja oshadi. | XP + mavsum oxiri mukofoti | M8 |
+| **Turnirlar** | 8 yoki 16 o'yinchi, olib tashlanish (knockout). Kirish coin, mukofot fondi. | Kirish × N × 0.9 → 1/2/3–4 o'rinlar | M13 |
+| **Offline vs AI** | 4 qiyinlik: Yangi boshlovchi, O'rta, Tajribali, Usta. Internetsiz. | Coin yo'q, faqat kichik XP (kunlik limit) | M9 |
+| **Mashq** | Erkin shar joylashtirish, aim yordamchisi, vazifalar (trick shots). | Yo'q | M9 |
 | **Hot-seat** | Bitta telefonda 2 kishi. | Yo'q | Mavjud |
 
-O'yin turlari: **8-ball** (mavjud, WPA asosida), **9-ball** (M5), **snooker** (M12, 12 ft stol — fizika konfiguratsiyasi alohida).
+O'yin turlari: **8-ball** (mavjud, WPA asosida), **9-ball** (M9), **snooker** (M16, 12 ft stol — fizika konfiguratsiyasi alohida).
 
 ### 2.1 AI qiyinlik darajalari
 AI o'sha server/klient fizikasidan foydalanadi: nomzod zarbalarni `AimPredictor` bilan baholaydi, keyin shovqin qo'shadi.
@@ -136,25 +136,53 @@ Raritet: Common · Rare · Epic · Legendary · Mythic. Mythic — animatsiyali 
 
 **Barcha kosmetika faqat vizual.** Asoslash: [ECONOMY §2](ECONOMY.md#2-no-pay-to-win-tamoyili).
 
-## 8. Avatarlar (3D personaj)
+## 8. Avatarlar va personajlar
 - Lobby markazida aylantiriladigan (barmoq bilan surish) 3D personaj; uning yonida tanlangan kiy.
-- Slotlar: bosh kiyim, ustki kiyim, shim, poyabzal, aksessuar, to'liq kostyum (set).
+- **Personajlar (M1.6):** kamida 4 ta (erkak/ayol, turli kiyim uslubi, soch, teri rangi), Humanoid rig, hammasi bitta Animator controller bilan. Lobby ▸ "Personaj" ekranida tanlanadi (bepul boshlang'ich to'plam; keyin kiyim skinlari bilan birlashtiriladi). Tanlov profilda `character_id` sifatida saqlanadi (M3 dan serverda).
+- Slotlar (M14): bosh kiyim, ustki kiyim, shim, poyabzal, aksessuar, to'liq kostyum (set).
 - Emotsiyalar: lobbyda va match oxirida (masalan "kiyni aylantirish", "chalk surtish").
-- Match'da raqib: 2D portret (avatar renderidan avtomatik), ramka, daraja nishoni, bayroq (ixtiyoriy).
-- Haqiqiy shaxslar portretlari ishlatilmaydi.
+- Match'da raqib: 3D personaji zalda + HUD'da 2D portret (avatar renderidan avtomatik), ramka, daraja nishoni, bayroq (ixtiyoriy).
+- Haqiqiy shaxslar portretlari, o'yin riplari va brend kiyimlari ishlatilmaydi.
+
+### 8.1 "Haqiqiy zal" — match ichidagi xatti-harakat (M1.6)
+Hammasi **faqat vizual**: zarba natijasi doim `BilliardGame.Physics` dan, animatsiya va kamera hech qachon natija, taymer yoki aim-line'ga ta'sir qilmaydi. Hech bir animatsiya o'yinni kutdirmaydi — har biri tegish bilan skip qilinadi yoki fonda ketadi.
+
+| Holat | Kim | Nima bo'ladi |
+|-------|-----|--------------|
+| Navbat keldi | o'ynovchi | Stol atrofida NavMesh bo'ylab zarba nuqtasiga yuradi (stol, stul, mebel aylanib o'tiladi), oyoq sirpanmaydi |
+| Bo'rlash | o'ynovchi | ~30% ehtimol bilan, nishonlash boshlanguncha kiy uchiga bo'r surtadi (majburiy emas, aim boshlansa darhol to'xtaydi) |
+| Nishonlash | o'ynovchi | Tana egilgan, chap qo'l bridge stolda, o'ng qo'l kiyda; IK kiy yo'nalishiga moslashadi; kuch slayderi = orqaga tortish |
+| Zarba | o'ynovchi | Oldinga harakat kiy-shar kontakti fizika `Shoot()` bilan bir kadrda |
+| Raqib navbati | kutuvchi | Stol yonidagi stulga borib o'tiradi, stakandan ho'playdi (kofe/choy/suv props), o'ylaydi, kuzatadi |
+| Reaksiya | kutuvchi | Raqibning yaxshi zarbasiga qarsak, o'z xatosiga/raqib muvaffaqiyatiga xafa bo'lish (bosh, yelka) |
+
+### 8.2 Kamera rejimlari (M1.6)
+| Rejim | Tavsif |
+|-------|--------|
+| Klassik | Yuqoridan — aniq nishonlash uchun (standart) |
+| 3-shaxs | Personaj yelkasi ortidan, kiy yo'nalishida |
+| 1-shaxs | O'yinchi ko'zi balandligidan kiy chizig'i bo'ylab; nishonlash shu rejimda ham ishlaydi |
+| Kino | Zarbadan keyin sharlarni dinamik kuzatadi, luzaga tushishda yaqinlashadi; tegish bilan skip |
+
+HUD tugmasi bilan almashtiriladi, standarti Sozlamalar ▸ Boshqaruv'da. O'tishlar silliq (Cinemachine blend), kamera devor/mebel ichiga kirmaydi; personaj kamerani to'ssa shaffof bo'ladi.
+
+### 8.3 Zal hayoti (M1.6)
+Fon NPC'lar (boshqa stollarda o'ynayotganlar, bar yonida turganlar, barmen), ambient ovoz (zal shovqini, past musiqa). Sifat sozlamasi: Yuqori — 8 NPC, O'rta — 4, Past — 0 (o'rta segmentda 60 FPS ustuvor).
 
 ## 9. Ijtimoiy
 
+**Player ID (M3):** har bir o'yinchiga ro'yxatdan o'tishda unikal 10 xonali raqamli ID beriladi (birinchi raqam 0 emas, tasodifiy, ketma-ket emas). Profilda ko'rsatiladi va nusxalanadi; do'st qo'shish va veb-do'kon (M5) shu ID bilan ishlaydi. Ichki Nakama `user_id` (UUID) tashqariga chiqmaydi.
+
 | Funksiya | Tavsif | Milestone |
 |----------|--------|-----------|
-| Do'stlar | ID/nik bo'yicha qidirish, so'rov, onlayn holati, taklif | M8 |
-| Klublar | 30 a'zo, rollar (lider, o'rinbosar, a'zo), klub chati, haftalik klub ochkosi, klub leaderboard | M8 |
-| Chat | Klub va shaxsiy chat, so'kish filtri, report/block | M8 |
-| Quick chat / emoji | Match ichida 8 ta tayyor ibora + emoji (lokalizatsiyalangan) | M8 |
-| Ovozli chat | Match ichida (Vivox), mikrofon default o'chiq, raqibni mute | M8 |
-| Spectate | Do'st yoki klub a'zosi matchini jonli kuzatish (server frames, 2 s kechikish) | M8 |
-| Replay | Oxirgi 20 match: ShotParams + boshlang'ich holat saqlanadi, klientda qayta simulyatsiya | M8 |
-| Leaderboard | Global / mamlakat / do'stlar; ranked RP, haftalik g'alabalar | M4 |
+| Do'stlar | Player ID (10 xonali)/nik bo'yicha qidirish, so'rov, onlayn holati, taklif | M3 |
+| Klublar | 30 a'zo, rollar (lider, o'rinbosar, a'zo), klub chati (M3); haftalik klub ochkosi, klub leaderboard (M12) | M3 / M12 |
+| Chat | Klub va shaxsiy chat (M3); so'kish filtri, report/block (M12) | M3 / M12 |
+| Quick chat / emoji | Match ichida 8 ta tayyor ibora + emoji (lokalizatsiyalangan) | M12 |
+| Ovozli chat | Match ichida (Vivox), mikrofon default o'chiq, raqibni mute | M12 |
+| Spectate | Do'st yoki klub a'zosi matchini jonli kuzatish (server frames, 2 s kechikish) | M12 |
+| Replay | Oxirgi 20 match: ShotParams + boshlang'ich holat saqlanadi, klientda qayta simulyatsiya | M12 |
+| Leaderboard | Global / mamlakat / do'stlar; ranked RP, haftalik g'alabalar | M8 |
 
 ## 10. Ekranlar ro'yxati
 Splash → Login (device/Google) → Tutorial (birinchi match AI bilan) → **Lobby** → Rejim tanlash / Venue xaritasi → Matchmaking → **Match HUD** → **Natija** → Profil → **Inventar** → **Do'kon** → **Yashik ochish** → **Season Pass** → Vazifalar → Login mukofotlari → Leaderboard → Do'stlar → Klub → Turnirlar → Sozlamalar (til, ovoz, grafika sifati, akkauntni o'chirish) → Credits.
@@ -169,6 +197,7 @@ Har bir ekran tuzilmasi: [UI_UX](UI_UX.md).
 
 ## 12. Fair play va anti-cheat (dizayn darajasida)
 - Server-authoritative: klient faqat `ShotParams` yuboradi; server cheklovlarni tekshiradi (kuch, spin radiusi, vaqt, navbat).
-- Uzilish: 60 s qayta ulanish oynasi; keyin texnik mag'lubiyat.
+- Uzilish: 60 s qayta ulanish oynasi; keyin texnik mag'lubiyat (M2).
+- Zarba taymeri serverda (M2): tugasa navbat raqibga o'tadi.
 - Ranked'da "rage quit" jarimasi: 3 marta tark etish → 10 daqiqa matchmaking bloki.
 - Report: harakat sababli (haqorat, cheat gumon), 3+ tasdiqlangan report → admin ko'rib chiqadi.

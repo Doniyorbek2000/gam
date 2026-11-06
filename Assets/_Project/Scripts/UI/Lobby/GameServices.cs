@@ -8,7 +8,7 @@ namespace BilliardGame.UI
 {
     /// <summary>
     /// Owns the economy service and the skin catalog, and keeps every <see cref="SkinTarget"/> showing the equipped items.
-    /// M1 uses <see cref="MockEconomyService"/> saved to persistentDataPath; M2 swaps in the Nakama implementation.
+    /// M1 uses <see cref="MockEconomyService"/> saved to persistentDataPath; M3 swaps in the Nakama implementation.
     /// </summary>
     [DefaultExecutionOrder(-100)]
     public sealed class GameServices : MonoBehaviour

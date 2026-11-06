@@ -20,7 +20,7 @@
 └───────┬────────────────────┘                                      │
         │ PostgreSQL 16                                             │
 ┌───────▼──────┐   read replica    ┌──────────────────────────────┐ │
-│ nakama DB    │──────────────────►│ NestJS backend (alohida repo)│─┘
+│ nakama DB    │──────────────────►│ NestJS backend (admin/api)   │─┘
 └──────────────┘                   │ admin API · webhooks (Payme, │
                                    │ Click, Uzum, Google RTDN)    │
                                    │ analytics ingest · audit     │
@@ -29,11 +29,24 @@
                                           │               │
                                  ┌────────▼─────┐  ┌──────▼──────────┐
                                  │ Admin panel  │  │ Veb-do'kon      │
-                                 │ Next.js      │  │ Next.js (top-up)│
+                                 │ admin/web    │  │ web/ (top-up)   │
                                  └──────────────┘  └─────────────────┘
 ```
 
 Tamoyillar ([CLAUDE.md](../CLAUDE.md)): fizika — o'z simulyatsiyamiz; online — server-authoritative; iqtisod — faqat serverda; Presentation'da qoida yo'q.
+
+**Repo tuzilmasi (v2.0, monorepo):**
+
+| Papka | Mazmun | Milestone |
+|-------|--------|-----------|
+| `Assets/`, `Packages/`, `ProjectSettings/` | Unity klient | — |
+| `Server/nakama/modules` | Nakama TS moduli (match, iqtisod, config, ijtimoiy) | mavjud / M2–M3 |
+| `admin/api` | NestJS: admin API, auth+2FA, audit, analitika, to'lov webhook'lari | M4 / M5 |
+| `admin/web` | Next.js admin panel | M4 |
+| `web/` | Next.js veb-do'kon (top-up) | M5 |
+| `deploy/` | Contabo deploy skripti, `Caddyfile`, backup | M6 |
+| `docker-compose.yml` (ildiz) | nakama, postgres, admin-api, admin-web, web-shop, caddy | M6 |
+| `Tools/` | CrossCheck, Blender konvertorlari, CDN upload | mavjud / M4 |
 
 ## 2. Klient
 
@@ -47,12 +60,12 @@ Tamoyillar ([CLAUDE.md](../CLAUDE.md)): fizika — o'z simulyatsiyamiz; online �
 | `BilliardGame.Presentation` | ✅ | Stol/shar/kiy ko'rinishi, kamera | ✅ |
 | `BilliardGame.UI` | ✅ | HUD, menyular | ✅ |
 | `BilliardGame.Meta` | M1 | Klient tomondagi iqtisod modeli (faqat ko'rsatish), `IEconomyService` (Mock / Nakama), katalog, inventar holati | ✅ (minimal) |
-| `BilliardGame.Meta.Rules` | M2 | Server bilan umumiy sof logika: crate odds/pity kalkulyatori, Pass level hisoblash (C# ↔ TS cross-check) | ❌ |
+| `BilliardGame.Meta.Rules` | M3 | Server bilan umumiy sof logika: crate odds/pity kalkulyatori, Pass level hisoblash (C# ↔ TS cross-check) | ❌ |
 | `BilliardGame.Content` | M1 | `SkinDefinition`, `VenueDefinition` SO, Addressables yuklovchi, equip qo'llash | ✅ |
-| `BilliardGame.Avatar` | M1 (oddiy) / M10 | Lobby personaji, kiyim slotlari, emotsiyalar | ✅ |
-| `BilliardGame.Billing` | M6 | `IStoreChannel`: `PlayBillingChannel`, `DirectPayChannel`, `EditorMockChannel` | ✅ |
-| `BilliardGame.Social` | M8 | Do'stlar, klublar, chat, Vivox | ✅ |
-| `BilliardGame.Services` | M11 | Analitika, crash, lokalizatsiya, Remote Config klienti | ✅ |
+| `BilliardGame.Avatar` | M1.6 / M14 | Personajlar (Humanoid, bitta Animator), match holat mashinasi, IK (Animation Rigging), NavMesh, zal NPC'lari; M14 da kiyim slotlari, emotsiyalar | ✅ |
+| `BilliardGame.Billing` | M5 / M10 | `IStoreChannel`: `PlayBillingChannel`, `DirectPayChannel`, `EditorMockChannel` | ✅ |
+| `BilliardGame.Social` | M3 / M12 | Do'stlar, klublar, chat (M3), Vivox (M12) | ✅ |
+| `BilliardGame.Services` | M3 / M15 | Analitika, crash, lokalizatsiya, Remote Config klienti | ✅ |
 
 ### 2.2 Build flavor'lar
 Scripting define symbols + `BuildProfile` (Unity 6 Build Profiles):
@@ -76,6 +89,12 @@ Klient auth paytida `store_channel` ni yuboradi; server ham faqat shu kanalga mo
 - Profiling: Unity Profiler + Frame Debugger, Android'da `adb` orqali real qurilma; M1 dan boshlab har milestone'da FPS/draw call/tri hisobot.
 - Sim: allokatsiyasiz (mavjud qoida), Update'da LINQ yo'q.
 
+### 2.3.1 Personajlar va kamera (M1.6)
+- Paketlar: `com.unity.animation.rigging` (Two Bone IK — chap qo'l bridge, o'ng qo'l kiy; Multi-Aim — bosh/ko'krak nishonga), `com.unity.cinemachine` 3.x (4 rejim, blend, Deoccluder), `com.unity.ai.navigation` (NavMesh — mavjud).
+- `BilliardGame.Avatar`: `CharacterDefinition` SO (prefab, ism kaliti, jins, preview), `PlayerCharacter.controller` (bitta Animator: Locomotion blend, Sit, Address/Stroke qatlamlari, reaksiyalar), `MatchCharacterDirector` (holat mashinasi — `TurnStarted`, `AimChanged`, `PowerChanged`, `ShotFired`, `ShotResolved` eventlarini Presentation'dan **faqat o'qiydi**), `CueStrokeDriver` (kiy pozitsiyasi = `CueController` holatidan; personaj qo'llari kiyga IK bilan yopishadi — teskari emas, shuning uchun zarba vaqti fizika bilan bir kadrda).
+- Sof logika (`BilliardGame.Avatar.Rules`, UnityEngine'siz, EditMode testlanadi): zarba nuqtasi tanlash (stol atrofidagi eng yaqin bo'sh nuqta, cue ball → aim yo'nalishiga teskari), stroke timeline, NPC soni sifat bo'yicha.
+- Budjet: o'yinchi personaji ≤ 20k tri (LOD0) / 8k (LOD1), NPC ≤ 6k tri; skinned mesh'lar GPU skinning; NPC'larda `Animator.cullingMode = CullCompletely`.
+
 ### 2.4 Kontent yetkazish (Addressables)
 - Lokal (APK ichida): asosiy UI, default stol/kiy/sharlar, Garaj zali, shriftlar, lokalizatsiya. Maqsad: base module ≤ 150 MB (Play limiti 200 MB — Play Console'da tekshirish), birinchi yuklash ≤ 80 MB.
 - Remote: barcha kosmetika, zallar, avatar kiyimlari, mavsum temalari. Guruhlar `Remote_*`, Build Remote Catalog yoqilgan, content update build faqat o'zgargan bundle'larni yuklatadi ([Addressables remote content](https://docs.unity3d.com/Packages/com.unity.addressables@2.8/manual/remote-content-intro.html)).
@@ -92,7 +111,10 @@ Nakama `config` storage kolleksiyasi (system user egasi, faqat o'qish), `config_
 - Ranked: match oxirida server MMR (Glicko-2) va RP ni hisoblaydi, leaderboard'ga yozadi.
 - Spectate: match handler'ga "spectator" presence (faqat qabul qiladi), 2 s kechikish.
 - Replay: `match_history` storage: boshlang'ich rack seed + ShotParams ro'yxati (fizika deterministik → klientda qayta ijro).
-- Anti-cheat: `ShotParams` validatsiyasi (power ∈ [0, max], spin |v| ≤ R·0.5, burchak chekli son, navbat egasi, zarba vaqti ≤ limit + 2 s), RPC rate limit (o'yinchi/daqiqa), g'ayritabiiy statistika (masalan 98% aniqlik × 50 match) → admin'ga flag. Play Integrity API (M11).
+- **Reconnect (M2):** klient socket yopilsa yangi socket ochib `join_match` qiladi (eski socket qayta ulanmaydi); server `presence` 60 s ushlab turadi va qaytganda `OpState` (rack, navbat, guruhlar, foul holati, taymer qoldig'i) yuboradi; 60 s dan keyin texnik mag'lubiyat.
+- **Zarba taymeri (M2):** server `matchLoop` da (tick 10 Hz) `turn_deadline`; tugasa navbat o'tadi va `OpTurnTimeout` yuboriladi. Klient faqat ko'rsatadi.
+- **Raqib personaji (M2):** `OpAvatarEvent` — `{kind: walk_to|address|stroke_start|sit|react|chalk, spot?, react?}`; server faqat relay qiladi (navbat egasi tekshiruvi, ≤ 5 event/s), natijaga hech qanday ta'siri yo'q. Pozitsiyalar har kadrda yuborilmaydi — har klient eventdan NavMesh yo'lini o'zi hisoblaydi.
+- Anti-cheat: `ShotParams` validatsiyasi (power ∈ [0, max], spin |v| ≤ R·0.5, burchak chekli son, navbat egasi, zarba vaqti ≤ limit + 2 s), RPC rate limit (o'yinchi/daqiqa), g'ayritabiiy statistika (masalan 98% aniqlik × 50 match) → admin'ga flag. Play Integrity API (M15).
 
 ## 4. Server (Nakama)
 
@@ -102,18 +124,18 @@ Nakama `config` storage kolleksiyasi (system user egasi, faqat o'qish), `config_
 |------|--------|--------|
 | `main.ts` | ✅ | InitModule, ro'yxatdan o'tkazish |
 | `match.ts`, `physics.ts`, `rules.ts`, `protocol.ts`, `random.ts` | ✅ | 8-ball match |
-| `economy/wallet.ts` | M2 | `walletUpdate` o'rami: reason/ref_id/idempotency |
-| `economy/catalog.ts` | M2 | Config'dan katalog, narxlar |
-| `economy/crates.ts` | M2 | RNG (HMAC), pity, dublikat → shard |
-| `economy/shop.ts` | M2 | Kunlik do'kon, xarid |
-| `economy/craft.ts` | M2 | Craft, Mythic upgrade |
-| `progress/*.ts` | M3/M4/M7 | XP/level, ranked, vazifalar, login, Pass, achievements |
-| `venues.ts` | M3 | Kirish escrow, sovrin, rake |
-| `iap/google.ts` | M6 | `nk.purchaseValidateGoogle`, kreditlash |
-| `iap/web.ts` | M6 | NestJS'dan kelgan veb top-up (server-to-server) |
-| `social/*.ts` | M8 | Klub hooklari, chat moderatsiya |
-| `tournaments.ts` | M9 | 8/16 bracket |
-| `config.ts` | M2 | Remote Config |
+| `economy/wallet.ts` | M3 | `walletUpdate` o'rami: reason/ref_id/idempotency |
+| `economy/catalog.ts` | M3 | Config'dan katalog, narxlar |
+| `economy/crates.ts` | M3 | RNG (HMAC), pity, dublikat → shard |
+| `economy/shop.ts` | M3 | Kunlik do'kon, xarid |
+| `economy/craft.ts` | M11 | Craft, Mythic upgrade |
+| `progress/*.ts` | M3 / M7 / M8 / M11 | vazifalar, login, Pass, eventlar (M3); XP/level (M7); ranked (M8); achievements (M11) |
+| `venues.ts` | M7 | Kirish escrow, sovrin, rake |
+| `iap/google.ts` | M10 | `nk.purchaseValidateGoogle`, kreditlash |
+| `iap/web.ts` | M5 | NestJS'dan kelgan veb top-up (server-to-server) |
+| `social/*.ts` | M3 / M12 | Klub hooklari, chat moderatsiya |
+| `tournaments.ts` | M13 | 8/16 bracket |
+| `config.ts` | M3 | Remote Config |
 
 ### 4.2 RPC API (klient → server)
 
@@ -122,25 +144,25 @@ Barcha javoblar: `{ ok: boolean, data?: T, error?: { code: string, message: stri
 | RPC | Kirish | Chiqish | Milestone |
 |-----|--------|---------|-----------|
 | `create_room` / `join_room` | mavjud | mavjud | ✅ |
-| `config_get` | `{version?}` | config (yoki `not_modified`) | M2 |
-| `profile_get` | — | level, xp, rank, equipped, wallet | M2 |
-| `inventory_list` | `{type?}` | itemlar, shard, kristall | M2 |
-| `equip` | `{slot, item_id}` | equipped | M2 |
-| `crate_open` | `{crate_id, count: 1\|10, request_id}` | `[{item_id, rarity, duplicate, shards}]`, pity, wallet | M2 |
-| `crate_odds` | `{crate_id}` | jadval + pity holati | M2 |
-| `shop_list` | — | kunlik do'kon, bundle'lar | M2 |
-| `shop_buy` | `{offer_id, request_id}` | wallet, items | M2 |
-| `craft` / `upgrade` | `{item_id, request_id}` | item, materiallar | M2/M7 |
-| `daily_login_claim` | `{request_id}` | mukofot | M2 |
-| `venue_list` / `venue_enter` | `{venue_id}` | matchmaker ticket ma'lumoti | M3 |
-| `ranked_status` | — | RP, daraja, mavsum | M4 |
-| `missions_list` / `missions_claim` / `missions_reroll` | | | M7 |
-| `pass_status` / `pass_claim` / `pass_buy` | | | M7 |
-| `iap_google_validate` | `{product_id, receipt, request_id}` | wallet, grant | M6 |
-| `web_store_link` (faqat `STORE_DIRECT`) | — | imzolangan checkout URL | M6 |
-| `friends_*`, `club_*` | Nakama built-in API + hooklar | | M8 |
-| `tournament_*` | | | M9 |
-| `account_delete_request` | — | o'chirish navbatga qo'yiladi | M11 |
+| `config_get` | `{version?}` | config (yoki `not_modified`) | M3 |
+| `profile_get` | — | player_id, level, xp, rank, equipped, wallet | M3 |
+| `inventory_list` | `{type?}` | itemlar, shard, kristall | M3 |
+| `equip` | `{slot, item_id}` | equipped | M3 |
+| `crate_open` | `{crate_id, count: 1\|10, request_id}` | `[{item_id, rarity, duplicate, shards}]`, pity, wallet | M3 |
+| `crate_odds` | `{crate_id}` | jadval + pity holati | M3 |
+| `shop_list` | — | takliflar, bundle'lar | M3 |
+| `shop_buy` | `{offer_id, request_id}` | wallet, items | M3 |
+| `craft` / `upgrade` | `{item_id, request_id}` | item, materiallar | M11 |
+| `daily_login_claim` | `{request_id}` | mukofot (7 kunlik kalendar) | M3 |
+| `venue_list` / `venue_enter` | `{venue_id}` | matchmaker ticket ma'lumoti | M7 |
+| `ranked_status` | — | RP, daraja, mavsum | M8 |
+| `missions_list` / `missions_claim` / `missions_reroll` | | | M3 |
+| `pass_status` / `pass_claim` / `pass_buy` | | | M3 |
+| `iap_google_validate` | `{product_id, receipt, request_id}` | wallet, grant | M10 |
+| `web_store_link` (faqat `STORE_DIRECT`) | — | imzolangan checkout URL | M5 |
+| `friends_*`, `club_*` | Nakama built-in API + hooklar | | M3 |
+| `tournament_*` | | | M13 |
+| `account_delete_request` | — | o'chirish navbatga qo'yiladi | M15 |
 
 Server-to-server (http_key, faqat NestJS'dan): `web_topup_credit`, `admin_grant`, `admin_ban`, `admin_config_publish`, `iap_refund_revoke`.
 
@@ -152,7 +174,8 @@ Storage kolleksiyalari (owner = user, read 1 / write 0 — klient yozolmaydi):
 
 | Kolleksiya / key | Maydonlar |
 |------------------|-----------|
-| `profile/main` | `level, xp, mmr, rd, rp, rank_tier, season_id, equipped{cue,table_cloth,rails,balls,venue_theme,outfit{...},frame,emote[4],trail,pocket_fx,victory,nick_color}` |
+| `player_ids/<pid>` (system owner) | `user_id` — 10 xonali Player ID → Nakama user (unikallik `version:"*"` bilan, M3) |
+| `profile/main` | `player_id, character_id, level, xp, mmr, rd, rp, rank_tier, season_id, equipped{cue,table_cloth,rails,balls,venue_theme,outfit{...},frame,emote[4],trail,pocket_fx,victory,nick_color}` |
 | `inventory/items` | `items: {item_id: {acquired_at, source, level?}}`, `shards, crystals, keys` (OCC versiya bilan) |
 | `pity/<crate_type>` | `since_legendary, since_mythic, since_epic, total_opens` |
 | `progress/daily` | `login_streak, last_login_day, missions[{id, progress, claimed}], reroll_used` |
@@ -168,10 +191,10 @@ Leaderboardlar: `ranked_<season>` (score = RP), `ranked_<season>_<country>`, `we
 ### 4.4 Ledger
 Nakama `walletUpdate(userId, changeset, metadata, updateLedger=true)` har chaqiruvda `wallet_ledger` ga yozadi. `metadata = {reason, ref_id, request_id, store_channel}`. Admin panel "Tranzaksiyalar" shu jadvaldan (read replica) o'qiydi. Bir nechta valyuta bir vaqtda o'zgarsa (masalan crate: −Gem, +Shard) — bitta `walletsUpdate` + `storageWrite` OCC bilan, xatoda butun operatsiya bekor.
 
-## 5. NestJS backend + Admin + Veb-do'kon (alohida repo)
+## 5. NestJS backend + Admin + Veb-do'kon (`admin/`, `web/` — shu repo'da)
 
 ### 5.1 NestJS
-- Modullar: `auth` (admin SSO + 2FA, rollar: owner, admin, support, analyst), `catalog` (skinlar, raritet, Addressables kalitlari), `crates` (jadval, pity, versiya — publish oldidan ehtimollar yig'indisi = 100% tekshiruvi), `pricing`, `events`, `season-pass`, `users` (qidiruv, profil, inventar, grant, ban), `transactions` (ledger, purchases, web orders), `payments` (Payme/Click/Uzum webhook'lari), `google-rtdn` (refund/void), `analytics` (ingest + agregatlar), `audit` (har admin harakati).
+- Modullar: `auth` (login + TOTP 2FA, rollar: superadmin, operator — faqat ko'rish va yordam, content_manager), `catalog` (skinlar, raritet, Addressables kalitlari), `crates` (jadval, pity, versiya — publish oldidan ehtimollar yig'indisi = 100% tekshiruvi), `pricing`, `events`, `season-pass`, `users` (qidiruv, profil, inventar, grant, ban), `transactions` (ledger, purchases, web orders), `payments` (Payme/Click/Uzum webhook'lari), `google-rtdn` (refund/void), `analytics` (ingest + agregatlar), `audit` (har admin harakati).
 - Admin DB (PostgreSQL) jadvallari:
 
 ```sql
@@ -219,11 +242,11 @@ Sahifalar: Dashboard (DAU, retention, ARPDAU, konversiya, daromad kanal bo'yicha
 
 ## 9. Analitika, crash, lokalizatsiya
 - **Analitika:** klient eventlari → Nakama RPC `events_batch` (yoki Nakama Events API) → NestJS `analytics_events`. Asosiy eventlar: `session_start/end`, `tutorial_step`, `match_start/end {mode, venue, result, duration, shots}`, `crate_open {crate, rarity}`, `shop_view/purchase`, `iap_start/success/fail`, `pass_buy`, `level_up`, `rank_change`, `ad_hoc errors`. Agregatlar kunlik cron'da `daily_metrics` ga.
-- **Crash reporting:** Firebase Crashlytics (Unity SDK) yoki Unity Cloud Diagnostics — M11 da tanlov (IL2CPP symbol upload majburiy).
+- **Crash reporting:** Firebase Crashlytics (Unity SDK) yoki Unity Cloud Diagnostics — M15 da tanlov (IL2CPP symbol upload majburiy).
 - **Lokalizatsiya:** Unity Localization paketi, String Tables: `uz` (lotin), `ru`, `en`; server matnlari (katalog nomlari) kalit sifatida keladi. Shrift: lotin+kirill.
 
 ## 10. Infratuzilma
-- Dev: `Server/docker-compose.yml` (Postgres 16.14 + Nakama 3.41).
-- Prod (boshlang'ich): 1 × Nakama (4 vCPU/8 GB) + managed PostgreSQL (kunlik backup, PITR), NestJS 1 × (2 vCPU), CDN. Hosting joylashuvi — shaxsiy ma'lumotlar qonuni bo'yicha ([COMPLIANCE §5](COMPLIANCE.md#5-shaxsiy-malumotlar)).
+- Dev (hozir): `Server/docker-compose.yml` (Postgres 16.14 + Nakama 3.41). M6 dan: ildizdagi `docker-compose.yml` — `postgres`, `nakama`, `admin-api`, `admin-web`, `web-shop`, `caddy` (+ lokal CDN uchun static papka); `.env.example`.
+- Prod (boshlang'ich, M6): bitta Contabo VPS (Ubuntu 24.04, Docker, foydalanuvchi `doniyor`) — shu compose stack, Postgres volume + kunlik `pg_dump` backup (7 kun saqlash). `deploy/deploy.sh` (bir buyruq: rsync → `docker compose build/pull` → `up -d` → health check), `deploy/Caddyfile` — `api.<domen>` (Nakama HTTP/WebSocket), `admin.<domen>` (admin-web + admin-api, IP allowlist), `shop.<domen>` (veb-do'kon); domen va IP `.env` da (`DOMAIN`, `SERVER_IP`, `ADMIN_ALLOW_IPS`). Nakama console (7351) va Postgres internetga ochilmaydi — faqat `ssh -L` tunnel. Keyinchalik: managed PostgreSQL (PITR), alohida NestJS instansiya, CDN. Hosting joylashuvi — shaxsiy ma'lumotlar qonuni bo'yicha ([COMPLIANCE §5](COMPLIANCE.md#5-shaxsiy-malumotlar)).
 - Secret'lar: env/secret manager (server_key, http_key, Google service account, Payme/Click kalitlari, crate HMAC secret). Repo'da faqat dev default'lar (mavjud holat).
 - Monitoring: Nakama Prometheus metrikalari + Grafana, alert: xato darajasi, match tugatish %, to'lov webhook xatolari.

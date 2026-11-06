@@ -19,7 +19,7 @@ namespace BilliardGame.Content
         public string DisplayName => displayName;
         public string SceneName => sceneName;
         public Sprite Preview => preview;
-        /// <summary>Coins staked per player (docs/GDD.md §3). Escrow moves to the server in M3.</summary>
+        /// <summary>Coins staked per player (docs/GDD.md §3). Escrow moves to the server in M7.</summary>
         public int EntryFee => entryFee;
         public int Prize => prize;
         public int MinLevel => minLevel;

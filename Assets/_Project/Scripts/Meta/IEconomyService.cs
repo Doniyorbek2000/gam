@@ -6,7 +6,7 @@ namespace BilliardGame.Meta
 {
     /// <summary>
     /// Client view of the player's economy. The client only displays it (CLAUDE.md rule 3): the M1 implementation is
-    /// <see cref="MockEconomyService"/> (local file), M2 swaps in a Nakama-backed one with the same interface.
+    /// <see cref="MockEconomyService"/> (local file), M3 swaps in a Nakama-backed one with the same interface.
     /// </summary>
     public interface IEconomyService
     {

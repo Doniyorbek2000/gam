@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace BilliardGame.Meta
 {
     /// <summary>
-    /// Offline economy for the editor and M1 (CLAUDE.md rule 3 allows a mock there). Same rules the server will run in M2:
+    /// Offline economy for the editor and M1 (CLAUDE.md rule 3 allows a mock there). Same rules the server will run in M3:
     /// price check, rarity roll with pity floors, 10× guarantee, duplicate → shards.
     /// </summary>
     public sealed class MockEconomyService : IEconomyService
@@ -103,7 +103,7 @@ namespace BilliardGame.Meta
             return Task.FromResult(true);
         }
 
-        /// <summary>Mock match prize (M3 moves prizes and entry escrow to the server).</summary>
+        /// <summary>Mock match prize (M7 moves prizes and entry escrow to the server).</summary>
         public void GrantMatchReward(int coins)
         {
             state.coins += Math.Max(0, coins);
@@ -123,7 +123,7 @@ namespace BilliardGame.Meta
 
         public Task<CrateOpenResult> OpenCrateAsync(string crateId, int count) => Task.FromResult(OpenCrate(crateId, count));
 
-        /// <summary>Editor/mock-only top-up so the crate flow is testable without payments (M6).</summary>
+        /// <summary>Editor/mock-only top-up so the crate flow is testable without payments (M5/M10).</summary>
         public void DevGrant(int coins, int gems)
         {
             state.coins += Math.Max(0, coins);

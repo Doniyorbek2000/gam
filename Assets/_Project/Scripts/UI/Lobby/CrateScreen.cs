@@ -57,7 +57,7 @@ namespace BilliardGame.UI
             equipButton.onClick.AddListener(EquipCandidate);
             againButton.onClick.AddListener(() => RequestOpen(lastCrate, lastCount));
             resultClose.onClick.AddListener(CloseResult);
-            // Mock/dev top-ups (STORE_MOCK and editor); M2 replaces them with the real shop.
+            // Mock/dev top-ups (STORE_MOCK and editor); M3 replaces them with the real shop.
             coins.Plus.onClick.AddListener(() => Grant(DevCoins, 0, "lobby.dev_coins", DevCoins));
             gems.Plus.onClick.AddListener(() => Grant(0, DevGems, "lobby.dev_gems", DevGems));
         }
@@ -210,7 +210,7 @@ namespace BilliardGame.UI
 
         private IEnumerator Reveal(CrateOpenResult result)
         {
-            // The animation starts only after the result exists (server result in M2).
+            // The animation starts only after the result exists (server result in M3).
             resultPanel.SetActive(false);
             cardsRoot.SetActive(false);
             revealPanel.SetActive(true);

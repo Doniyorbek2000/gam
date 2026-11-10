@@ -65,5 +65,12 @@ function InitModule(ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkrunt
     initializer.registerRpc("daily_claim", rpcDailyClaim);
     initializer.registerRpc("friend_add_by_pid", rpcFriendAddByPid);
     initializer.registerAfterAuthenticateDevice(afterAuthenticateDevice);
+    // LiveOps (src/liveops.ts): missions, Season Pass, events, daily shop.
+    initializer.registerRpc("liveops_state", rpcLiveOpsState);
+    initializer.registerRpc("mission_claim", rpcMissionClaim);
+    initializer.registerRpc("mission_reroll", rpcMissionReroll);
+    initializer.registerRpc("pass_claim", rpcPassClaim);
+    initializer.registerRpc("pass_buy", rpcPassBuy);
+    initializer.registerRpc("daily_shop_buy", rpcDailyShopBuy);
     logger.info("billiard module loaded");
 }

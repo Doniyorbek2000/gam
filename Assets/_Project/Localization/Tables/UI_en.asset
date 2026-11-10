@@ -1532,6 +1532,256 @@ MonoBehaviour:
     m_Localized: Premium key
     m_Metadata:
       m_Items: []
+  - m_Id: 1708139608096768
+    m_Localized: '{0}d {1}h'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091712
+    m_Localized: No data
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091713
+    m_Localized: No connection to the server. Check the internet and try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091714
+    m_Localized: Missions, the pass, events and the daily shop need the server.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091715
+    m_Localized: That did not work, try again later
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091716
+    m_Localized: Already taken
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091717
+    m_Localized: coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091718
+    m_Localized: gems
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091719
+    m_Localized: shards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091720
+    m_Localized: crystals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091721
+    m_Localized: Classic key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091722
+    m_Localized: Premium key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091723
+    m_Localized: Missions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091724
+    m_Localized: Daily
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091725
+    m_Localized: Weekly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091726
+    m_Localized: Claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091727
+    m_Localized: In progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091728
+    m_Localized: "+{0} coins \xB7 +{1} Pass XP"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091729
+    m_Localized: 'Received: +{0} coins, +{1} Pass XP'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091730
+    m_Localized: Mission swapped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091731
+    m_Localized: Resets in {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091732
+    m_Localized: Progress counts in online matches only. Today's free swap is used.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091733
+    m_Localized: Progress counts in online matches only. The arrow button swaps a
+      mission for free (once a day).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091734
+    m_Localized: Weekly missions reset on Monday at 00:00 (Tashkent).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091735
+    m_Localized: Play {0} matches
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091736
+    m_Localized: Win {0} times
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091737
+    m_Localized: Pot {0} balls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091738
+    m_Localized: Win {0} times in {1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091739
+    m_Localized: Season Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091740
+    m_Localized: Season {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091741
+    m_Localized: 'Season 1: Silk Road'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091742
+    m_Localized: Max level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091743
+    m_Localized: "Premium \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091744
+    m_Localized: Premium active
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091745
+    m_Localized: Premium pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091746
+    m_Localized: "Unlocks every premium reward, including levels you already reached.
+      Cosmetic only \u2014 no gameplay effect."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091747
+    m_Localized: Premium pass activated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091748
+    m_Localized: Claim all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091749
+    m_Localized: All rewards claimed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091750
+    m_Localized: Free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091751
+    m_Localized: Premium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091752
+    m_Localized: Season ends in {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091753
+    m_Localized: Season starts in {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091754
+    m_Localized: Season over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091755
+    m_Localized: Reach level {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091756
+    m_Localized: Events
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091757
+    m_Localized: No events right now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091758
+    m_Localized: Live
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091759
+    m_Localized: Ends in {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091760
+    m_Localized: Starts in {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091761
+    m_Localized: "{0}\xD7 coins"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091762
+    m_Localized: "{0}\xD7 XP"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091763
+    m_Localized: To crates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091764
+    m_Localized: "Weekend: 2\xD7 coins"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091765
+    m_Localized: Double coins from missions on Saturday and Sunday.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091766
+    m_Localized: Premium crate week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091767
+    m_Localized: "Open the Premium crate \u2014 odds and pity are public as always."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091768
+    m_Localized: Daily shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091769
+    m_Localized: New offers in {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091770
+    m_Localized: Featured
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091771
+    m_Localized: Bought
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091772
+    m_Localized: "No new offers today \u2014 you own everything"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

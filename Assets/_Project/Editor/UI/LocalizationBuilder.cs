@@ -100,6 +100,8 @@ namespace BilliardGame.Editor.UI
             EditorUtility.SetDirty(settings);
             AssetDatabase.SaveAssets();
             Debug.Log($"[BilliardGame] Localization: {source.Count} keys × {locales.Count} languages");
+            // New strings may bring characters the static font atlases do not have yet.
+            Art.FontBake.BakeAll(false);
         }
 
         private static LocalizationSettings EnsureSettings()

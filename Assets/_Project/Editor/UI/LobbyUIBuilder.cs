@@ -45,7 +45,11 @@ namespace BilliardGame.Editor.UI
                 "room", LobbyScreens.Room(menuRoot, services, room, stage),
                 "settings", LobbyScreens.Settings(menuRoot, services, credits),
                 "crates", crates,
-                "characterScreen", character);
+                "characterScreen", character,
+                "passScreen", LobbyScreens.Pass(menuRoot, services),
+                "missionsScreen", LobbyScreens.Missions(menuRoot, services),
+                "eventsScreen", LobbyScreens.Events(menuRoot, services, crates),
+                "shopScreen", LobbyScreens.Shop(menuRoot, services));
 
             LobbyScreens.MatchEntry(menuRoot, menu);
             UIKit.Wire(menu, "game", game, "online", online, "hud", hud, "services", services, "menuRoot", menuRoot.gameObject, "hudRoot", hudRoot);
@@ -156,14 +160,17 @@ namespace BilliardGame.Editor.UI
         {
             UITheme t = UIKit.Theme;
             RectTransform rail = Rail(safe, "Left Rail", new Vector2(0f, 1f), Edge);
-            ButtonParts pass = RailCard(rail, "Season Pass", "pass", "lobby.pass", t.accent, true);
+            ButtonParts pass = RailCard(rail, "Season Pass", "pass", "lobby.pass", t.accent, false);
             ProgressBar passBar = UIKit.Progress(pass.Rect, "Pass Progress", t.accent, 8f);
             ((RectTransform)passBar.transform).Span(Vector2.zero, new Vector2(1f, 0f), new Vector2(16f, 8f), new Vector2(-16f, 16f));
-            passBar.transform.Find("Fill").GetComponent<Image>().fillAmount = 0.15f;
-            ButtonParts missions = RailCard(rail, "Missions", "missions", "lobby.missions", t.textPrimary, true);
-            ButtonParts events = RailCard(rail, "Events", "events", "lobby.events", t.textPrimary, true);
+            passBar.transform.Find("Fill").GetComponent<Image>().fillAmount = 0f;
+            BadgeView passBadge = UIKit.Badge(pass.Rect, new Vector2(-10f, -10f));
+            ButtonParts missions = RailCard(rail, "Missions", "missions", "lobby.missions", t.textPrimary, false);
+            BadgeView missionsBadge = UIKit.Badge(missions.Rect, new Vector2(-10f, -10f));
+            ButtonParts events = RailCard(rail, "Events", "events", "lobby.events", t.textPrimary, false);
             ButtonParts daily = RailCard(rail, "Daily", "daily", "lobby.daily", t.success, false);
-            UIKit.Wire(lobby, "passButton", pass.Button, "missionsButton", missions.Button, "eventsButton", events.Button, "dailyButton", daily.Button);
+            UIKit.Wire(lobby, "passButton", pass.Button, "passBar", passBar, "passBadge", passBadge, "missionsButton", missions.Button, "missionsBadge", missionsBadge,
+                "eventsButton", events.Button, "dailyButton", daily.Button);
         }
 
         private static void RightRail(RectTransform safe, LobbyController lobby)

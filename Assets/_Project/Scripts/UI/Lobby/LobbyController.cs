@@ -53,6 +53,10 @@ namespace BilliardGame.UI
         [SerializeField] private SettingsScreen settings;
         [SerializeField] private CrateScreen crates;
         [SerializeField] private CharacterScreen characterScreen;
+        [SerializeField] private PassScreen passScreen;
+        [SerializeField] private MissionsScreen missionsScreen;
+        [SerializeField] private EventsScreen eventsScreen;
+        [SerializeField] private ShopScreen shopScreen;
 
         [Header("Profile card")]
         [SerializeField] private Button profileButton;
@@ -71,7 +75,10 @@ namespace BilliardGame.UI
 
         [Header("Rails")]
         [SerializeField] private Button passButton;
+        [SerializeField] private ProgressBar passBar;
+        [SerializeField] private BadgeView passBadge;
         [SerializeField] private Button missionsButton;
+        [SerializeField] private BadgeView missionsBadge;
         [SerializeField] private Button eventsButton;
         [SerializeField] private Button dailyButton;
         [SerializeField] private Button shopButton;
@@ -123,19 +130,23 @@ namespace BilliardGame.UI
             online.Client.AvatarReceived += OnRemoteCue;
             cast.LocalCue += OnLocalCue;
             hud.AgainRequested += PlayAgain;
+            if (services.LiveOps != null) services.LiveOps.Changed += RefreshLiveOps;
 
             Bind(profileButton, () => Open(profileScreen));
             Bind(coins.Plus, () => Open(crates));
             Bind(gems.Plus, () => Open(crates));
             Bind(settingsButton, () => Open(settings));
-            Bind(shopButton, () => Open(crates));
+            Bind(shopButton, () => Open(shopScreen));
+            Bind(passButton, () => Open(passScreen));
+            Bind(missionsButton, () => Open(missionsScreen));
+            Bind(eventsButton, () => Open(eventsScreen));
             Bind(cratesButton, () => Open(crates));
             Bind(inventoryButton, () => Open(inventory));
             Bind(roomButton, () => Open(room));
             Bind(characterButton, () => Open(characterScreen));
             Bind(modeCard, () => Open(modeSelect));
             Bind(playButton, Play);
-            foreach (Button soon in new[] { mailButton, friendsButton, passButton, missionsButton, eventsButton, clubButton, chatButton }) Bind(soon, ComingSoon);
+            foreach (Button soon in new[] { mailButton, friendsButton, clubButton, chatButton }) Bind(soon, ComingSoon);
             Bind(dailyButton, ShowDailyLogin);
         }
 
@@ -151,6 +162,7 @@ namespace BilliardGame.UI
             online.Client.AvatarReceived -= OnRemoteCue;
             cast.LocalCue -= OnLocalCue;
             hud.AgainRequested -= PlayAgain;
+            if (services.LiveOps != null) services.LiveOps.Changed -= RefreshLiveOps;
             foreach (Button b in new[] { profileButton, coins.Plus, gems.Plus, settingsButton, shopButton, cratesButton, inventoryButton, roomButton, characterButton, modeCard, playButton,
                          mailButton, friendsButton, passButton, missionsButton, eventsButton, dailyButton, clubButton, chatButton })
             {
@@ -270,6 +282,7 @@ namespace BilliardGame.UI
             SetLobbyView(true);
             stage.ShowCharacter();
             RefreshAll();
+            _ = services.RefreshEconomy();   // a finished online match moved missions and Pass XP on the server
             await venues.UnloadAsync();
         }
 
@@ -286,6 +299,25 @@ namespace BilliardGame.UI
             RefreshProfile();
             RefreshBalances();
             RefreshModeCard();
+            RefreshLiveOps();
+        }
+
+        /// <summary>Pass progress on the rail card and "ready to claim" badges, from the server state.</summary>
+        private void RefreshLiveOps()
+        {
+            LiveOpsState state = services.LiveOps?.State;
+            if (state == null)
+            {
+                passBar.Set(0f, false);
+                passBadge.Set(0);
+                missionsBadge.Set(0);
+                return;
+            }
+
+            LiveOpsRules.PassProgress(state.pass, out int into, out int needed);
+            passBar.Set((float)into / needed);
+            passBadge.Set(LiveOpsRules.PassClaimable(state.pass));
+            missionsBadge.Set(LiveOpsRules.MissionsClaimable(state.missions));
         }
 
         private void RefreshBalances()

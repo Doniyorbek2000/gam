@@ -40,6 +40,10 @@ interface EightBallMatch {
     seq: number;
     /** Character ids sent with join attempts, picked up when the join completes. */
     pendingCharacters: { [userId: string]: string };
+    /** Hall the matchmaker paired the players in ("" for room-code games); missions read it. */
+    venue: string;
+    /** Object balls each player pocketed on shots without a foul (mission progress). */
+    potted: number[];
 }
 
 function matchLabel(code: string): string {
@@ -101,20 +105,40 @@ function startGame(dispatcher: nkruntime.MatchDispatcher, state: EightBallMatch,
     dispatcher.matchLabelUpdate(matchLabel(""));
 }
 
-function endGame(logger: nkruntime.Logger, state: EightBallMatch, winner: number, reason: number, tick: number): void {
+function endGame(ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama, state: EightBallMatch, winner: number, reason: number, tick: number): void {
     var g = state.game;
     if (g) state.game = makeState(g.balls, g.current, g.g0, g.g1, g.breakShot, false, false, winner);
     state.phase = PHASE_OVER;
     state.endReason = reason;
     state.overTick = tick;
     logger.info("game over: winner %d, reason %d", winner, reason);
+    reportResult(ctx, logger, nk, state, winner);
+}
+
+/** Missions and Pass XP for both players (liveops.ts); never lets a storage problem break the match. */
+function reportResult(ctx: nkruntime.Context, logger: nkruntime.Logger, nk: nkruntime.Nakama, state: EightBallMatch, winner: number): void {
+    if (state.seq < MIN_SHOTS_TO_COUNT) return;
+    for (var i = 0; i < state.players.length; i++) {
+        try {
+            recordMatchResult(ctx, nk, logger, state.players[i].userId, { won: i === winner, potted: state.potted[i] || 0, venue: state.venue }, Date.now());
+        } catch (e) {
+            logger.error("match result for %s failed: %s", state.players[i].userId, String(e));
+        }
+    }
+}
+
+function countPots(outcome: Outcome): number {
+    if (outcome.foul !== FOUL_NONE) return 0;
+    var n = 0;
+    for (var i = 0; i < outcome.pocketed.length; i++) if (outcome.pocketed[i] !== CUE_BALL) n++;
+    return n;
 }
 
 function reject(dispatcher: nkruntime.MatchDispatcher, sender: nkruntime.Presence, reason: string): void {
     dispatcher.broadcastMessage(OP_REJECTED, JSON.stringify({ reason: reason }), [sender], null, true);
 }
 
-function handleShot(logger: nkruntime.Logger, dispatcher: nkruntime.MatchDispatcher, state: EightBallMatch, tick: number, index: number, message: nkruntime.MatchMessage, nk: nkruntime.Nakama): void {
+function handleShot(ctx: nkruntime.Context, logger: nkruntime.Logger, dispatcher: nkruntime.MatchDispatcher, state: EightBallMatch, tick: number, index: number, message: nkruntime.MatchMessage, nk: nkruntime.Nakama): void {
     var game = state.game;
     if (state.phase !== PHASE_PLAYING || !game || game.current !== index) return reject(dispatcher, message.sender, "not your turn");
     if (tick < state.readyTick) return reject(dispatcher, message.sender, "previous shot still playing");
@@ -140,11 +164,13 @@ function handleShot(logger: nkruntime.Logger, dispatcher: nkruntime.MatchDispatc
     state.seq++;
     state.game = outcome.next;
     state.last = outcome;
+    state.potted[index] = (state.potted[index] || 0) + countPots(outcome);
     if (outcome.next.winner !== NO_WINNER) {
         state.phase = PHASE_OVER;
         state.endReason = END_EIGHT_BALL;
         state.overTick = tick;
         logger.info("game over: winner %d, reason %d", outcome.next.winner, END_EIGHT_BALL);
+        reportResult(ctx, logger, nk, state, outcome.next.winner);
     }
 
     var playbackTicks = Math.ceil(result.duration * TICK_RATE);
@@ -187,6 +213,8 @@ var matchInit: nkruntime.MatchInitFunction<EightBallMatch> = function (ctx, logg
         overTick: 0,
         seq: 0,
         pendingCharacters: {},
+        venue: typeof params.venue === "string" && /^[a-z0-9_]{1,32}$/.test(params.venue) ? params.venue : "",
+        potted: [0, 0],
     };
     return { state: state, tickRate: TICK_RATE, label: matchLabel(code) };
 };
@@ -249,11 +277,11 @@ var matchLoop: nkruntime.MatchLoopFunction<EightBallMatch> = function (ctx, logg
         var index = slotIndex(state, message.sender.userId);
         if (index < 0) continue;
         if (message.opCode === OP_SHOT) {
-            handleShot(logger, dispatcher, state, tick, index, message, nk);
+            handleShot(ctx, logger, dispatcher, state, tick, index, message, nk);
         } else if (message.opCode === OP_AVATAR && state.phase === PHASE_PLAYING) {
             relayAvatar(dispatcher, state, tick, index, message, nk);
         } else if (message.opCode === OP_FORFEIT && state.phase === PHASE_PLAYING) {
-            endGame(logger, state, 1 - index, END_FORFEIT, tick);
+            endGame(ctx, logger, nk, state, 1 - index, END_FORFEIT, tick);
             sendSnapshot(dispatcher, state, tick, null, null);
         }
     }
@@ -280,7 +308,7 @@ var matchLoop: nkruntime.MatchLoopFunction<EightBallMatch> = function (ctx, logg
 
         if (expired >= 0) {
             if (gone === 2) return null; // both players vanished: nobody to award
-            endGame(logger, state, 1 - expired, END_DISCONNECT, tick);
+            endGame(ctx, logger, nk, state, 1 - expired, END_DISCONNECT, tick);
             sendSnapshot(dispatcher, state, tick, null, null);
         } else if (state.game && tick >= state.deadlineTick) {
             var outcome = resolveTimeout(state.game);

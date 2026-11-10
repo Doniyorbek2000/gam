@@ -375,3 +375,65 @@ daily.claimed|Bugungi mukofot olindi — ertaga 00:00 (Toshkent) da yangisi|Се
 daily.failed|Server bilan aloqa yo'q, keyinroq urinib ko'ring|Нет связи с сервером, попробуйте позже|No connection to the server, try again later
 daily.key_classic|Classic kalit|ключ Classic|Classic key
 daily.key_premium|Premium kalit|ключ Premium|Premium key
+time.days_hours|{0} kun {1} soat|{0} д {1} ч|{0}d {1}h
+liveops.unavailable|Ma'lumot yo'q|Нет данных|No data
+liveops.offline|Server bilan aloqa yo'q. Internetni tekshirib, qayta urinib ko'ring.|Нет связи с сервером. Проверьте интернет и повторите.|No connection to the server. Check the internet and try again.
+liveops.server_only|Vazifalar, pass, tadbirlar va kunlik do'kon faqat server bilan ishlaydi.|Задания, пропуск, события и магазин дня работают только с сервером.|Missions, the pass, events and the daily shop need the server.
+liveops.failed|Amal bajarilmadi, keyinroq urinib ko'ring|Не удалось, попробуйте позже|That did not work, try again later
+liveops.already|Bu allaqachon olingan|Уже получено|Already taken
+reward.coins|Coin|монет|coins
+reward.gems|Gem|гемов|gems
+reward.shards|Shard|осколков|shards
+reward.crystals|Kristall|кристаллов|crystals
+reward.key_classic|Classic kalit|ключ Classic|Classic key
+reward.key_premium|Premium kalit|ключ Premium|Premium key
+missions.title|Vazifalar|Задания|Missions
+missions.daily|Kunlik|Ежедневные|Daily
+missions.weekly|Haftalik|Еженедельные|Weekly
+missions.claim|Olish|Забрать|Claim
+missions.in_progress|Jarayonda|В процессе|In progress
+missions.reward|+{0} Coin · +{1} Pass XP|+{0} монет · +{1} XP пропуска|+{0} coins · +{1} Pass XP
+missions.claimed|Olindi: +{0} Coin, +{1} Pass XP|Получено: +{0} монет, +{1} XP пропуска|Received: +{0} coins, +{1} Pass XP
+missions.rerolled|Vazifa almashtirildi|Задание заменено|Mission swapped
+missions.reset|Yangilanishgacha: {0}|До обновления: {0}|Resets in {0}
+missions.hint_daily|Progress faqat onlayn matchlarda hisoblanadi. Bugungi bepul almashtirish ishlatilgan.|Прогресс засчитывается только в онлайн-матчах. Бесплатная замена на сегодня использована.|Progress counts in online matches only. Today's free swap is used.
+missions.hint_reroll|Progress faqat onlayn matchlarda hisoblanadi. Aylana tugmasi vazifani bepul almashtiradi (kuniga 1 marta).|Прогресс засчитывается только в онлайн-матчах. Кнопка со стрелкой бесплатно меняет задание (1 раз в день).|Progress counts in online matches only. The arrow button swaps a mission for free (once a day).
+missions.hint_weekly|Haftalik vazifalar dushanba 00:00 (Toshkent) da yangilanadi.|Еженедельные задания обновляются в понедельник в 00:00 (Ташкент).|Weekly missions reset on Monday at 00:00 (Tashkent).
+mission.play|{0} ta match o'yna|Сыграй {0} матч(а)|Play {0} matches
+mission.win|{0} marta g'alaba qozon|Победи {0} раз(а)|Win {0} times
+mission.pot|{0} ta shar tushir|Забей {0} шаров|Pot {0} balls
+mission.win_venue|{1} zalida {0} marta g'alaba|Победи {0} раз(а) в зале {1}|Win {0} times in {1}
+pass.title|Mavsum pasi|Боевой пропуск|Season Pass
+pass.season|{0}-mavsum|Сезон {0}|Season {0}
+pass.season_1|1-mavsum: Ipak yo'li|Сезон 1: Шёлковый путь|Season 1: Silk Road
+pass.max|Eng yuqori daraja|Максимальный уровень|Max level
+pass.buy_premium|Premium · {0}|Премиум · {0}|Premium · {0}
+pass.premium_on|Premium faol|Премиум активен|Premium active
+pass.premium_title|Premium pass|Премиум-пропуск|Premium pass
+pass.premium_body|Premium yo'lakdagi barcha mukofotlar ochiladi, allaqachon yetgan darajalarniki ham. Faqat ko'rinish — o'yinga ta'sir qilmaydi.|Открывает все награды премиум-дорожки, включая уже пройденные уровни. Только косметика — на игру не влияет.|Unlocks every premium reward, including levels you already reached. Cosmetic only — no gameplay effect.
+pass.premium_done|Premium pass faollashdi|Премиум-пропуск активирован|Premium pass activated
+pass.claim_all|Hammasini olish|Забрать всё|Claim all
+pass.claimed_all|Barcha mukofotlar olindi|Все награды получены|All rewards claimed
+pass.track_free|Bepul|Бесплатно|Free
+pass.track_premium|Premium|Премиум|Premium
+pass.ends|Mavsum tugashiga: {0}|До конца сезона: {0}|Season ends in {0}
+pass.starts|Mavsum boshlanishiga: {0}|До начала сезона: {0}|Season starts in {0}
+pass.ended|Mavsum tugadi|Сезон завершён|Season over
+pass.reach_level|{0}-darajaga yeting|Достигните уровня {0}|Reach level {0}
+events.title|Tadbirlar|События|Events
+events.none|Hozircha tadbir yo'q|Сейчас событий нет|No events right now
+event.live|Faol|Идёт|Live
+event.ends|Tugashiga: {0}|До конца: {0}|Ends in {0}
+event.starts|Boshlanishiga: {0}|До начала: {0}|Starts in {0}
+event.coin_boost|{0}× Coin|{0}× монет|{0}× coins
+event.xp_boost|{0}× XP|{0}× XP|{0}× XP
+event.open_crates|Yashiklarga|К ящикам|To crates
+event.weekend_coins|Hafta oxiri: 2× Coin|Выходные: 2× монет|Weekend: 2× coins
+event.weekend_coins.desc|Shanba va yakshanba vazifalardan ikki baravar Coin.|В субботу и воскресенье — двойные монеты за задания.|Double coins from missions on Saturday and Sunday.
+event.premium_crate_week|Premium yashik haftaligi|Неделя премиум-ящика|Premium crate week
+event.premium_crate_week.desc|Premium yashikni oching — ehtimollar va pity har doimgidek ochiq.|Открывайте премиум-ящик — шансы и гарант как всегда открыты.|Open the Premium crate — odds and pity are public as always.
+shop.title|Kunlik do'kon|Магазин дня|Daily shop
+shop.daily_reset|Yangi takliflargacha: {0}|До новых предложений: {0}|New offers in {0}
+shop.featured|Tanlangan|Хит|Featured
+shop.sold|Olindi|Куплено|Bought
+shop.none|Bugun yangi taklif yo'q — sizda hammasi bor|Сегодня новых предложений нет — у вас всё есть|No new offers today — you own everything

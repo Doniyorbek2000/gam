@@ -28,6 +28,7 @@ namespace BilliardGame.UI
 
         private IEconomyService economy;
         private NakamaEconomyService server;
+        private NakamaLiveOpsService liveOps;
         private MockProfileService profile;
 
         public IEconomyService Economy => economy;
@@ -35,6 +36,8 @@ namespace BilliardGame.UI
         public MockEconomyService Mock => economy as MockEconomyService;
         public SkinCatalog Catalog => catalog;
         public MockProfileService Profile => profile;
+        /// <summary>Missions, Season Pass, events and the daily shop (server only); null with the mock economy.</summary>
+        public NakamaLiveOpsService LiveOps => liveOps;
 
         // Per local profile, so the editor and a dev bot on the same PC keep separate saves (LocalProfile).
         private string SavePath => Path.Combine(Application.persistentDataPath, LocalProfile.FileName(SaveFile));
@@ -50,6 +53,7 @@ namespace BilliardGame.UI
             else
             {
                 economy = server = new NakamaEconomyService(online, catalog.ToCatalogItems());
+                liveOps = new NakamaLiveOpsService(online, server);
             }
 
             economy.Changed += ApplyEquipped;
@@ -91,8 +95,13 @@ namespace BilliardGame.UI
             _ = RefreshEconomy();
         }
 
-        /// <summary>Re-reads balances and inventory from the server (no-op for the mock). False if unreachable.</summary>
-        public async System.Threading.Tasks.Task<bool> RefreshEconomy() => server == null || await server.RefreshAsync();
+        /// <summary>Re-reads balances, inventory and LiveOps from the server (no-op for the mock). False if unreachable.</summary>
+        public async System.Threading.Tasks.Task<bool> RefreshEconomy()
+        {
+            if (server == null) return true;
+            bool ok = await server.RefreshAsync();
+            return await liveOps.RefreshAsync() && ok;
+        }
 
         private void OnDestroy()
         {

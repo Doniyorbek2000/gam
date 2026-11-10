@@ -1536,6 +1536,258 @@ MonoBehaviour:
     m_Localized: Premium kalit
     m_Metadata:
       m_Items: []
+  - m_Id: 1708139608096768
+    m_Localized: '{0} kun {1} soat'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091712
+    m_Localized: Ma'lumot yo'q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091713
+    m_Localized: Server bilan aloqa yo'q. Internetni tekshirib, qayta urinib ko'ring.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091714
+    m_Localized: Vazifalar, pass, tadbirlar va kunlik do'kon faqat server bilan ishlaydi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091715
+    m_Localized: Amal bajarilmadi, keyinroq urinib ko'ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091716
+    m_Localized: Bu allaqachon olingan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091717
+    m_Localized: Coin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091718
+    m_Localized: Gem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091719
+    m_Localized: Shard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091720
+    m_Localized: Kristall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091721
+    m_Localized: Classic kalit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091722
+    m_Localized: Premium kalit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091723
+    m_Localized: Vazifalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091724
+    m_Localized: Kunlik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091725
+    m_Localized: Haftalik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091726
+    m_Localized: Olish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091727
+    m_Localized: Jarayonda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091728
+    m_Localized: "+{0} Coin \xB7 +{1} Pass XP"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091729
+    m_Localized: 'Olindi: +{0} Coin, +{1} Pass XP'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091730
+    m_Localized: Vazifa almashtirildi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091731
+    m_Localized: 'Yangilanishgacha: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091732
+    m_Localized: Progress faqat onlayn matchlarda hisoblanadi. Bugungi bepul almashtirish
+      ishlatilgan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091733
+    m_Localized: Progress faqat onlayn matchlarda hisoblanadi. Aylana tugmasi vazifani
+      bepul almashtiradi (kuniga 1 marta).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091734
+    m_Localized: Haftalik vazifalar dushanba 00:00 (Toshkent) da yangilanadi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091735
+    m_Localized: '{0} ta match o''yna'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091736
+    m_Localized: '{0} marta g''alaba qozon'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091737
+    m_Localized: '{0} ta shar tushir'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091738
+    m_Localized: '{1} zalida {0} marta g''alaba'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091739
+    m_Localized: Mavsum pasi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091740
+    m_Localized: '{0}-mavsum'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091741
+    m_Localized: '1-mavsum: Ipak yo''li'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091742
+    m_Localized: Eng yuqori daraja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091743
+    m_Localized: "Premium \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091744
+    m_Localized: Premium faol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091745
+    m_Localized: Premium pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091746
+    m_Localized: "Premium yo'lakdagi barcha mukofotlar ochiladi, allaqachon yetgan
+      darajalarniki ham. Faqat ko'rinish \u2014 o'yinga ta'sir qilmaydi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091747
+    m_Localized: Premium pass faollashdi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091748
+    m_Localized: Hammasini olish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091749
+    m_Localized: Barcha mukofotlar olindi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091750
+    m_Localized: Bepul
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091751
+    m_Localized: Premium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091752
+    m_Localized: 'Mavsum tugashiga: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091753
+    m_Localized: 'Mavsum boshlanishiga: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091754
+    m_Localized: Mavsum tugadi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091755
+    m_Localized: '{0}-darajaga yeting'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091756
+    m_Localized: Tadbirlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091757
+    m_Localized: Hozircha tadbir yo'q
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091758
+    m_Localized: Faol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091759
+    m_Localized: 'Tugashiga: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091760
+    m_Localized: 'Boshlanishiga: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091761
+    m_Localized: "{0}\xD7 Coin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091762
+    m_Localized: "{0}\xD7 XP"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091763
+    m_Localized: Yashiklarga
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091764
+    m_Localized: "Hafta oxiri: 2\xD7 Coin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091765
+    m_Localized: Shanba va yakshanba vazifalardan ikki baravar Coin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091766
+    m_Localized: Premium yashik haftaligi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091767
+    m_Localized: "Premium yashikni oching \u2014 ehtimollar va pity har doimgidek
+      ochiq."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091768
+    m_Localized: Kunlik do'kon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091769
+    m_Localized: 'Yangi takliflargacha: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091770
+    m_Localized: Tanlangan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091771
+    m_Localized: Olindi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1708139759091772
+    m_Localized: "Bugun yangi taklif yo'q \u2014 sizda hammasi bor"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

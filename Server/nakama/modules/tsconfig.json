@@ -17,6 +17,7 @@
     "src/match.ts",
     "src/seed.ts",
     "src/economy.ts",
+    "src/liveops.ts",
     "src/main.ts"
   ]
 }
